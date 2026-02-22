@@ -21,6 +21,7 @@ use App\Http\Controllers\Admin\PackageController;
 use App\Http\Controllers\Admin\DestinationController;
 use App\Http\Controllers\Admin\PartnerController;
 use App\Http\Controllers\Admin\NoticeController;
+use App\Http\Controllers\Admin\VisitorController;
 
 
 
@@ -194,6 +195,18 @@ Route::middleware('admin')->group(function () {
         Route::post('/update/{id}', [PartnerController::class, 'update'])->name('partner.update');
         Route::get('/delete/{id}', [PartnerController::class, 'destroy'])->name('partner.delete');
         Route::get('/show/{id}', [PartnerController::class,'show'])->name('partner.show');
+
+    });
+
+    /* ============> Manage Visitor   <=========== */
+    Route::prefix('visitor')->group(function () {
+        Route::get('/index', [VisitorController::class, 'index'])->name('visitor.index');
+        Route::get('/create', [VisitorController::class, 'create'])->name('visitor.create');
+        Route::post('/store', [VisitorController::class, 'store'])->name('visitor.store');
+        Route::get('/edit/{id}', [VisitorController::class, 'edit'])->name('visitor.edit');
+        Route::put('/update/{id}', [VisitorController::class, 'update'])->name('visitor.update');
+        Route::get('/delete/{id}', [VisitorController::class, 'destroy'])->name('visitor.delete');
+        Route::get('/show/{id}', [VisitorController::class,'show'])->name('visitor.show');
 
     });
 

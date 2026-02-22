@@ -63,6 +63,19 @@
                 </li>
 
                 <li class="slide">
+                    <a class="side-menu__item {{ Request::is('admin/visitor*') ? 'active' : '' }}" data-bs-toggle="slide" href="javascript:void(0);">
+                        <i class="side-menu__icon fas fa-store-alt"></i>
+                        <span class="side-menu__label">Visitors</span>
+                        <i class="angle fe fe-chevron-down hor-angle"></i>
+                    </a>
+                    <ul class="slide-menu">
+                        <li class="side-menu__label1"><a href="javascript:void(0);">Visitors</a></li>
+                        <li><a class="slide-item {{ Request::is('admin/visitor/create') ? 'active' : '' }}" href="{{ route('admin.visitor.create') }}">Visitors Add</a></li>
+                        <li><a class="slide-item {{ Request::is('admin/visitor/index') ? 'active' : '' }}" href="{{ route('admin.visitor.index') }}">Visitors List</a></li>
+                    </ul>
+                </li>
+
+                <li class="slide">
                     <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0);">
                         <i class="side-menu__icon fas fa-store-alt"></i>
                         <span class="side-menu__label">Clients</span>
@@ -150,19 +163,6 @@
                         <li class="side-menu__label1"><a href="javascript:void(0);">SMS</a></li>
                         <li><a class="slide-item" href="#">SMS Add</a></li>
                         <li><a class="slide-item" href="#">SMS List</a></li>
-                    </ul>
-                </li>
-
-                <li class="slide">
-                    <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0);">
-                        <i class="side-menu__icon fas fa-store-alt"></i>
-                        <span class="side-menu__label">Visitors</span>
-                        <i class="angle fe fe-chevron-down hor-angle"></i>
-                    </a>
-                    <ul class="slide-menu">
-                        <li class="side-menu__label1"><a href="javascript:void(0);">Visitors</a></li>
-                        <li><a class="slide-item" href="#">Visitors Add</a></li>
-                        <li><a class="slide-item" href="#">Visitors List</a></li>
                     </ul>
                 </li>
 

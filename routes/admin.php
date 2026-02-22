@@ -22,6 +22,9 @@ use App\Http\Controllers\Admin\DestinationController;
 use App\Http\Controllers\Admin\PartnerController;
 use App\Http\Controllers\Admin\NoticeController;
 use App\Http\Controllers\Admin\VisitorController;
+use App\Http\Controllers\Admin\ClientController;
+use App\Http\Controllers\Admin\AgentController;
+use App\Http\Controllers\Admin\SupplierController;
 
 
 
@@ -210,6 +213,29 @@ Route::middleware('admin')->group(function () {
 
     });
 
+    // Clients
+    Route::prefix('client')->name('client.')->group(function () {
+        Route::get('/index', [ClientController::class, 'index'])->name('index');
+        Route::post('/store', [ClientController::class, 'store'])->name('store');
+        Route::post('/update/{id}', [ClientController::class, 'update'])->name('update');
+        Route::get('/delete/{id}', [ClientController::class, 'destroy'])->name('delete');
+    });
+
+    // Agents
+    Route::prefix('agent')->name('agent.')->group(function () {
+        Route::get('/index', [AgentController::class, 'index'])->name('index');
+        Route::post('/store', [AgentController::class, 'store'])->name('store');
+        Route::post('/update/{id}', [AgentController::class, 'update'])->name('update');
+        Route::get('/delete/{id}', [AgentController::class, 'destroy'])->name('delete');
+    });
+
+    // Suppliers
+    Route::prefix('supplier')->name('supplier.')->group(function () {
+        Route::get('/index', [SupplierController::class, 'index'])->name('index');
+        Route::post('/store', [SupplierController::class, 'store'])->name('store');
+        Route::post('/update/{id}', [SupplierController::class, 'update'])->name('update');
+        Route::get('/delete/{id}', [SupplierController::class, 'destroy'])->name('delete');
+    });
 
     /* ============> Manage Notice   <=========== */
     Route::resource('notice', NoticeController::class);

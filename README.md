@@ -1,5 +1,3 @@
-<title>Immigro | Visa & Immigration Services</title>
-
 <h1 align="center">🌍 Immigro</h1>
 
 <p align="center">

@@ -25,6 +25,7 @@ use App\Http\Controllers\Admin\VisitorController;
 use App\Http\Controllers\Admin\ClientController;
 use App\Http\Controllers\Admin\AgentController;
 use App\Http\Controllers\Admin\SupplierController;
+use App\Http\Controllers\Admin\InvoiceController;
 
 
 
@@ -240,7 +241,15 @@ Route::middleware('admin')->group(function () {
     /* ============> Manage Notice   <=========== */
     Route::resource('notice', NoticeController::class);
 
-    
+    // Invoices
+    Route::prefix('invoice')->name('invoice.')->group(function () {
+        Route::get('/index', [InvoiceController::class, 'index'])->name('index');
+        Route::post('/store', [InvoiceController::class, 'store'])->name('store');
+        Route::post('/update/{id}', [InvoiceController::class, 'update'])->name('update');
+        Route::get('/delete/{id}', [InvoiceController::class, 'destroy'])->name('delete');
+        Route::get('/get-client/{id}', [InvoiceController::class, 'getClientInfo'])->name('getClient');
+        Route::get('/get-client-due/{id}', [InvoiceController::class, 'getClientDue'])->name('getClientDue');
+    });
 
     
 

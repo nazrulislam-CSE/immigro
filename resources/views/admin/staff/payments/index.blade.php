@@ -58,7 +58,7 @@
                     <form method="GET" action="{{ route('admin.staff.payment.index') }}" class="row g-3 mb-4">
                         <div class="col-md-3">
                             <label for="staff_id" class="form-label">Staff</label>
-                            <select class="form-control" name="staff_id" id="staff_id">
+                            <select class="form-control" name="staff_id" id="filter_staff_id">
                                 <option value="">All Staff</option>
                                 @foreach($allStaff as $staff)
                                     <option value="{{ $staff->id }}" {{ request('staff_id') == $staff->id ? 'selected' : '' }}>{{ $staff->staff_name }}</option>
@@ -75,7 +75,7 @@
                         </div>
                         <div class="col-md-2">
                             <label for="payment_type" class="form-label">Payment Type</label>
-                            <select class="form-control" name="payment_type" id="payment_type">
+                            <select class="form-control" name="payment_type" id="filter_payment_type">
                                 <option value="">All Types</option>
                                 <option value="salary" {{ request('payment_type') == 'salary' ? 'selected' : '' }}>Salary</option>
                                 <option value="advance" {{ request('payment_type') == 'advance' ? 'selected' : '' }}>Advance</option>
@@ -121,6 +121,21 @@
                                     <td>{{ $payment->reference }}</td>
                                     <td>{{ $payment->notes }}</td>
                                     <td>
+                                        {{-- View Receipt Button --}}
+                                        <button type="button" class="btn btn-sm btn-info view-receipt-btn"
+                                            data-id="{{ $payment->id }}"
+                                            data-staff="{{ $payment->staff->staff_name ?? '' }}"
+                                            data-date="{{ $payment->payment_date->format('d-m-Y') }}"
+                                            data-amount="{{ $payment->amount }}"
+                                            data-type="{{ $payment->payment_type }}"
+                                            data-method="{{ $payment->payment_method }}"
+                                            data-reference="{{ $payment->reference }}"
+                                            data-notes="{{ $payment->notes }}"
+                                            data-bs-toggle="modal" data-bs-target="#receiptModal">
+                                            <i class="fas fa-receipt"></i>
+                                        </button>
+
+                                        {{-- Edit Button --}}
                                         <button type="button" class="btn btn-sm btn-primary edit-btn"
                                             data-id="{{ $payment->id }}"
                                             data-staff_id="{{ $payment->staff_id }}"
@@ -133,6 +148,8 @@
                                             data-bs-toggle="modal" data-bs-target="#paymentModal">
                                             <i class="fas fa-edit"></i>
                                         </button>
+
+                                        {{-- Delete Button --}}
                                         <a href="{{ route('admin.staff.payment.delete', $payment->id) }}" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">
                                             <i class="fa fa-trash"></i>
                                         </a>
@@ -220,21 +237,40 @@
         </div>
     </div>
 </div>
+
+{{-- Receipt Modal --}}
+<div class="modal fade" id="receiptModal" tabindex="-1" aria-labelledby="receiptModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="receiptModalLabel">Payment Receipt</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="receiptContent">
+                {{-- Receipt will be injected here --}}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="printReceipt()">Print Receipt</button>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 
 @push('admin')
 <script>
     $(document).ready(function() {
-        // Reset modal on close
+        // Reset payment modal on close
         $('#paymentModal').on('hidden.bs.modal', function () {
             $('#paymentForm')[0].reset();
             $('#method').val('POST');
             $('#paymentForm').attr('action', '{{ route("admin.staff.payment.store") }}');
             $('#paymentModalLabel').text('Add Payment');
-            $('#paymentModal').removeData('edit-data'); // clear stored edit data
+            $('#paymentModal').removeData('edit-data');
         });
 
-        // When modal is shown, populate if we have stored data
+        // When payment modal is shown, populate if we have stored data
         $('#paymentModal').on('shown.bs.modal', function() {
             var data = $('#paymentModal').data('edit-data');
             if (data) {
@@ -287,6 +323,152 @@
             $('#paymentModalLabel').text('Add Payment');
             $('#paymentModal').removeData('edit-data');
         });
+
+        // View Receipt button
+        $('.view-receipt-btn').click(function() {
+            var staff = $(this).data('staff');
+            var date = $(this).data('date');
+            var amount = parseFloat($(this).data('amount')).toFixed(2);
+            var type = $(this).data('type') || 'N/A';
+            var method = $(this).data('method') || 'N/A';
+            var reference = $(this).data('reference') || 'N/A';
+            var notes = $(this).data('notes') || 'N/A';
+            var id = $(this).data('id');
+
+            var receiptHtml = `
+                <style>
+                    @media print {
+                        body { background: #fff; }
+                        .receipt-container { box-shadow: none; margin: 0; padding: 20px; }
+                    }
+                    .receipt-container {
+                        font-family: 'Times New Roman', Times, serif;
+                        max-width: 700px;
+                        margin: 0 auto;
+                        background: #fff;
+                        padding: 30px;
+                        border: 1px solid #ddd;
+                    }
+                    h2 {
+                        text-align: center;
+                        margin: 0 0 5px;
+                        font-size: 28px;
+                        font-weight: bold;
+                    }
+                    .subtitle {
+                        text-align: center;
+                        margin: 0 0 20px;
+                        font-size: 16px;
+                        color: #555;
+                    }
+                    hr {
+                        border: none;
+                        border-top: 2px solid #333;
+                        margin: 15px 0;
+                    }
+                    .receipt-info {
+                        display: flex;
+                        justify-content: space-between;
+                        margin-bottom: 20px;
+                        font-size: 16px;
+                    }
+                    .receipt-table {
+                        width: 100%;
+                        border-collapse: collapse;
+                        margin-bottom: 25px;
+                    }
+                    .receipt-table td {
+                        padding: 8px 5px;
+                        border-bottom: 1px solid #ccc;
+                    }
+                    .receipt-table td:first-child {
+                        font-weight: bold;
+                        width: 150px;
+                    }
+                    .amount-table {
+                        width: 100%;
+                        border-collapse: collapse;
+                        margin-bottom: 25px;
+                    }
+                    .amount-table th {
+                        background: #f2f2f2;
+                        padding: 10px 5px;
+                        text-align: left;
+                        border-bottom: 2px solid #333;
+                    }
+                    .amount-table td {
+                        padding: 10px 5px;
+                        border-bottom: 1px solid #ccc;
+                    }
+                    .text-right {
+                        text-align: right;
+                    }
+                    .signature-area {
+                        display: flex;
+                        justify-content: space-between;
+                        margin: 40px 0 20px;
+                    }
+                    .signature-line {
+                        width: 200px;
+                        border-top: 1px solid #333;
+                        padding-top: 8px;
+                        text-align: center;
+                        font-size: 14px;
+                    }
+                    .footer-note {
+                        text-align: center;
+                        font-size: 13px;
+                        color: #777;
+                        margin-top: 30px;
+                    }
+                </style>
+                <div class="receipt-container">
+                    <h2>PAYMENT RECEIPT</h2>
+                    <div class="subtitle">Staff Payment Acknowledgement</div>
+                    <hr>
+                    <div class="receipt-info">
+                        <div><strong>Receipt No:</strong> RCP-${String(id).padStart(6, '0')}</div>
+                        <div><strong>Date:</strong> ${date}</div>
+                    </div>
+
+                    <h3 style="margin:0 0 10px;">Staff Details</h3>
+                    <table class="receipt-table">
+                        <tr><td>Staff Name</td><td><strong>${staff}</strong></td></tr>
+                        <tr><td>Payment Type</td><td>${type}</td></tr>
+                        <tr><td>Payment Method</td><td>${method}</td></tr>
+                        <tr><td>Reference</td><td>${reference}</td></tr>
+                        <tr><td>Notes</td><td>${notes}</td></tr>
+                    </table>
+
+                    <table class="amount-table">
+                        <thead>
+                            <tr><th>Description</th><th class="text-right">Amount (৳)</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Payment Amount</td><td class="text-right">৳ ${amount}</td></tr>
+                        </tbody>
+                    </table>
+
+                    <div class="signature-area">
+                        <div class="signature-line">Received By</div>
+                        <div class="signature-line">Authorised Signature</div>
+                    </div>
+
+                    <div class="footer-note">This is a computer generated receipt – valid without signature.</div>
+                </div>
+            `;
+            $('#receiptContent').html(receiptHtml);
+        });
     });
+
+    // Print receipt function
+    function printReceipt() {
+        var printContents = document.getElementById('receiptContent').innerHTML;
+        var originalContents = document.body.innerHTML;
+        document.body.innerHTML = printContents;
+        window.print();
+        document.body.innerHTML = originalContents;
+        location.reload(); // optional: reload to restore page state
+    }
 </script>
 @endpush

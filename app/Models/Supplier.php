@@ -15,8 +15,4 @@ class Supplier extends Model
         'address',
         'previous_due',
     ];
-
-    protected $casts = [
-        'previous_due' => 'decimal:2',
-    ];
 }

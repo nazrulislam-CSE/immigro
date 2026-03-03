@@ -117,6 +117,7 @@
                         <li class="side-menu__label1"><a href="javascript:void(0);">Suppliers</a></li>
                         <li><a class="slide-item {{ Request::is('admin/supplier/index') ? 'active' : '' }}"
                                 href="{{ route('admin.supplier.index') }}">Suppliers List</a></li>
+                        <li><a class="slide-item" href="{{ route('admin.supplier-payment.index') }}">Suppliers Payments</a></li>
                     </ul>
                 </li>
 

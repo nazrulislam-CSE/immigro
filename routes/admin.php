@@ -31,6 +31,7 @@ use App\Http\Controllers\Admin\RefundController;
 use App\Http\Controllers\Admin\StaffController;
 use App\Http\Controllers\Admin\StaffPaymentController;
 use App\Http\Controllers\Admin\StaffAttendanceController;
+use App\Http\Controllers\Admin\SupplierPaymentController;
 
 
 
@@ -243,6 +244,14 @@ Route::middleware('admin')->group(function () {
         Route::get('/delete/{id}', [SupplierController::class, 'destroy'])->name('delete');
     });
 
+    // Supplier Payment
+    Route::prefix('supplier-payment')->name('supplier-payment.')->group(function () {
+        Route::get('/index', [SupplierPaymentController::class, 'index'])->name('index');
+        Route::post('/store', [SupplierPaymentController::class, 'store'])->name('store');
+        Route::post('/update/{id}', [SupplierPaymentController::class, 'update'])->name('update');
+        Route::get('/delete/{id}', [SupplierPaymentController::class, 'destroy'])->name('delete');
+    });
+
     /* ============> Manage Notice   <=========== */
     Route::resource('notice', NoticeController::class);
 
@@ -296,7 +305,6 @@ Route::middleware('admin')->group(function () {
         Route::post('/update/{id}', [StaffAttendanceController::class, 'update'])->name('update');
         Route::get('/delete/{id}', [StaffAttendanceController::class, 'destroy'])->name('delete');
     });
-
     
 
 });

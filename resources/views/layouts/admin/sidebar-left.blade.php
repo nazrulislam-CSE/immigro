@@ -146,15 +146,14 @@
                 </li>
 
                 <li class="slide">
-                    <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0);">
+                    <a class="side-menu__item {{ Request::is('admin/refund*') ? 'active' : '' }}" data-bs-toggle="slide" href="javascript:void(0);">
                         <i class="side-menu__icon fas fa-store-alt"></i>
                         <span class="side-menu__label">Refunds</span>
                         <i class="angle fe fe-chevron-down hor-angle"></i>
                     </a>
                     <ul class="slide-menu">
                         <li class="side-menu__label1"><a href="javascript:void(0);">Refunds</a></li>
-                        <li><a class="slide-item" href="#">Refunds Add</a></li>
-                        <li><a class="slide-item" href="#">Refunds List</a></li>
+                        <li><a class="slide-item {{ Request::is('admin/refund/index') ? 'active' : '' }}" href="{{ route('admin.refund.index') }}">Refunds List</a></li>
                     </ul>
                 </li>
 

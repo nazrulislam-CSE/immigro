@@ -20,6 +20,7 @@ class Client extends Model
         'visa_category',
         'transport_number',
         'total_amount',
+        'total_refund',
         'agent_name',
         'agent_id',
     ];
@@ -27,4 +28,15 @@ class Client extends Model
     protected $casts = [
         'date' => 'date',
     ];
+
+    public function refunds()
+    {
+        return $this->hasMany(Refund::class);
+    }
+
+    public function updateTotalRefund()
+    {
+        $this->total_refund = $this->refunds()->sum('refund_amount');
+        $this->saveQuietly();
+    }
 }

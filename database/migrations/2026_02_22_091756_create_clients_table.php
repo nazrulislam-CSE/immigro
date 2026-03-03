@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('visa_category')->nullable();
             $table->string('transport_number')->nullable();
             $table->decimal('total_amount', 10, 2)->nullable();
+            $table->decimal('total_refund', 10, 2)->default(0)->nullable();
             $table->string('agent_name')->nullable();
             $table->string('agent_id')->nullable(); // could be foreign key later
             $table->timestamps();

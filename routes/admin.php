@@ -27,6 +27,7 @@ use App\Http\Controllers\Admin\AgentController;
 use App\Http\Controllers\Admin\SupplierController;
 use App\Http\Controllers\Admin\InvoiceController;
 use App\Http\Controllers\Admin\PassportController;
+use App\Http\Controllers\Admin\RefundController;
 
 
 
@@ -258,6 +259,15 @@ Route::middleware('admin')->group(function () {
         Route::post('/store', [PassportController::class, 'store'])->name('store');
         Route::post('/update/{id}', [PassportController::class, 'update'])->name('update');
         Route::get('/delete/{id}', [PassportController::class, 'destroy'])->name('delete');
+    });
+
+    // Refund
+    Route::prefix('refund')->name('refund.')->group(function () {
+        Route::get('/index', [RefundController::class, 'index'])->name('index');
+        Route::post('/store', [RefundController::class, 'store'])->name('store');
+        Route::post('/update/{id}', [RefundController::class, 'update'])->name('update');
+        Route::get('/delete/{id}', [RefundController::class, 'destroy'])->name('delete');
+        Route::get('/get-client/{id}', [RefundController::class, 'getClientInfo'])->name('getClient');
     });
 
     

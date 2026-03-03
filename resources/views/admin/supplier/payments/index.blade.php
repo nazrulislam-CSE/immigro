@@ -121,6 +121,24 @@
                                     <td>{{ $payment->applicable_fee }}</td>
                                     <td>{{ $payment->visa_category }}</td>
                                     <td>
+                                        {{-- View Receipt Button --}}
+                                        <button type="button" class="btn btn-sm btn-info view-receipt-btn"
+                                            data-id="{{ $payment->id }}"
+                                            data-supplier="{{ $payment->supplier->name ?? '' }}"
+                                            data-date="{{ $payment->date ? $payment->date->format('d-m-Y') : '' }}"
+                                            data-total_amount="{{ $payment->total_amount }}"
+                                            data-total_pay="{{ $payment->total_pay }}"
+                                            data-due="{{ $payment->due }}"
+                                            data-payment_category="{{ $payment->payment_category }}"
+                                            data-payment_purpose="{{ $payment->payment_purpose }}"
+                                            data-applicable_fee="{{ $payment->applicable_fee }}"
+                                            data-visa_category="{{ $payment->visa_category }}"
+                                            data-due_pay_date="{{ $payment->due_pay_date ? $payment->due_pay_date->format('d-m-Y') : '' }}"
+                                            data-bs-toggle="modal" data-bs-target="#receiptModal">
+                                            <i class="fas fa-receipt"></i>
+                                        </button>
+
+                                        {{-- Edit Button --}}
                                         <button type="button" class="btn btn-sm btn-primary edit-btn"
                                             data-id="{{ $payment->id }}"
                                             data-supplier_id="{{ $payment->supplier_id }}"
@@ -136,6 +154,8 @@
                                             data-bs-toggle="modal" data-bs-target="#paymentModal">
                                             <i class="fas fa-edit"></i>
                                         </button>
+
+                                        {{-- Delete Button --}}
                                         <a href="{{ route('admin.supplier-payment.delete', $payment->id) }}" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">
                                             <i class="fa fa-trash"></i>
                                         </a>
@@ -241,6 +261,25 @@
         </div>
     </div>
 </div>
+
+{{-- Receipt Modal --}}
+<div class="modal fade" id="receiptModal" tabindex="-1" aria-labelledby="receiptModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="receiptModalLabel">Supplier Payment Receipt</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="receiptContent">
+                {{-- Receipt will be injected here --}}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="printReceipt()">Print Receipt</button>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 
 @push('admin')
@@ -255,7 +294,7 @@
         }
         $('#total_amount, #total_pay').on('input', calculateDue);
 
-        // Reset modal on close
+        // Reset payment modal on close
         $('#paymentModal').on('hidden.bs.modal', function () {
             $('#paymentForm')[0].reset();
             $('#method').val('POST');
@@ -264,7 +303,7 @@
             $('#paymentModal').removeData('edit-data');
         });
 
-        // Populate on show
+        // Populate payment modal on show
         $('#paymentModal').on('shown.bs.modal', function() {
             var data = $('#paymentModal').data('edit-data');
             if (data) {
@@ -322,6 +361,158 @@
             $('#paymentModalLabel').text('Add Supplier Payment');
             $('#paymentModal').removeData('edit-data');
         });
+
+        // View Receipt button
+        $('.view-receipt-btn').click(function() {
+            var id = $(this).data('id');
+            var supplier = $(this).data('supplier');
+            var date = $(this).data('date') || 'N/A';
+            var totalAmount = parseFloat($(this).data('total_amount')).toFixed(2);
+            var totalPay = parseFloat($(this).data('total_pay')).toFixed(2);
+            var due = parseFloat($(this).data('due')).toFixed(2);
+            var paymentCategory = $(this).data('payment_category') || 'N/A';
+            var paymentPurpose = $(this).data('payment_purpose') || 'N/A';
+            var applicableFee = $(this).data('applicable_fee') || 'N/A';
+            var visaCategory = $(this).data('visa_category') || 'N/A';
+            var duePayDate = $(this).data('due_pay_date') || 'N/A';
+
+            var receiptHtml = `
+                <style>
+                    @media print {
+                        body { background: #fff; }
+                        .receipt-container { box-shadow: none; margin: 0; padding: 20px; }
+                    }
+                    .receipt-container {
+                        font-family: 'Times New Roman', Times, serif;
+                        max-width: 700px;
+                        margin: 0 auto;
+                        background: #fff;
+                        padding: 30px;
+                        border: 1px solid #ddd;
+                    }
+                    h2 {
+                        text-align: center;
+                        margin: 0 0 5px;
+                        font-size: 28px;
+                        font-weight: bold;
+                    }
+                    .subtitle {
+                        text-align: center;
+                        margin: 0 0 20px;
+                        font-size: 16px;
+                        color: #555;
+                    }
+                    hr {
+                        border: none;
+                        border-top: 2px solid #333;
+                        margin: 15px 0;
+                    }
+                    .receipt-info {
+                        display: flex;
+                        justify-content: space-between;
+                        margin-bottom: 20px;
+                        font-size: 16px;
+                    }
+                    .receipt-table {
+                        width: 100%;
+                        border-collapse: collapse;
+                        margin-bottom: 25px;
+                    }
+                    .receipt-table td {
+                        padding: 8px 5px;
+                        border-bottom: 1px solid #ccc;
+                    }
+                    .receipt-table td:first-child {
+                        font-weight: bold;
+                        width: 150px;
+                    }
+                    .amount-table {
+                        width: 100%;
+                        border-collapse: collapse;
+                        margin-bottom: 25px;
+                    }
+                    .amount-table th {
+                        background: #f2f2f2;
+                        padding: 10px 5px;
+                        text-align: left;
+                        border-bottom: 2px solid #333;
+                    }
+                    .amount-table td {
+                        padding: 10px 5px;
+                        border-bottom: 1px solid #ccc;
+                    }
+                    .text-right {
+                        text-align: right;
+                    }
+                    .signature-area {
+                        display: flex;
+                        justify-content: space-between;
+                        margin: 40px 0 20px;
+                    }
+                    .signature-line {
+                        width: 200px;
+                        border-top: 1px solid #333;
+                        padding-top: 8px;
+                        text-align: center;
+                        font-size: 14px;
+                    }
+                    .footer-note {
+                        text-align: center;
+                        font-size: 13px;
+                        color: #777;
+                        margin-top: 30px;
+                    }
+                </style>
+                <div class="receipt-container">
+                    <h2>SUPPLIER PAYMENT RECEIPT</h2>
+                    <div class="subtitle">Payment Acknowledgement</div>
+                    <hr>
+                    <div class="receipt-info">
+                        <div><strong>Receipt No:</strong> SPRCP-${String(id).padStart(6, '0')}</div>
+                        <div><strong>Date:</strong> ${date}</div>
+                    </div>
+
+                    <h3 style="margin:0 0 10px;">Supplier Details</h3>
+                    <table class="receipt-table">
+                        <tr><td>Supplier Name</td><td><strong>${supplier}</strong></td></tr>
+                        <tr><td>Payment Category</td><td>${paymentCategory}</td></tr>
+                        <tr><td>Payment Purpose</td><td>${paymentPurpose}</td></tr>
+                        <tr><td>Applicable Fee</td><td>${applicableFee}</td></tr>
+                        <tr><td>Visa Category</td><td>${visaCategory}</td></tr>
+                        <tr><td>Due Pay Date</td><td>${duePayDate}</td></tr>
+                    </table>
+
+                    <table class="amount-table">
+                        <thead>
+                            <tr><th>Description</th><th class="text-right">Amount (৳)</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Total Amount</td><td class="text-right">৳ ${totalAmount}</td></tr>
+                            <tr><td>Total Paid</td><td class="text-right">৳ ${totalPay}</td></tr>
+                            <tr><td><strong>Due</strong></td><td class="text-right"><strong>৳ ${due}</strong></td></tr>
+                        </tbody>
+                    </table>
+
+                    <div class="signature-area">
+                        <div class="signature-line">Received By</div>
+                        <div class="signature-line">Authorised Signature</div>
+                    </div>
+
+                    <div class="footer-note">This is a computer generated receipt – valid without signature.</div>
+                </div>
+            `;
+            $('#receiptContent').html(receiptHtml);
+        });
     });
+
+    // Print receipt function
+    function printReceipt() {
+        var printContents = document.getElementById('receiptContent').innerHTML;
+        var originalContents = document.body.innerHTML;
+        document.body.innerHTML = printContents;
+        window.print();
+        document.body.innerHTML = originalContents;
+        location.reload(); // optional: reload to restore page state
+    }
 </script>
 @endpush

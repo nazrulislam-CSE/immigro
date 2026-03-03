@@ -121,39 +121,62 @@
                 </li>
 
                 <li class="slide">
-                    <a class="side-menu__item {{ Request::is('admin/invoice*') ? 'active' : '' }}" data-bs-toggle="slide"
-                        href="javascript:void(0);">
+                    <a class="side-menu__item {{ Request::is('admin/invoice*') ? 'active' : '' }}"
+                        data-bs-toggle="slide" href="javascript:void(0);">
                         <i class="side-menu__icon fas fa-store-alt"></i>
                         <span class="side-menu__label">Invoices</span>
                         <i class="angle fe fe-chevron-down hor-angle"></i>
                     </a>
                     <ul class="slide-menu">
                         <li class="side-menu__label1"><a href="javascript:void(0);">Invoices</a></li>
-                        <li><a class="slide-item {{ Request::is('admin/invoice/index') ? 'active' : '' }}" href="{{ route('admin.invoice.index') }}">Invoices List</a></li>
+                        <li><a class="slide-item {{ Request::is('admin/invoice/index') ? 'active' : '' }}"
+                                href="{{ route('admin.invoice.index') }}">Invoices List</a></li>
                     </ul>
                 </li>
 
                 <li class="slide">
-                    <a class="side-menu__item {{ Request::is('admin/passport*') ? 'active' : '' }}" data-bs-toggle="slide" href="javascript:void(0);">
+                    <a class="side-menu__item {{ Request::is('admin/passport*') ? 'active' : '' }}"
+                        data-bs-toggle="slide" href="javascript:void(0);">
                         <i class="side-menu__icon fas fa-store-alt"></i>
                         <span class="side-menu__label">Passports</span>
                         <i class="angle fe fe-chevron-down hor-angle"></i>
                     </a>
                     <ul class="slide-menu">
                         <li class="side-menu__label1"><a href="javascript:void(0);">Passports</a></li>
-                        <li><a class="slide-item {{ Request::is('admin/passport/index') ? 'active' : '' }}" href="{{ route('admin.passport.index') }}">Passports List</a></li>
+                        <li><a class="slide-item {{ Request::is('admin/passport/index') ? 'active' : '' }}"
+                                href="{{ route('admin.passport.index') }}">Passports List</a></li>
                     </ul>
                 </li>
 
                 <li class="slide">
-                    <a class="side-menu__item {{ Request::is('admin/refund*') ? 'active' : '' }}" data-bs-toggle="slide" href="javascript:void(0);">
+                    <a class="side-menu__item {{ Request::is('admin/refund*') ? 'active' : '' }}"
+                        data-bs-toggle="slide" href="javascript:void(0);">
                         <i class="side-menu__icon fas fa-store-alt"></i>
                         <span class="side-menu__label">Refunds</span>
                         <i class="angle fe fe-chevron-down hor-angle"></i>
                     </a>
                     <ul class="slide-menu">
                         <li class="side-menu__label1"><a href="javascript:void(0);">Refunds</a></li>
-                        <li><a class="slide-item {{ Request::is('admin/refund/index') ? 'active' : '' }}" href="{{ route('admin.refund.index') }}">Refunds List</a></li>
+                        <li><a class="slide-item {{ Request::is('admin/refund/index') ? 'active' : '' }}"
+                                href="{{ route('admin.refund.index') }}">Refunds List</a></li>
+                    </ul>
+                </li>
+
+                <li class="slide">
+                    <a class="side-menu__item {{ Request::is('admin/staff*') ? 'active' : '' }}"
+                        data-bs-toggle="slide" href="javascript:void(0);">
+                        <i class="side-menu__icon fas fa-store-alt"></i>
+                        <span class="side-menu__label">Staff</span>
+                        <i class="angle fe fe-chevron-down hor-angle"></i>
+                    </a>
+                    <ul class="slide-menu">
+                        <li class="side-menu__label1"><a href="javascript:void(0);">Staff</a></li>
+                        <li><a class="slide-item {{ Request::is('admin/staff/index') ? 'active' : '' }}"
+                                href="{{ route('admin.staff.index') }}">Staff List</a></li>
+                        <li><a class="slide-item {{ Request::is('admin/staff/payment/index') ? 'active' : '' }}"
+                                href="{{ route('admin.staff.payment.index') }}">Staff Payment</a></li>
+                        <li><a class="slide-item {{ Request::is('admin/staff/attendance/index') ? 'active' : '' }}"
+                                href="{{ route('admin.staff.attendance.index') }}">Staff Attendance</a></li>
                     </ul>
                 </li>
 

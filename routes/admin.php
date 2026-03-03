@@ -28,6 +28,9 @@ use App\Http\Controllers\Admin\SupplierController;
 use App\Http\Controllers\Admin\InvoiceController;
 use App\Http\Controllers\Admin\PassportController;
 use App\Http\Controllers\Admin\RefundController;
+use App\Http\Controllers\Admin\StaffController;
+use App\Http\Controllers\Admin\StaffPaymentController;
+use App\Http\Controllers\Admin\StaffAttendanceController;
 
 
 
@@ -268,6 +271,30 @@ Route::middleware('admin')->group(function () {
         Route::post('/update/{id}', [RefundController::class, 'update'])->name('update');
         Route::get('/delete/{id}', [RefundController::class, 'destroy'])->name('delete');
         Route::get('/get-client/{id}', [RefundController::class, 'getClientInfo'])->name('getClient');
+    });
+
+    // Staff
+    Route::prefix('staff')->name('staff.')->group(function () {
+        Route::get('/index', [StaffController::class, 'index'])->name('index');
+        Route::post('/store', [StaffController::class, 'store'])->name('store');
+        Route::post('/update/{id}', [StaffController::class, 'update'])->name('update');
+        Route::get('/delete/{id}', [StaffController::class, 'destroy'])->name('delete');
+    });
+
+    // Staff Payment
+    Route::prefix('staff/payment')->name('staff.payment.')->group(function () {
+        Route::get('/index', [StaffPaymentController::class, 'index'])->name('index');
+        Route::post('/store', [StaffPaymentController::class, 'store'])->name('store');
+        Route::post('/update/{id}', [StaffPaymentController::class, 'update'])->name('update');
+        Route::get('/delete/{id}', [StaffPaymentController::class, 'destroy'])->name('delete');
+    });
+
+    // Staff Attendance
+    Route::prefix('staff/attendance')->name('staff.attendance.')->group(function () {
+        Route::get('/index', [StaffAttendanceController::class, 'index'])->name('index');
+        Route::post('/store', [StaffAttendanceController::class, 'store'])->name('store');
+        Route::post('/update/{id}', [StaffAttendanceController::class, 'update'])->name('update');
+        Route::get('/delete/{id}', [StaffAttendanceController::class, 'destroy'])->name('delete');
     });
 
     

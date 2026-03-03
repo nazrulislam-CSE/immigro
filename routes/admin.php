@@ -26,6 +26,7 @@ use App\Http\Controllers\Admin\ClientController;
 use App\Http\Controllers\Admin\AgentController;
 use App\Http\Controllers\Admin\SupplierController;
 use App\Http\Controllers\Admin\InvoiceController;
+use App\Http\Controllers\Admin\PassportController;
 
 
 
@@ -249,6 +250,14 @@ Route::middleware('admin')->group(function () {
         Route::get('/delete/{id}', [InvoiceController::class, 'destroy'])->name('delete');
         Route::get('/get-client/{id}', [InvoiceController::class, 'getClientInfo'])->name('getClient');
         Route::get('/get-client-due/{id}', [InvoiceController::class, 'getClientDue'])->name('getClientDue');
+    });
+
+    // Passport
+    Route::prefix('passport')->name('passport.')->group(function () {
+        Route::get('/index', [PassportController::class, 'index'])->name('index');
+        Route::post('/store', [PassportController::class, 'store'])->name('store');
+        Route::post('/update/{id}', [PassportController::class, 'update'])->name('update');
+        Route::get('/delete/{id}', [PassportController::class, 'destroy'])->name('delete');
     });
 
     

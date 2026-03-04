@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Permission\Models\Role; 
 
 class Staff extends Model
 {
@@ -29,5 +30,17 @@ class Staff extends Model
         'account_number',
         'branch',
         'payment_amount',
+        'admin_id',
+        'role_id',
     ];
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
+    public function admin()
+    {
+        return $this->belongsTo(Admin::class);
+    }
+    
 }

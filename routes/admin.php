@@ -32,6 +32,8 @@ use App\Http\Controllers\Admin\StaffController;
 use App\Http\Controllers\Admin\StaffPaymentController;
 use App\Http\Controllers\Admin\StaffAttendanceController;
 use App\Http\Controllers\Admin\SupplierPaymentController;
+use App\Http\Controllers\Admin\StaffPermissionController;
+
 
 
 
@@ -305,6 +307,12 @@ Route::middleware('admin')->group(function () {
         Route::post('/update/{id}', [StaffAttendanceController::class, 'update'])->name('update');
         Route::get('/delete/{id}', [StaffAttendanceController::class, 'destroy'])->name('delete');
     });
+
+    // Staff Permissions
+    Route::get('staff/permissions', [StaffPermissionController::class, 'index'])->name('staff.permissions.index');
+    Route::get('staff/permissions/{id}/edit', [StaffPermissionController::class, 'edit'])->name('staff.permissions.edit');
+    Route::post('staff/permissions/{id}', [StaffPermissionController::class, 'update'])->name('staff.permissions.update');
+    Route::get('staff/permissions/{id}', [StaffPermissionController::class, 'show'])->name('staff.permissions.show');
     
 
 });

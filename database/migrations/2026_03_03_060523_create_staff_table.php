@@ -32,6 +32,11 @@ return new class extends Migration
             $table->string('account_number')->nullable();
             $table->string('branch')->nullable();
             $table->decimal('payment_amount', 10, 2)->nullable();
+            
+            $table->unsignedBigInteger('admin_id');
+            $table->unsignedBigInteger('role_id')->nullable();
+            $table->foreign('admin_id')->references('id')->on('admins')->onDelete('cascade');
+            $table->foreign('role_id')->references('id')->on('roles')->onDelete('set null');
             $table->timestamps();
         });
     }

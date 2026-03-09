@@ -23,30 +23,71 @@
 
     <div class="main-content-body">
         <div class="row row-sm">
+
+            <!-- Total Clients Card -->
             <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12">
-                <a href="javascript:;" class="text-dark" onclick="comingSoon();">
-                    <div class="card overflow-hidden project-card">
-                        <div class="card-body">
-                            <div class="d-flex">
-                                <div class="my-auto">
-                                    <img src="{{ asset('dashboard/img/icons/total-sales.png') }}" alt=""
-                                        class="me-5 ht-70 wd-70 my-auto border shadow-sm rounded-lg p-2 bg-light">
-                                </div>
-                                <div class="project-content d-grid align-items-center">
-                                    <h4>{{ __('Total Clients') }}</h4>
-                                    <ul>
-                                        <li>
-                                            <strong class="d-inline-flex mb-0"
-                                                style="font-size: 15px !important;">Clients:</strong>
-                                            <span><strong style="font-size: 15px !important;">0</strong></span>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
+                <div class="card overflow-hidden project-card">
+                    <div class="card-body d-flex align-items-center">
+                        <div class="me-3">
+                            <img src="{{ asset('dashboard/img/icons/total-sales.png') }}" alt=""
+                                class="ht-70 wd-70 border shadow-sm rounded-lg p-2 bg-light">
+                        </div>
+                        <div>
+                            <h5>Total Clients</h5>
+                            <h3>{{ $totalClients ?? '' }}</h3>
                         </div>
                     </div>
-                </a>
+                </div>
             </div>
+
+            <!-- Total Amount Card -->
+            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12">
+                <div class="card overflow-hidden project-card">
+                    <div class="card-body d-flex align-items-center">
+                        <div class="me-3">
+                            <img src="{{ asset('dashboard/img/icons/total-sales.png') }}" alt=""
+                                class="ht-70 wd-70 border shadow-sm rounded-lg p-2 bg-light">
+                        </div>
+                        <div>
+                            <h5>Total Amount</h5>
+                            <h3>৳ {{ number_format($totalAmount ?? 0, 2) }}</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Total Refund Card -->
+            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12">
+                <div class="card overflow-hidden project-card">
+                    <div class="card-body d-flex align-items-center">
+                        <div class="me-3">
+                            <img src="{{ asset('dashboard/img/icons/total-sales.png') }}" alt=""
+                                class="ht-70 wd-70 border shadow-sm rounded-lg p-2 bg-light">
+                        </div>
+                        <div>
+                            <h5>Total Refund</h5>
+                            <h3>৳ {{ number_format($totalRefund ?? 0, 2) }}</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Net Balance Card -->
+            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12">
+                <div class="card overflow-hidden project-card">
+                    <div class="card-body d-flex align-items-center">
+                        <div class="me-3">
+                            <img src="{{ asset('dashboard/img/icons/total-sales.png') }}" alt=""
+                                class="ht-70 wd-70 border shadow-sm rounded-lg p-2 bg-light">
+                        </div>
+                        <div>
+                            <h5>Net Balance</h5>
+                            <h3>৳ {{ number_format($netBalance ?? 0, 2) }}</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12">
                 <a href="javascript:;" class="text-dark" onclick="comingSoon();">
                     <div class="card overflow-hidden project-card">
@@ -62,7 +103,7 @@
                                         <li>
                                             <strong class="d-inline-flex mb-0"
                                                 style="font-size: 15px !important;">Agents:</strong>
-                                            <span><strong style="font-size: 15px !important;">0</strong></span>
+                                            <span><strong style="font-size: 15px !important;">{{ $totalAgents ?? '' }}</strong></span>
                                         </li>
                                     </ul>
                                 </div>
@@ -87,7 +128,7 @@
                                         <li>
                                             <strong class="d-inline-flex mb-0"
                                                 style="font-size: 15px !important;">Suppliers:</strong>
-                                            <span><strong style="font-size: 15px !important;">0</strong></span>
+                                            <span><strong style="font-size: 15px !important;">{{ count($supplier ?? '') }}</strong></span>
                                         </li>
                                     </ul>
                                 </div>
@@ -112,7 +153,7 @@
                                         <li>
                                             <strong class="d-inline-flex mb-0"
                                                 style="font-size: 15px !important;">Passports:</strong>
-                                            <span><strong style="font-size: 15px !important;">0</strong></span>
+                                            <span><strong style="font-size: 15px !important;">{{ count($passport ?? '') }}</strong></span>
                                         </li>
                                     </ul>
                                 </div>
@@ -137,7 +178,7 @@
                                         <li>
                                             <strong class="d-inline-flex mb-0"
                                                 style="font-size: 15px !important;">Invoices:</strong>
-                                            <span><strong style="font-size: 15px !important;">0</strong></span>
+                                            <span><strong style="font-size: 15px !important;">{{ count($invoice ?? '') }}</strong></span>
                                         </li>
                                     </ul>
                                 </div>
@@ -162,7 +203,7 @@
                                         <li>
                                             <strong class="d-inline-flex mb-0"
                                                 style="font-size: 15px !important;">Refunds:</strong>
-                                            <span><strong style="font-size: 15px !important;">0</strong></span>
+                                            <span><strong style="font-size: 15px !important;">{{ count($refund ?? '') }}</strong></span>
                                         </li>
                                     </ul>
                                 </div>

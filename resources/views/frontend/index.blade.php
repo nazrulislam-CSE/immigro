@@ -1,945 +1,847 @@
 @extends('layouts.frontend.app')
 @section('content')
+    <!-- Main Slider -->
+    <section class="main-slider">
+        <div class="rev_slider_wrapper fullwidthbanner-container" id="rev_slider_one_wrapper" data-source="gallery">
+            <div class="rev_slider fullwidthabanner" id="rev_slider_one" data-version="5.4.1">
+                <ul>
+                    @forelse ($sliders as $slider)
+                        <li data-index="rs-{{ $loop->iteration }}" data-transition="zoomout">
+                            <!-- MAIN IMAGE -->
+                            <img src="{{ asset('upload/slider/' . $slider->image) }}" alt="" class="rev-slidebg">
+                        </li>
+                    @empty
+                        <!-- Default Slider -->
+                        <li data-index="rs-1" data-transition="zoomout">
+                            <img src="{{ asset('frontend/images/main-slider/1.jpg') }}" alt="" class="rev-slidebg">
+                        </li>
+                    @endforelse
+                </ul>
+            </div>
+        </div>
+    </section>
+    <!-- End Main Slider -->
 
- <section class="sliders">
-        <ul class="sliders__main js-slider-main slider enable-bx-slider" data-auto="true" data-auto-hover="true"
-            data-mode="fade" data-pager="false" data-pager-custom="null" data-prev-selector="null"
-            data-next-selector="null">
-            <li>
-                <img src="{{ asset('frontend/media/sliders/slider.jpg') }}" class="thbshpxktysplmywflo"
-                    alt="bxSlider" />
-                <div class="sliders__text">
-                    <h2>our customers are enjoying</h2>
-                    <h3>outstanding rides<span class="line line--slider"><span class="line__first"></span><span
-                                class="line__second"></span></span></h3>
-                    <p>Donec ac nisi eget sem ultrices tempus. Phasellus et sem quis
-                        felis pharetra convallis nulla sem nullam variu.</p>
-                    <a href="#" class="btn button button--red triangle">LEARN MORE</a>
-                </div>
-            </li>
-            <li>
-                <img src="{{ asset('frontend/media/sliders/slider3.jpg') }}" alt="bxSlider" />
-                <div class="sliders__text">
-                    <h2>our customers are enjoying</h2>
-                    <h3>outstanding rides<span class="line line--slider"><span class="line__first"></span><span
-                                class="line__second"></span></span></h3>
-                    <p>Donec ac nisi eget sem ultrices tempus. Phasellus et sem quis
-                        felis pharetra convallis nulla sem nullam variu.</p>
-                    <a href="article.html" class="btn button button--red triangle">LEARN MORE</a>
-                </div>
-            </li>
-            <li>
-                <img src="{{ asset('frontend/media/sliders/slider.jpg') }}" alt="bxSlider" />
-                <div class="sliders__text">
-                    <h2>our customers are enjoying</h2>
-                    <h3>outstanding rides<span class="line line--slider"><span class="line__first"></span><span
-                                class="line__second"></span></span></h3>
-                    <p>Donec ac nisi eget sem ultrices tempus. Phasellus et sem quis
-                        felis pharetra convallis nulla sem nullam variu.</p>
-                    <a href="article.html" class="btn button button--red triangle">LEARN MORE</a>
-                </div>
-            </li>
-            <li>
-                <img src="{{ asset('frontend/media/sliders/slider4.jpg') }}" alt="bxSlider" />
-                <div class="sliders__text">
-                    <h2>our customers are enjoying</h2>
-                    <h3>outstanding rides<span class="line line--slider"><span class="line__first"></span><span
-                                class="line__second"></span></span></h3>
-                    <p>Donec ac nisi eget sem ultrices tempus. Phasellus et sem quis
-                        felis pharetra convallis nulla sem nullam variu.</p>
-                    <a href="article.html" class="btn button button--red triangle">LEARN MORE</a>
-                </div>
-            </li>
-        </ul>
-    </section><!--sliders-->
-    <section class="anons">
-        <div class="container">
+    <!-- About Section -->
+    <section class="about-section">
+        <div class="auto-container">
             <div class="row">
-                <div class="col-md-4 col-xs-12 wow zoomInLeft" data-wow-delay="0.7s" data-wow-duration="1.5s">
-                    <div class="anons__block triangle triangle--block line-down">
-                        <div class="anons__img">
-                            <svg version="1.1" id="svg-icon-1" xmlns="http://www.w3.org/2000/svg"
-                                xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="50px"
-                                viewBox="0 0 462.792 462.792" style="enable-background:new 0 0 462.792 462.792;"
-                                xml:space="preserve">
-                                <g>
-                                    <g>
-                                        <path d="M112.893,259.1c28.362,4.584,51.671,6.906,69.276,6.907c0.004,0,0.006,0,0.007,0c21.373,0,29.601-3.364,32.737-6.187
-                c0.886-0.795,1.477-1.865,1.679-3.038l9.962-57.646c0.21-1.22-0.014-2.476-0.631-3.549c-1.264-2.193-4.223-7.329-34.466-12.53
-                c-18.021-3.099-40.844-5.383-64.265-6.431c-2.101-0.087-4.042,1.052-4.978,2.923c-6.441,12.87-16.791,39.698-13.757,74.775
-                C108.667,256.747,110.495,258.713,112.893,259.1z" />
-                                        <path d="M448.068,271.461c5.13-20.027,46.247-191.09-36.521-222.229c-32.525-11.736-69.728-17.687-110.57-17.687
-                c-76.192,0-152.922,20.852-203.873,38.345C41.98,88.816,4.186,108.053,3.81,108.245c-2.518,1.288-4.012,3.966-3.788,6.784
-                c0.224,2.819,2.121,5.228,4.811,6.104l99.698,32.464c0.603,0.196,1.229,0.31,1.863,0.337
-                c77.142,3.354,132.381,13.574,144.16,26.672c2.132,2.372,3.128,4.927,2.964,7.597l-0.059,0.465l-14.412,83.431
-                c-0.027,0.166-0.052,0.334-0.067,0.5c-0.107,1.086-0.679,3.258-3.293,5.603c-4.915,4.407-17.377,9.663-48.85,9.663
-                c-24.93,0-58.25-3.344-99.035-9.938c-3.078-0.495-6.118,1.103-7.448,3.925L48.552,349.3c-0.508,1.075-0.732,2.263-0.653,3.449
-                c0.287,4.321,5.952,40.587,9.938,50.083c0.567,1.352,1.545,2.49,2.795,3.258l39.337,24.125c1.114,0.684,2.383,1.031,3.66,1.031
-                c0.794,0,1.592-0.135,2.358-0.408l343.757-123.035c3.312-1.186,5.229-4.644,4.48-8.08L448.068,271.461z" />
-                                    </g>
-                                </g>
-                            </svg>
+
+                <!-- Content Column -->
+                <div class="content-column col-xl-6 col-lg-6 col-md-12 col-sm-12 wow fadeInRight" data-wow-delay="600ms">
+                    <div class="inner-column">
+                        <div class="sec-title">
+
+                            <span class="sub-title">about the company</span>
+
+                            <h2>
+                                {{ $about->title ?? 'Providing the best immigration services' }}
+                            </h2>
+
+                            <h4>
+                                {{ $about->mission ?? 'Canada based immigration consultant agency.' }}
+                            </h4>
+
+                            <div class="text">
+                                {{ $about->description ?? 'Web designing in a powerful way of just not only professions, however, in a passion for our Company.' }}
+                            </div>
+
                         </div>
-                        <h2><a href="shop.html" class="title no-decoration"><span class="title__bold">Biker</span>Shop</a>
-                        </h2>
-                        <p class="text">Nunc molestie sapien tempor placerat</p>
+
+                        <div class="row">
+                            <div class="about-block col-lg-6 col-md-6">
+                                <div class="inner">
+                                    <i class="icon flaticon-passport-16"></i>
+                                    <h6 class="title">Best Immigration <br> Services</h6>
+                                </div>
+                            </div>
+
+                            <div class="text-block col-lg-6 col-md-6">
+                                <div class="inner">
+                                    <div class="text">
+                                        {{ $about->vission ?? 'We believe smart looking website is the first impression.' }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="btm-box">
+                            <a href="#" class="theme-btn btn-style-one">
+                                <span class="btn-title">Discover More</span>
+                            </a>
+                        </div>
+
                     </div>
                 </div>
-                <div class="col-md-4 col-xs-12 wow zoomInUp" data-wow-delay="0.7s" data-wow-duration="1.5s">
-                    <div class="anons__block anons__block--center triangle triangle--block-center">
-                        <div class="anons__photo"><img class="img-responsive"
-                                src="{{ asset('frontend/media/370x180/news.jpg') }}" alt="news" /></div>
-                        <div class="anons__color-block">
-                            <h2><a href="blog.html" class="title no-decoration"><span
-                                        class="title__bold">Biker</span>News</a></h2>
-                            <p class="text">Nunc molestie sapien tempor placerat</p>
+
+                <!-- Image Column -->
+                <div class="image-column col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                    <div class="inner-column wow fadeInLeft">
+                        <div class="row">
+
+                            <div class="column col-lg-6 col-md-6">
+                                <div class="image-box">
+
+                                    <figure class="map">
+                                        <img src="{{ asset('frontend/images/icons/map.png') }}" alt="">
+                                    </figure>
+
+                                    <figure class="image-1 overlay-anim wow fadeInUp">
+                                        <img src="{{ !empty($about->image) ? url('upload/about/' . $about->image) : asset('frontend/images/resource/about-1.jpg') }}"
+                                            alt="">
+                                    </figure>
+
+                                    <figure class="image-2 overlay-anim wow fadeInRight">
+                                        <img src="{{ !empty($about->image1)
+                                            ? url('upload/about/' . $about->image1)
+                                            : asset('frontend/images/resource/about-2.jpg') }}"
+                                            alt="">
+                                    </figure>
+
+                                </div>
+                            </div>
+
+                            <div class="column col-lg-6 col-md-6">
+                                <div class="image-box">
+
+                                    <figure class="image-3 overlay-anim wow fadeInLeft">
+                                        <img src="{{ !empty($about->image1)
+                                            ? url('upload/about/' . $about->image1)
+                                            : asset('frontend/images/resource/about-3.jpg') }}"
+                                            alt="">
+                                    </figure>
+
+                                    <div class="experience bounce-y">
+                                        <div class="inner">
+                                            <i class="icon flaticon-loyalty"></i>
+
+                                            <div class="text">
+                                                <strong>
+                                                    {{ $about->experience_no ?? '3800' }}
+                                                </strong>
+
+                                                {{ $about->experience_title ?? 'Satisfied Clients' }}
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 col-xs-12 wow zoomInRight" data-wow-delay="0.7s" data-wow-duration="1.5s">
-                    <div class="anons__block triangle triangle--block line-down">
-                        <div class="anons__img anons__img--bike">
-                            <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
-                                xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="90px"
-                                viewBox="0 0 486.293 486.292" style="enable-background:new 0 0 486.293 486.292;"
-                                xml:space="preserve">
-                                <g>
-                                    <g>
-                                        <path d="M80.128,219.934C35.874,219.934,0,255.809,0,300.063s35.875,80.129,80.128,80.129c44.255,0,80.13-35.875,80.13-80.129
-                S124.383,219.934,80.128,219.934z M80.128,344.58c-24.546,0-44.516-19.97-44.516-44.517s19.97-44.517,44.516-44.517
-                c24.547,0,44.517,19.97,44.517,44.517S104.675,344.58,80.128,344.58z" />
-                                        <path d="M406.162,219.934c-9.043,0-17.725,1.52-25.834,4.281l-22.039-34.332c4.744-3.493,9.6-6.639,14.439-9.18v-39.416
-                l-35.395,15.954l-32.83-51.138l-64.153-0.002l-11.788,9.813l53.814,17.525l24.184,37.672l-63.847,29.902l-62.425-41.176
-                L80.128,143.885v25.598l73.591,56.386l45.561,94.606h88.359l22.822-82.911c0,0,9.184-11.88,22.484-25.354l18.709,29.142
-                c-15.754,14.631-25.621,35.514-25.621,58.711c0,44.254,35.875,80.129,80.129,80.129c44.256,0,80.131-35.875,80.131-80.129
-                S450.418,219.934,406.162,219.934z M406.162,344.58c-24.545,0-44.516-19.97-44.516-44.517c0-10.533,3.684-20.217,9.822-27.847
-                l23.666,36.863l28.096-18.035l-22.562-35.147c1.803-0.224,3.633-0.351,5.494-0.351c24.547,0,44.518,19.97,44.518,44.517
-                S430.709,344.58,406.162,344.58z" />
-                                    </g>
-                                </g>
-                            </svg>
-                        </div>
-                        <h2><a href="#" class="title no-decoration"><span class="title__bold">Biker</span>Types</a>
-                        </h2>
-                        <p class="text">Nunc molestie sapien tempor placerat</p>
-                    </div>
-                </div>
+
             </div>
         </div>
-    </section><!--anons-->
+    </section>
+    <!--Emd About Section -->
 
-    <section class="we-are ">
-        <div class="container">
-            <h2 class="title title--main wow fadeInUp" data-wow-delay="0.7s" data-wow-duration="1.5s">We Are The<span
-                    class="title__bold">Biker</span>Club<span class="line line--title"><span
-                        class="line__first"></span><span class="line__second"></span></span></h2>
-            <p class="text text--anons wow fadeInUp" data-wow-delay="0.7s" data-wow-duration="1.5s">Nullam ac velit.
-                Fusce consequat ipsum non ipsum. Nam ullamcorper ipsum quis erat. Aliquam non elit. In vitae dui
-                sagittis cursus. Duis convallis rutrum mauris. Maecenas eu neque lacinia.</p>
+    <!-- Why Choose US -->
+    <section class="why-choose-us pt-0">
+        <div class="bg bg-pattern-1"></div>
+
+        <div class="auto-container">
+            <div class="sec-title text-center">
+                <span class="sub-title">countries you can visit</span>
+                <h2>Few reasons to choose <br>our visa <span class="color3">company</span></h2>
+            </div>
+
             <div class="row">
-                <div class="col-sm-6 col-xs-12">
-                    <div class="we-are__img wow fadeInLeft" data-wow-delay="0.7s" data-wow-duration="1.5s"><img
-                            class="img-responsive" src="{{ asset('frontend/media/570x325/moto.jpg') }}" alt="moto" />
-                    </div>
-                    <div class="we-are__block triangle triangle--big wow fadeInLeft" data-wow-delay="0.7s"
-                        data-wow-duration="2.5s">
-                        <h3 class="title title--block"><span class="title__bold">TOPCLASS</span>Performance</h3>
-                        <p class="text">Nunc molestie sapien tempor placerat Cras et lectus. Etiam sit amet turpis.
-                            Suspendisse et erat. Ut Proin a ipsum vitae orci porta tristique nam.</p>
-                        <a href="article.html" class="btn button button--red button--main">Read More</a>
+                <!-- Features Block -->
+                <div class="feature-block col-xl-3 col-lg-6 col-md-6 col-sm-12 wow fadeInUp">
+                    <div class="inner-box">
+                        <i class="icon flaticon-interview"></i>
+                        <span class="cat">The eget mattis</span>
+                        <h6 class="title"><a href="page-about.html">Direct Interviews</a></h6>
                     </div>
                 </div>
-                <div class="col-sm-6 col-xs-12">
-                    <div class="we-are__block triangle triangle--big wow fadeInRight" data-wow-delay="0.7s"
-                        data-wow-duration="1.5s">
-                        <h3 class="title title--block"><span class="title__bold">Building</span>YourBrand</h3>
-                        <p class="text">Nunc molestie sapien tempor placerat Cras et lectus. Etiam sit amet turpis.
-                            Suspendisse et erat. Ut Proin a ipsum vitae orci porta tristique nam.</p>
-                        <a href="article.html" class="btn button button--red button--main">Read More</a>
+
+                <!-- Features Block -->
+                <div class="feature-block col-xl-3 col-lg-6 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="300ms">
+                    <div class="inner-box">
+                        <div class="content">
+                            <i class="icon flaticon-low-cost"></i>
+                            <span class="cat">The eget mattis</span>
+                            <h6 class="title"><a href="page-about.html">Cost Effective</a></h6>
+                        </div>
                     </div>
-                    <div class="we-are__img wow fadeInRight" data-wow-delay="0.7s" data-wow-duration="2.5s"><img
-                            class="img-responsive" src="{{ asset('frontend/media/570x325/moto2.jpg') }}" alt="moto" />
+                </div>
+
+                <!-- Features Block -->
+                <div class="feature-block col-xl-3 col-lg-6 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="600ms">
+                    <div class="inner-box">
+                        <div class="content">
+                            <i class="icon flaticon-loyalty"></i>
+                            <span class="cat">The eget mattis</span>
+                            <h6 class="title"><a href="page-about.html">Trusted Customers</a></h6>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Features Block -->
+                <div class="feature-block col-xl-3 col-lg-6 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="900ms">
+                    <div class="inner-box">
+                        <div class="content">
+                            <i class="icon flaticon-online-support"></i>
+                            <span class="cat">The eget mattis</span>
+                            <h6 class="title"><a href="page-about.html">Support Team</a></h6>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section><!--we-are-->
 
-    <div class="numbers">
-        <div class="container">
-            <div class="clearfix percent-blocks" data-waypoint-scroll="true">
-                <div class="numbers__one">
-                    <header class="numbers__head">
-                        <span class="fa fa-building"></span>
-                        <div class="line line--slim line--title">
-                            <div class="line__first"></div>
-                            <div class="line__second"></div>
-                        </div>
-                    </header>
-                    <div class="numbers__body chart" data-percent="25">
-                        <div class="numbers__num percent">25</div>
-                        <div class="number__desc">CitiesNetwork</div>
-                    </div>
-                </div>
-                <div class="numbers__one">
-                    <header class="numbers__head">
-                        <span class="fa fa-motorcycle"></span>
-                        <div class="line line--slim line--title">
-                            <div class="line__first"></div>
-                            <div class="line__second"></div>
-                        </div>
-                    </header>
-                    <div class="numbers__body chart" data-percent="5000">
-                        <div class="numbers__num percent">5000</div>
-                        <div class="number__desc">ClubMembers</div>
-                    </div>
-                </div>
-                <div class="numbers__one">
-                    <header class="numbers__head">
-                        <span class="fa fa-cog"></span>
-                        <div class="line line--slim line--title">
-                            <div class="line__first"></div>
-                            <div class="line__second"></div>
-                        </div>
-                    </header>
-                    <div class="numbers__body chart" data-percent="1258">
-                        <div class="numbers__num percent">1258</div>
-                        <div class="number__desc">ServicesDone</div>
-                    </div>
-                </div>
-                <div class="numbers__one">
-                    <header class="numbers__head">
-                        <span class="fa fa-tachometer"></span>
-                        <div class="line line--slim line--title">
-                            <div class="line__first"></div>
-                            <div class="line__second"></div>
-                        </div>
-                    </header>
-                    <div class="numbers__body chart" data-percent="6000">
-                        <div class="numbers__num percent">6000</div>
-                        <div class="number__desc">MilesDriven</div>
-                    </div>
-                </div>
-                <div class="numbers__one">
-                    <header class="numbers__head">
-                        <span class="fa fa-road"></span>
-                        <div class="line line--slim line--title">
-                            <div class="line__first"></div>
-                            <div class="line__second"></div>
-                        </div>
-                    </header>
-                    <div class="numbers__body chart" data-percent="10000">
-                        <div class="numbers__num percent">10000</div>
-                        <div class="number__desc">TestRides</div>
-                    </div>
-                </div>
+            <div class="bottom-text">Top rated by customers & immigration firms with 100% success rate. <a
+                    href="page-service.html" class="theme-btn btn-style-two">Discover More</a></div>
+        </div>
+    </section>
+    <!--Emd Why Choose US -->
+
+    <!-- Training Section -->
+    <section class="training-section">
+        <div class="bg bg-pattern-2"></div>
+        <div class="bg bg-image" style="background-image: url({{ asset('frontend/images/resource/image-1.jpg') }})">
+        </div>
+        <div class="auto-container">
+            <div class="sec-title">
+                <span class="sub-title">Training & Certification</span>
+                <h2>Get the Immigration <br> Trainings you <span class="color3">Deserve</span></h2>
+                <a href="#" class="theme-btn btn-style-two">Discover More</a>
             </div>
-        </div>
-    </div><!--numbers-->
 
-    <section class="offers dark-bg">
-        <div class="container">
-            <h2 class="title title--main"><span class="title__bold">BIKER<span>Club</span></span>Offers<span
-                    class="line line--small"><span class="line__first"></span><span class="line__second"></span></span>
-            </h2>
-            <div id="carousel-small" class="owl-carousel enable-owl-carousel" data-auto-play="5000"
-                data-stop-on-hover="true" data-items="2" data-pagination="true" data-navigation="false"
-                data-items-desktop="2" data-items-desktop-small="2" data-items-tablet="1" data-items-tablet-small="1">
-                <div class="item wow slideInDown" data-wow-delay="0.7s" data-wow-duration="1.5s">
-                    <div class="offer">
-                        <div class="row row--no-padding">
-                            <div class="col-xs-6">
-                                <div class="offer__img">
-                                    <img class="img-responsive" src="{{ asset('frontend/media/270x270/offer1.jpg') }}"
-                                        alt="bike" />
-                                </div>
+            <div class="carousel-outer">
+                <div class="training-carousel owl-carousel owl-theme">
+                    <!-- Training Block -->
+                    <div class="training-block">
+                        <div class="inner-box">
+                            <div class="image-box">
+                                <figure class="image"><img src="{{ asset('frontend/images/resource/training-1.jpg') }}"
+                                        alt=""></figure>
+                                <div class="overlay"><a href="page-course-details.html" class="read-more"><i
+                                            class="fa fa-long-arrow-alt-right"></i></a></div>
                             </div>
-                            <div class="col-xs-6">
-                                <div class="offer__info">
-                                    <h4 class="title"><span class="title__bold"><span>Accident</span></span>Repairs
-                                    </h4>
-                                    <div class="offer__price">Starts From Only <span>$45.50</span></div>
-                                    <ul class="list">
-                                        <li><span class="list__circle"><span class="fa fa-check"></span></span>Nunc
-                                            molestie sapien temp</li>
-                                        <li><span class="list__circle"><span class="fa fa-check"></span></span>Placerat
-                                            Nunc placerat </li>
-                                    </ul>
-                                    <a href="item.html" class="btn button button--main button--red pull-right">GET
-                                        OFFER</a>
-                                </div>
+                            <div class="lower-content">
+                                <a href="page-course-details.html" class="read-more"><i
+                                        class="fa fa-long-arrow-alt-right"></i></a>
+                                <h5 class="title"><a href="page-course-details.html">Citizenship Test</a></h5>
+                                <div class="text">There are many variations of passages of available, but the
+                                    majority have suffered freedom alteration.</div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="item wow slideInDown" data-wow-delay="0.7s" data-wow-duration="1.5s">
-                    <div class="offer">
-                        <div class="row row--no-padding">
-                            <div class="col-xs-6">
-                                <div class="offer__img">
-                                    <img class="img-responsive" src="{{ asset('frontend/media/270x270/offer2.jpg') }}"
-                                        alt="bike" />
-                                </div>
+                    <!-- Training Block -->
+                    <div class="training-block">
+                        <div class="inner-box">
+                            <div class="image-box">
+                                <figure class="image"><img src="{{ asset('frontend/images/resource/training-2.jpg') }}"
+                                        alt=""></figure>
+                                <div class="overlay"><a href="page-course-details.html" class="read-more"><i
+                                            class="fa fa-long-arrow-alt-right"></i></a></div>
                             </div>
-                            <div class="col-xs-6">
-                                <div class="offer__info">
-                                    <h4 class="title"><span class="title__bold"><span>Engine</span></span>Tune-up
-                                    </h4>
-                                    <div class="offer__price">Get upto <span>$45.50</span> Discount</div>
-                                    <ul class="list">
-                                        <li><span class="list__circle"><span class="fa fa-check"></span></span>Nunc
-                                            molestie sapien temp</li>
-                                        <li><span class="list__circle"><span class="fa fa-check"></span></span>Placerat
-                                            Nunc placerat </li>
-                                    </ul>
-                                    <a href="item.html" class="btn button button--main button--red pull-right">GET
-                                        OFFER</a>
-                                </div>
+                            <div class="lower-content">
+                                <a href="page-course-details.html" class="read-more"><i
+                                        class="fa fa-long-arrow-alt-right"></i></a>
+                                <h5 class="title"><a href="page-course-details.html">Take IELTS</a></h5>
+                                <div class="text">There are many variations of passages of available, but the
+                                    majority have suffered freedom alteration.</div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="item wow slideInDown" data-wow-delay="0.7s" data-wow-duration="1.5s">
-                    <div class="offer">
-                        <div class="row row--no-padding">
-                            <div class="col-xs-6">
-                                <div class="offer__img">
-                                    <img class="img-responsive" src="{{ asset('frontend/media/270x270/offer1.jpg') }}"
-                                        alt="bike" />
-                                </div>
+
+                    <!-- Training Block -->
+                    <div class="training-block">
+                        <div class="inner-box">
+                            <div class="image-box">
+                                <figure class="image"><img src="{{ asset('frontend/images/resource/training-3.jpg') }}"
+                                        alt=""></figure>
+                                <div class="overlay"><a href="page-course-details.html" class="read-more"><i
+                                            class="fa fa-long-arrow-alt-right"></i></a></div>
                             </div>
-                            <div class="col-xs-6">
-                                <div class="offer__info">
-                                    <h4 class="title"><span class="title__bold"><span>Accident</span></span>Repairs
-                                    </h4>
-                                    <div class="offer__price">Starts From Only <span>$45.50</span></div>
-                                    <ul class="list">
-                                        <li><span class="list__circle"><span class="fa fa-check"></span></span>Nunc
-                                            molestie sapien temp</li>
-                                        <li><span class="list__circle"><span class="fa fa-check"></span></span>Placerat
-                                            Nunc placerat </li>
-                                    </ul>
-                                    <a href="item.html" class="btn button button--main button--red pull-right">GET
-                                        OFFER</a>
-                                </div>
+                            <div class="lower-content">
+                                <a href="page-course-details.html" class="read-more"><i
+                                        class="fa fa-long-arrow-alt-right"></i></a>
+                                <h5 class="title"><a href="page-course-details.html">PTE Coaching</a></h5>
+                                <div class="text">There are many variations of passages of available, but the
+                                    majority have suffered freedom alteration.</div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="item wow slideInDown" data-wow-delay="0.7s" data-wow-duration="1.5s">
-                    <div class="offer">
-                        <div class="row row--no-padding">
-                            <div class="col-xs-6">
-                                <div class="offer__img">
-                                    <img class="img-responsive" src="{{ asset('frontend/media/270x270/offer2.jpg') }}"
-                                        alt="bike" />
-                                </div>
+
+                    <!-- Training Block -->
+                    <div class="training-block">
+                        <div class="inner-box">
+                            <div class="image-box">
+                                <figure class="image"><img src="{{ asset('frontend/images/resource/training-1.jpg') }}"
+                                        alt=""></figure>
+                                <div class="overlay"><a href="page-course-details.html" class="read-more"><i
+                                            class="fa fa-long-arrow-alt-right"></i></a></div>
                             </div>
-                            <div class="col-xs-6">
-                                <div class="offer__info">
-                                    <h4 class="title"><span class="title__bold"><span>Engine</span></span>Tune-up
-                                    </h4>
-                                    <div class="offer__price">Get upto <span>$45.50</span> Discount</div>
-                                    <ul class="list">
-                                        <li><span class="list__circle"><span class="fa fa-check"></span></span>Nunc
-                                            molestie sapien temp</li>
-                                        <li><span class="list__circle"><span class="fa fa-check"></span></span>Placerat
-                                            Nunc placerat </li>
-                                    </ul>
-                                    <a href="item.html" class="btn button button--main button--red pull-right">GET
-                                        OFFER</a>
-                                </div>
+                            <div class="lower-content">
+                                <a href="page-course-details.html" class="read-more"><i
+                                        class="fa fa-long-arrow-alt-right"></i></a>
+                                <h5 class="title"><a href="page-course-details.html">Citizenship Test</a></h5>
+                                <div class="text">There are many variations of passages of available, but the
+                                    majority have suffered freedom alteration.</div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section><!--offers-->
+    </section>
+    <!-- End Training Section -->
 
-    <section class="services">
-        <div class="container">
-            <div class="after services__main">
-                <h2 class="title title--main wow zoomInUp" data-wow-delay="0.7s" data-wow-duration="1.5s"><span
-                        class="title__bold">Biker</span>ClubServices<span class="line line--title"><span
-                            class="line__first"></span><span class="line__second"></span></span></h2>
-                <p class="text text--anons wow zoomInUp" data-wow-delay="0.7s" data-wow-duration="1.5s">Nullam ac
-                    velit. Fusce consequat ipsum non ipsum. Nam ullamcorper ipsum quis erat. Aliquam non elit. In vitae
-                    dui sagittis cursus. Duis convallis rutrum mauris. Maecenas eu neque lacinia.</p>
+    <!-- Services Section -->
+    <section class="services-section">
+        <div class="auto-container">
+
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="sec-title">
+                        <span class="sub-title">What do we offer</span>
+                        <h2>Outstanding immigration visa <span class="color3">services.</span></h2>
+                        <div class="text">
+                            Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet.
+                        </div>
+                    </div>
+                </div>
+
+                @forelse($services as $service)
+                    <!-- Service Block -->
+                    <div class="service-block col-lg-3 col-md-6 col-sm-12 wow fadeInUp">
+                        <div class="inner-box">
+
+                            <div class="image-box">
+
+                                <figure class="image">
+                                    <a href="{{ url('service/' . $service->slug) }}">
+                                        <img
+                                            src="{{ !empty($service->image) ? url('upload/service/' . $service->image) : url('upload/no_image.jpg') }}">
+                                    </a>
+                                </figure>
+
+                                <h6 class="title">{{ $service->title }}</h6>
+
+                            </div>
+
+                            <div class="content-box">
+
+                                <h6 class="title">
+                                    <a href="{{ url('service/' . $service->slug) }}">
+                                        {{ $service->title }}
+                                    </a>
+                                </h6>
+
+                                <div class="text">
+                                    {{ Str::limit($service->description, 80) }}
+                                </div>
+
+                                <a href="{{ url('service/' . $service->slug) }}" class="read-more">
+                                    More <i class="fa fa-long-arrow-right"></i>
+                                </a>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                @empty
+
+                    <!-- Default Service 1 -->
+                    <div class="service-block col-lg-3 col-md-6 col-sm-12 wow fadeInUp">
+                        <div class="inner-box">
+                            <div class="image-box">
+                                <figure class="image">
+                                    <img src="{{ asset('frontend/images/resource/service-1.jpg') }}">
+                                </figure>
+                                <h6 class="title">Student Visa</h6>
+                            </div>
+
+                            <div class="content-box">
+                                <h6 class="title">Student Visa</h6>
+                                <div class="text">
+                                    We have to a tendency to believe the idea that smart looking website.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Default Service 2 -->
+                    <div class="service-block col-lg-3 col-md-6 col-sm-12 wow fadeInUp">
+                        <div class="inner-box">
+                            <div class="image-box">
+                                <figure class="image">
+                                    <img src="{{ asset('frontend/images/resource/service-2.jpg') }}">
+                                </figure>
+                                <h6 class="title">Business Visa</h6>
+                            </div>
+
+                            <div class="content-box">
+                                <h6 class="title">Business Visa</h6>
+                                <div class="text">
+                                    We have to a tendency to believe the idea that smart looking website.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Default Service 3 -->
+                    <div class="service-block col-lg-3 col-md-6 col-sm-12 wow fadeInUp">
+                        <div class="inner-box">
+                            <div class="image-box">
+                                <figure class="image">
+                                    <img src="{{ asset('frontend/images/resource/service-3.jpg') }}">
+                                </figure>
+                                <h6 class="title">Family Visa</h6>
+                            </div>
+
+                            <div class="content-box">
+                                <h6 class="title">Family Visa</h6>
+                                <div class="text">
+                                    We have to a tendency to believe the idea that smart looking website.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Default Service 4 -->
+                    <div class="service-block col-lg-3 col-md-6 col-sm-12 wow fadeInUp">
+                        <div class="inner-box">
+                            <div class="image-box">
+                                <figure class="image">
+                                    <img src="{{ asset('frontend/images/resource/service-4.jpg') }}">
+                                </figure>
+                                <h6 class="title">Tourist Visa</h6>
+                            </div>
+
+                            <div class="content-box">
+                                <h6 class="title">Tourist Visa</h6>
+                                <div class="text">
+                                    We have to a tendency to believe the idea that smart looking website.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endforelse
+
+            </div>
+        </div>
+    </section>
+    <!-- End Services Section-->
+
+    <!-- Countries Section -->
+    <section class="countries-section pt-0">
+        <div class="auto-container">
+            <div class="sec-title text-center">
+                <span class="sub-title">countries you can visit</span>
+                <h2>Countries we’re supporting <br>for the <span class="color3">immigration</span></h2>
+            </div>
+
+            <div class="carousel-outer">
+                <!-- Countries Carousel -->
+                <div class="countries-carousel owl-carousel owl-theme">
+                    <!-- Country Block-->
+                    <div class="country-block">
+                        <div class="inner-box">
+                            <div class="flag"><img src="{{ asset('frontend/images/resource/flag-1.png') }}"
+                                    alt=""></div>
+                            <a href="page-country-details.html" class="theme-btn">Australia</a>
+                        </div>
+                    </div>
+
+                    <!-- Country Block-->
+                    <div class="country-block">
+                        <div class="inner-box">
+                            <div class="flag"><img src="{{ asset('frontend/images/resource/flag-2.png') }}"
+                                    alt=""></div>
+                            <a href="page-country-details.html" class="theme-btn">Germany</a>
+                        </div>
+                    </div>
+
+                    <!-- Country Block-->
+                    <div class="country-block">
+                        <div class="inner-box">
+                            <div class="flag"><img src="{{ asset('frontend/images/resource/flag-3.png') }}"
+                                    alt=""></div>
+                            <a href="page-country-details.html" class="theme-btn">Brazil</a>
+                        </div>
+                    </div>
+
+                    <!-- Country Block-->
+                    <div class="country-block">
+                        <div class="inner-box">
+                            <div class="flag"><img src="{{ asset('frontend/images/resource/flag-4.png') }}"
+                                    alt=""></div>
+                            <a href="page-country-details.html" class="theme-btn">Russia</a>
+                        </div>
+                    </div>
+
+                    <!-- Country Block-->
+                    <div class="country-block">
+                        <div class="inner-box">
+                            <div class="flag"><img src="{{ asset('frontend/images/resource/flag-5.png') }}"
+                                    alt=""></div>
+                            <a href="page-country-details.html" class="theme-btn">England</a>
+                        </div>
+                    </div>
+
+                    <!-- Country Block-->
+                    <div class="country-block">
+                        <div class="inner-box">
+                            <div class="flag"><img src="{{ asset('frontend/images/resource/flag-6.png') }}"
+                                    alt=""></div>
+                            <a href="page-country-details.html" class="theme-btn">India</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--End Countries Section Two -->
+
+    <!-- Clients Section   -->
+    <section class="clients-section">
+        <div class="auto-container">
+
+            <div class="sponsors-outer">
+
+                <ul class="clients-carousel owl-carousel owl-theme">
+
+                    @forelse($partners as $partner)
+                        <li class="slide-item">
+                            <a href="{{ url('partner/' . $partner->slug) }}">
+
+                                <img src="{{ !empty($partner->image) ? url('upload/partner/' . $partner->image) : url('upload/no_image.jpg') }}"
+                                    alt="{{ $partner->name }}">
+
+                            </a>
+                        </li>
+
+                    @empty
+
+                        <!-- Default Client -->
+                        <li class="slide-item">
+                            <a href="#">
+                                <img src="{{ asset('frontend/images/resource/client.png') }}" alt="">
+                            </a>
+                        </li>
+
+                        <li class="slide-item">
+                            <a href="#">
+                                <img src="{{ asset('frontend/images/resource/client.png') }}" alt="">
+                            </a>
+                        </li>
+
+                        <li class="slide-item">
+                            <a href="#">
+                                <img src="{{ asset('frontend/images/resource/client.png') }}" alt="">
+                            </a>
+                        </li>
+
+                        <li class="slide-item">
+                            <a href="#">
+                                <img src="{{ asset('frontend/images/resource/client.png') }}" alt="">
+                            </a>
+                        </li>
+
+                        <li class="slide-item">
+                            <a href="#">
+                                <img src="{{ asset('frontend/images/resource/client.png') }}" alt="">
+                            </a>
+                        </li>
+                    @endforelse
+
+                </ul>
+
+            </div>
+
+        </div>
+    </section>
+    <!--End Clients Section -->
+
+    <!-- Testimonial Section -->
+    <section class="testimonial-section pull-down">
+        <div class="bg-image" style="background-image: url({{ asset('frontend/images/background/1.jpg') }})"></div>
+        <div class="anim-icons">
+            <span class="icon icon-wide-map"></span>
+        </div>
+
+        <div class="auto-container">
+
+            <div class="sec-title text-center light">
+                <span class="sub-title">our testimonials</span>
+                <h2>What they’re talking about<br>the <span class="color3">consultancy</span></h2>
+            </div>
+
+            <div class="carousel-outer">
+                <div class="testimonial-carousel owl-carousel owl-theme">
+
+                    @forelse($testimonials as $testimonial)
+                        <!-- Testimonial Block -->
+                        <div class="testimonial-block">
+                            <div class="inner-box">
+
+                                <div class="content-box">
+                                    <span class="icon fa fa-quote-left"></span>
+
+                                    <div class="rating">
+                                        @for ($i = 1; $i <= 5; $i++)
+                                            <i class="fa fa-star {{ $i <= $testimonial->rating ? 'checked' : '' }}"></i>
+                                        @endfor
+                                    </div>
+
+                                    <div class="text">
+                                        {{ $testimonial->description }}
+                                    </div>
+                                </div>
+
+                                <div class="info-box">
+                                    <figure class="thumb">
+                                        <img src="{{ !empty($testimonial->image) ? url('upload/testimonial/' . $testimonial->image) : url('upload/no_image.jpg') }}"
+                                            alt="{{ $testimonial->name }}">
+                                    </figure>
+                                    <h6 class="name">{{ $testimonial->name ?? 'Anonymous' }}</h6>
+                                    <span class="designation">{{ $testimonial->designation ?? 'Customer' }}</span>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    @empty
+
+                        <!-- Default Testimonial 1 -->
+                        <div class="testimonial-block">
+                            <div class="inner-box">
+                                <div class="content-box">
+                                    <span class="icon fa fa-quote-left"></span>
+                                    <div class="rating">
+                                        <i class="fa fa-star checked"></i>
+                                        <i class="fa fa-star checked"></i>
+                                        <i class="fa fa-star checked"></i>
+                                        <i class="fa fa-star checked"></i>
+                                        <i class="fa fa-star checked"></i>
+                                    </div>
+                                    <div class="text">I was very impressed by the Remons service. Lorem ipsum is simply
+                                        free text used by copy typing refreshing.</div>
+                                </div>
+                                <div class="info-box">
+                                    <figure class="thumb"><img
+                                            src="{{ asset('frontend/images/resource/testi-thumb-1.jpg') }}"
+                                            alt=""></figure>
+                                    <h6 class="name">Jessica Brown</h6>
+                                    <span class="designation">Customer</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Default Testimonial 2 -->
+                        <div class="testimonial-block">
+                            <div class="inner-box">
+                                <div class="content-box">
+                                    <span class="icon fa fa-quote-left"></span>
+                                    <div class="rating">
+                                        <i class="fa fa-star checked"></i>
+                                        <i class="fa fa-star checked"></i>
+                                        <i class="fa fa-star checked"></i>
+                                        <i class="fa fa-star checked"></i>
+                                        <i class="fa fa-star checked"></i>
+                                    </div>
+                                    <div class="text">I was very impressed by the Remons service. Lorem ipsum is simply
+                                        free text used by copy typing refreshing.</div>
+                                </div>
+                                <div class="info-box">
+                                    <figure class="thumb"><img
+                                            src="{{ asset('frontend/images/resource/testi-thumb-2.jpg') }}"
+                                            alt=""></figure>
+                                    <h6 class="name">Kevin Martin</h6>
+                                    <span class="designation">Customer</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Default Testimonial 3 -->
+                        <div class="testimonial-block">
+                            <div class="inner-box">
+                                <div class="content-box">
+                                    <span class="icon fa fa-quote-left"></span>
+                                    <div class="rating">
+                                        <i class="fa fa-star checked"></i>
+                                        <i class="fa fa-star checked"></i>
+                                        <i class="fa fa-star checked"></i>
+                                        <i class="fa fa-star checked"></i>
+                                        <i class="fa fa-star checked"></i>
+                                    </div>
+                                    <div class="text">I was very impressed by the Remons service. Lorem ipsum is simply
+                                        free text used by copy typing refreshing.</div>
+                                </div>
+                                <div class="info-box">
+                                    <figure class="thumb"><img
+                                            src="{{ asset('frontend/images/resource/testi-thumb-3.jpg') }}"
+                                            alt=""></figure>
+                                    <h6 class="name">Sarah Albert</h6>
+                                    <span class="designation">Customer</span>
+                                </div>
+                            </div>
+                        </div>
+                    @endforelse
+
+                </div>
+            </div>
+
+        </div>
+    </section>
+    <!-- End Testimonial Section -->
+
+    <!-- Contact Section -->
+    <section class="contact-section">
+        <div class="outer-box">
+            <div class="bg bg-pattern-6"></div>
+            <div class="auto-container">
                 <div class="row">
-                    <div class="col-sm-7 col-xs-12 wow zoomInLeft" data-wow-delay="0.7s" data-wow-duration="1.5s">
-                        <div class="services__img">
-                            <img class="img-responsive" src="{{ asset('frontend/media/motorcycles/moto-red.png') }}"
-                                alt="bike" />
+                    <!-- Title Column -->
+                    <div class="title-column col-lg-7 col-md-12 wow fadeInLRight">
+                        <div class="inner-column">
+                            <div class="sec-title">
+                                <span class="sub-title">contact with us</span>
+                                <h2>Book your <span class="color3">consultation</span></h2>
+                                <div class="text">There cursus massa at urnaaculis estie. Sed aliquamellus vitae
+                                    ultrs condmentum leo massa mollis.</div>
+                            </div>
+
+                            <ul class="list-style-two">
+                                <li><i class="fa fa-check-circle"></i> Making this the first true generator on the
+                                    Internet</li>
+                                <li><i class="fa fa-check-circle"></i> Lorem Ipsum is not simply random text</li>
+                                <li><i class="fa fa-check-circle"></i> If you are going to use a passage</li>
+                            </ul>
+
+                            <div class="ceo-info">
+                                <figure class="thumb"><img src="{{ asset('frontend/images/resource/ceo-thumb.jpg') }}"
+                                        alt=""></figure>
+                                <h6 class="name">Aleesha Brown</h6>
+                                <div class="designation">CEO & CO Founder</div>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-sm-5 col-xs-12 wow zoomInRight" data-wow-delay="0.7s" data-wow-duration="1.5s">
-                        <div class="services__info">
-                            <div class="services__info-block">
-                                <h5 class="clearfix services__title"><a class="pull-left no-decoration js-toggle"
-                                        href="#">Motorcycle Inspection</a><a
-                                        class="square square--toggle pull-right js-toggle"><span
-                                            class="fa fa-plus"></span></a></h5>
-                                <div class="services__text triangle triangle--services">
-                                    Nunc molestie sapien tempor placerat Cras et lectus. Etiam sit amet turpis.
-                                    Suspendisse et erat. Ut Proin a ipsum vitae orci porta tristique nam. Class aptent
-                                    taciti sociosqu ad sodales f
+
+                    <!-- Form Column -->
+                    <div class="form-column col-lg-5 col-md-12 col-sm-12">
+                        <div class="inner-column">
+                            <div class="form-outer">
+
+                                <!-- Contact Form -->
+                                <div class="contact-form wow fadeInLeft">
+                                    <!--Contact Form-->
+                                    <form method="post" action="https://html.kodesolution.com/2023/immigro-html/get"
+                                        id="contact-form">
+                                        <div class="form-group">
+                                            <input type="text" name="full_name" placeholder="Your Name" required>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <input type="text" name="Email" placeholder="Email Address" required>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <textarea name="message" placeholder="Write a Message" required></textarea>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <button class="theme-btn btn-style-three" type="submit"
+                                                name="submit-form"><span class="btn-title">Send a
+                                                    Message</span></button>
+                                        </div>
+                                    </form>
                                 </div>
-                            </div>
-                            <div class="services__info-block">
-                                <h5 class="clearfix services__title"><a class="pull-left no-decoration js-toggle"
-                                        href="#">Finance And Insurance</a><a
-                                        class="square square--toggle pull-right js-toggle"><span
-                                            class="fa fa-plus"></span></a></h5>
-                                <div class="services__text triangle triangle--services">
-                                    Nunc molestie sapien tempor placerat Cras et lectus. Etiam sit amet turpis.
-                                    Suspendisse et erat. Ut Proin a ipsum vitae orci porta tristique nam. Class aptent
-                                    taciti sociosqu ad sodales f
-                                </div>
-                            </div>
-                            <div class="services__info-block">
-                                <h5 class="clearfix services__title"><a class="pull-left no-decoration js-toggle"
-                                        href="#">Ready For the Racing</a><a
-                                        class="square square--toggle pull-right js-toggle"><span
-                                            class="fa fa-plus"></span></a></h5>
-                                <div class="services__text triangle triangle--services">
-                                    Nunc molestie sapien tempor placerat Cras et lectus. Etiam sit amet turpis.
-                                    Suspendisse et erat. Ut Proin a ipsum vitae orci porta tristique nam. Class aptent
-                                    taciti sociosqu ad sodales f
-                                </div>
-                            </div>
-                            <div class="services__info-block">
-                                <h5 class="clearfix services__title"><a class="pull-left no-decoration js-toggle"
-                                        href="#">Tyre And Oil Change</a><a
-                                        class="square square--toggle pull-right js-toggle"><span
-                                            class="fa fa-plus"></span></a></h5>
-                                <div class="services__text triangle triangle--services">
-                                    Nunc molestie sapien tempor placerat Cras et lectus. Etiam sit amet turpis.
-                                    Suspendisse et erat. Ut Proin a ipsum vitae orci porta tristique nam. Class aptent
-                                    taciti sociosqu ad sodales f
-                                </div>
-                            </div>
-                            <div class="services__info-block">
-                                <h5 class="clearfix services__title"><a class="pull-left no-decoration js-toggle"
-                                        href="#">Parts Replacement</a><a
-                                        class="square square--toggle pull-right js-toggle"><span
-                                            class="fa fa-plus"></span></a></h5>
-                                <div class="services__text triangle triangle--services">
-                                    Nunc molestie sapien tempor placerat Cras et lectus. Etiam sit amet turpis.
-                                    Suspendisse et erat. Ut Proin a ipsum vitae orci porta tristique nam. Class aptent
-                                    taciti sociosqu ad sodales f
-                                </div>
-                            </div>
-                            <div class="services__info-block">
-                                <h5 class="clearfix services__title"><a class="pull-left no-decoration js-toggle"
-                                        href="#"> Accident Repairs And Quotes</a><a
-                                        class="square square--toggle pull-right js-toggle"><span
-                                            class="fa fa-plus"></span></a></h5>
-                                <div class="services__text triangle triangle--services">
-                                    Nunc molestie sapien tempor placerat Cras et lectus. Etiam sit amet turpis.
-                                    Suspendisse et erat. Ut Proin a ipsum vitae orci porta tristique nam. Class aptent
-                                    taciti sociosqu ad sodales f
-                                </div>
+                                <!--End Contact Form -->
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section><!--services-->
+    </section>
+    <!-- End Contact Section -->
 
-    <div class="reviews">
-        <div class="container">
-            <ul class="reviews-slider enable-bx-slider" data-auto="true" data-auto-hover="true" data-mode="horizontal"
-                data-pager="false" data-pager-custom="null" data-prev-selector="null" data-next-selector="null">
-                <li>
-                    <div class="review wow slideInUp" data-wow-delay="0.7s" data-wow-duration="1.5s">
-                        <div class="row row--no-padding">
-                            <div class="col-xs-3">
-                                <div class="review__img">
-                                    <div class="review__quote triangle triangle--services">
-                                        <span class="fa-quote-left fa"></span>
-                                    </div>
-                                    <img class="img-responsive"
-                                        src="{{ asset('frontend/media/250x200/review-bike.jpg') }}" alt='bike' />
-                                </div>
-                            </div>
-                            <div class="col-xs-9">
-                                <div class="review__text">
-                                    <div class="review__main-text">
-                                        Proin blandit quam molestie luctus vehicula orci massa interdum justo nec rutrum
-                                        risus augue ut nisl ultric lacu at Etiam eleifend nisl nec lectus. Maecenas sit
-                                        amet mi. Donec erat. Fusce quis nisl ac sapien tristique dapibus. Donec rhoncus
-                                        Nulla sem nisi fermen
-                                        <div class="line line--small">
-                                            <div class="line__first"></div>
-                                            <div class="line__second"></div>
-                                        </div>
-                                    </div>
-                                    <div class="review__author">Martin Hasman<span>Owner Ducati S600VX</span></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="review wow slideInUp" data-wow-delay="0.7s" data-wow-duration="1.5s">
-                        <div class="row row--no-padding">
-                            <div class="col-xs-3">
-                                <div class="review__img">
-                                    <div class="review__quote triangle triangle--services">
-                                        <span class="fa-quote-left fa"></span>
-                                    </div>
-                                    <img class="img-responsive"
-                                        src="{{ asset('frontend/media/250x200/review-bike.jpg') }}" alt='bike' />
-                                </div>
-                            </div>
-                            <div class="col-xs-9">
-                                <div class="review__text">
-                                    <div class="review__main-text">
-                                        Proin blandit quam molestie luctus vehicula orci massa interdum justo nec rutrum
-                                        risus augue ut nisl ultric lacu at Etiam eleifend nisl nec lectus. Maecenas sit
-                                        amet mi. Donec erat. Fusce quis nisl ac sapien tristique dapibus. Donec rhoncus
-                                        Nulla sem nisi fermen
-                                        <div class="line line--small">
-                                            <div class="line__first"></div>
-                                            <div class="line__second"></div>
-                                        </div>
-                                    </div>
-                                    <div class="review__author">Martin Hasman<span>Owner Ducati S600VX</span></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </div><!--reviews-->
-
-    <section class="featured dark-bg">
-        <div class="container">
-            <h2 class="title title--main wow slideInUp" data-wow-delay="0.7s" data-wow-duration="1.5s"><span
-                    class="title__bold">BIKER</span>ClubFeatured<span class="line line--small"><span
-                        class="line__second"></span><span class="line__first"></span></span></h2>
-            <ul class="js-featured-slider enable-bx-slider" data-auto="false" data-auto-hover="true"
-                data-mode="vertical" data-pager="false" data-pager-custom="null"
-                data-prev-selector=".featured .technical" data-next-selector=".featured .technical">
-                <li>
-                    <div class="row">
-                        <div class="col-xs-5 wow fadeInLeft" data-wow-delay="0.7s" data-wow-duration="1.5s">
-                            <div class="featured__images">
-                                <a href="#"><img src="{{ asset('frontend/media/470x270/bmw.jpg') }}"
-                                        alt="bmw" class="img-responsive" /></a>
-                                <div class="video">
-                                    <img src="media/470x270/bmw.jpg" alt="bmw" class="img-responsive" />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xs-7 wow fadeInRight" data-wow-delay="0.7s" data-wow-duration="1.5s">
-                            <div class="featured__info">
-                                <h4><a href="#" class="no-decoration"><span>1190</span> RC8 R</a></h4>
-                                <p class="text">Nullam ac velit. Fusce consequat ipsum non ipsum. Nam ullamcorper
-                                    ipsum quis erat. Aliquam non elit. In vitae dui in dui sagittis cursus. Sed pede.In
-                                    vitae sapien. Integer tempus dolor a diam. Vivamus faucibus. </p>
-                                <div class="technical">
-                                    <h5>Technical Specifications:</h5>
-                                    <div class="row">
-                                        <div class="col-xs-4">
-                                            <h6 class="technical__title">Design</h6>
-                                        </div>
-                                        <div class="col-xs-8">
-                                            <p class="technical__val">2-cylinder 4-stroke Otto motor, 75&deg; V
-                                                arrangement, water-cooled</p>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-xs-4">
-                                            <h6 class="technical__title">Displacement</h6>
-                                        </div>
-                                        <div class="col-xs-8">
-                                            <p class="technical__val">1,195 cm&sup3; (72.92 cu in)</p>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-xs-4">
-                                            <h6 class="technical__title">Bore</h6>
-                                        </div>
-                                        <div class="col-xs-8">
-                                            <p class="technical__val">105 mm (4.13 in)</p>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-xs-4">
-                                            <h6 class="technical__title">Stroke</h6>
-                                        </div>
-                                        <div class="col-xs-8">
-                                            <p class="technical__val">69 mm (2.72 in)</p>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-xs-4">
-                                            <h6 class="technical__title">Performance</h6>
-                                        </div>
-                                        <div class="col-xs-8">
-                                            <p class="technical__val">132 kW (177 hp)</p>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-xs-4">
-                                            <h6 class="technical__title">Cold Start Device</h6>
-                                        </div>
-                                        <div class="col-xs-8">
-                                            <p class="technical__val">Electric starter</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="row">
-                        <div class="col-xs-5 wow fadeInLeft" data-wow-delay="0.7s" data-wow-duration="1.5s">
-                            <div class="featured__images">
-                                <a href="#"><img src="{{ asset('frontend/media/470x270/bmw.jpg') }}"
-                                        alt="bmw" class="img-responsive" /></a>
-                                <div class="video">
-                                    <img src="{{ asset('frontend/media/470x270/bmw.jpg') }}" alt="bmw"
-                                        class="img-responsive" />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xs-7 wow fadeInRight" data-wow-delay="0.7s" data-wow-duration="1.5s">
-                            <div class="featured__info">
-                                <h4><a href="#" class="no-decoration"><span>1190</span> RC8 R</a></h4>
-                                <p class="text">Nullam ac velit. Fusce consequat ipsum non ipsum. Nam ullamcorper
-                                    ipsum quis erat. Aliquam non elit. In vitae dui in dui sagittis cursus. Sed pede.In
-                                    vitae sapien. Integer tempus dolor a diam. Vivamus faucibus. </p>
-                                <div class="technical">
-                                    <h5>Technical Specifications:</h5>
-                                    <div class="row">
-                                        <div class="col-xs-4">
-                                            <h6 class="technical__title">Design</h6>
-                                        </div>
-                                        <div class="col-xs-8">
-                                            <p class="technical__val">2-cylinder 4-stroke Otto motor, 75&deg; V
-                                                arrangement, water-cooled</p>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-xs-4">
-                                            <h6 class="technical__title">Displacement</h6>
-                                        </div>
-                                        <div class="col-xs-8">
-                                            <p class="technical__val">1,195 cm&sup3; (72.92 cu in)</p>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-xs-4">
-                                            <h6 class="technical__title">Bore</h6>
-                                        </div>
-                                        <div class="col-xs-8">
-                                            <p class="technical__val">105 mm (4.13 in)</p>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-xs-4">
-                                            <h6 class="technical__title">Stroke</h6>
-                                        </div>
-                                        <div class="col-xs-8">
-                                            <p class="technical__val">69 mm (2.72 in)</p>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-xs-4">
-                                            <h6 class="technical__title">Performance</h6>
-                                        </div>
-                                        <div class="col-xs-8">
-                                            <p class="technical__val">132 kW (177 hp)</p>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-xs-4">
-                                            <h6 class="technical__title">Cold Start Device</h6>
-                                        </div>
-                                        <div class="col-xs-8">
-                                            <p class="technical__val">Electric starter</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </section><!--featured-->
-
-    <section class="listings">
-        <div class="container">
-            <header class="tab-header clearfix wow slideInLeft" data-wow-delay="0.7s" data-wow-duration="1.5s">
-                <h2 class="title title--main pull-left"><span class="title__bold">Biker</span>ClubListings<span
-                        class="line line--title"><span class="line__first"></span><span
-                            class="line__second"></span></span></h2>
-                <div class="tab-toggles pull-right js-isotope-btns">
-                    <a href="#" class="button button--grey button--main btn js-isotope-btn" data-sort-by="name">BY
-                        TYPE</a>
-                    <a href="#" class="button button--grey button--main btn button--active js-isotope-btn"
-                        data-sort-by='original-order'>BY NEWEST</a>
-                </div>
-            </header>
-            <p class="text text--anons wow slideInLeft" data-wow-delay="0.7s" data-wow-duration="1.5s">Nullam ac
-                velit. Fusce consequat ipsum non ipsum. Nam ullamcorper ipsum quis erat. Aliquam non elit. In vitae dui
-                sagittis cursus. Duis convallis rutrum mauris. Maecenas eu neque lacinia.</p>
-            <div class="row isotope">
-                <div class="col-md-3 col-xs-6 isotope-item wow zoomInUp" data-wow-delay="0.7s" data-wow-duration="1.5s">
-                    <a href="shop.html"
-                        class="listing-anons equal-height-item listing-anons--home triangle triangle--big line-down no-decoration">
-                        <div class="listing-anons__img">
-                            <img src="{{ asset('frontend/media/270x230/listing1.jpg') }}" class="img-responsive"
-                                alt="bike" />
-                        </div>
-                        <div class="listing-anons__title">
-                            <h4 class="name">DIRT BIKE MOTORCYCLES</h4>
-                        </div>
-                        <div class="listing-anons__hidden">
-                            <h3>DIRT BIKE MOTORCYCLES</h3>
-                            <p>Nunc molestie sapien temporplace</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-md-3 col-xs-6 isotope-item wow zoomInUp" data-wow-delay="0.7s" data-wow-duration="1.5s">
-                    <a href="shop.html"
-                        class="listing-anons equal-height-item listing-anons--home triangle triangle--big line-down no-decoration">
-                        <div class="listing-anons__img">
-                            <img src="{{ asset('frontend/media/270x230/listing3.jpg') }}" class="img-responsive"
-                                alt="bike" />
-                        </div>
-                        <div class="listing-anons__title">
-                            <h4 class="name">SPORTBIKE MOTORCYCLES</h4>
-                        </div>
-                        <div class="listing-anons__hidden">
-                            <h3>SPORTBIKE MOTORCYCLES</h3>
-                            <p>Nunc molestie sapien temporplace</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-md-3 col-xs-6 isotope-item wow zoomInUp" data-wow-delay="0.7s" data-wow-duration="1.5s">
-                    <a href="shop.html"
-                        class="listing-anons equal-height-item listing-anons--home triangle triangle--big line-down no-decoration">
-                        <div class="listing-anons__img">
-                            <img src="{{ asset('frontend/media/270x230/listing4.jpg') }}" class="img-responsive"
-                                alt="bike" />
-                        </div>
-                        <div class="listing-anons__title">
-                            <h4 class="name">CRUISER BIKES</h4>
-                        </div>
-                        <div class="listing-anons__hidden">
-                            <h3>CRUISER BIKES</h3>
-                            <p>Nunc molestie sapien temporplace</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-md-3 col-xs-6 isotope-item wow zoomInUp" data-wow-delay="0.7s" data-wow-duration="1.5s">
-                    <a href="shop.html"
-                        class="listing-anons equal-height-item listing-anons--home triangle triangle--big line-down no-decoration">
-                        <div class="listing-anons__img">
-                            <img src="{{ asset('frontend/media/270x230/listing2.jpg') }}" class="img-responsive"
-                                alt="bike" />
-                        </div>
-                        <div class="listing-anons__title">
-                            <h4 class="name">MINI &amp; POCKET BIKES</h4>
-                        </div>
-                        <div class="listing-anons__hidden">
-                            <h3>MINI &amp; POCKET BIKES</h3>
-                            <p>Nunc molestie sapien temporplace</p>
-                        </div>
-                    </a>
-                </div>
+    <!-- News Section -->
+    {{-- <section class="news-section">
+        <div class="auto-container">
+            <div class="sec-title text-center">
+                <span class="sub-title">News & Updates</span>
+                <h2>Latest news directly <br> from the <span class="color3">blog</span></h2>
             </div>
-        </div>
-    </section><!--listings-->
 
-    <section class="blog">
-        <div class="container-fluid no-padding">
-            <div class="row row--no-padding">
-                <div class="col-lg-4 col-xs-12 wow zoomInLeft" data-wow-delay="0.7s" data-wow-duration="1s">
-                    <div class="blog__info">
-                        <h2 class="title title--main"><span class="title__bold">BIKER</span>ClubBlog<span
-                                class="line line--small"><span class="line__second"></span><span
-                                    class="line__first"></span></span></h2>
-                        <p class="text">Nullam ac velit. Fusce consequat ipsum non ipsum. Nam ullamcorper ipsum quis
-                            erat am non sed ipsum elit.</p>
-                        <a href="blog.html" class="button btn button--main button--red">VISIT BLOG</a>
-                    </div>
-                </div>
-                <div class="col-lg-8 col-xs-12">
-                    <div class="row row--no-padding">
-                        <div class="col-sm-6 col-xs-12 wow zoomInDown" data-wow-delay="0.7s" data-wow-duration="1.5s">
-                            <a href="article.html" class="blog-anons no-decoration">
-                                <div class="blog-anons__img">
-                                    <img src="{{ asset('frontend/media/575x250/blog-anons1.jpg') }}"
-                                        class="img-responsive" alt="bike" />
-                                </div>
-                                <div class="blog-anons__hidden triangle triangle--bigger">
-                                    <div class="blog-anons__text">
-                                        <h3>AUGUE DUI CONVALLIS VAMUS</h3>
-                                        <div class="blog-anons__info">
-                                            <span><span class="fa fa-calendar-o"></span>MAR 23, 2015</span>
-                                            <span><span class="fa fa-comment-o"></span>20</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-sm-6 col-xs-12 wow zoomInUp" data-wow-delay="0.7s" data-wow-duration="2s">
-                            <a href="article.html" class="blog-anons no-decoration">
-                                <div class="blog-anons__img">
-                                    <img src="{{ asset('frontend/media/575x250/blog-anons3.jpg') }}"
-                                        class="img-responsive" alt="bike" />
-                                </div>
-                                <div class="blog-anons__hidden triangle triangle--bigger">
-                                    <div class="blog-anons__text">
-                                        <h3>AUGUE DUI CONVALLIS VAMUS</h3>
-                                        <div class="blog-anons__info">
-                                            <span><span class="fa fa-calendar-o"></span>MAR 23, 2015</span>
-                                            <span><span class="fa fa-comment-o"></span>20</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-sm-6 col-xs-12 wow zoomInRight" data-wow-delay="0.7s" data-wow-duration="1.5s">
-                            <a href="article.html" class="blog-anons no-decoration">
-                                <div class="blog-anons__img">
-                                    <img src="{{ asset('frontend/media/575x250/blog-anons2.jpg') }}"
-                                        class="img-responsive" alt="bike" />
-                                </div>
-                                <div class="blog-anons__hidden triangle triangle--bigger">
-                                    <div class="blog-anons__text">
-                                        <h3>AUGUE DUI CONVALLIS VAMUS</h3>
-                                        <div class="blog-anons__info">
-                                            <span><span class="fa fa-calendar-o"></span>MAR 23, 2015</span>
-                                            <span><span class="fa fa-comment-o"></span>20</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-sm-6 col-xs-12 wow zoomInUp" data-wow-delay="0.7s" data-wow-duration="2s">
-                            <a href="article.html" class="blog-anons no-decoration">
-                                <div class="blog-anons__img">
-                                    <img src="{{ asset('frontend/media/575x250/blog-anons4.jpg') }}"
-                                        class="img-responsive" alt="bike" />
-                                </div>
-                                <div class="blog-anons__hidden triangle triangle--bigger">
-                                    <div class="blog-anons__text">
-                                        <h3>AUGUE DUI CONVALLIS VAMUS</h3>
-                                        <div class="blog-anons__info">
-                                            <span><span class="fa fa-calendar-o"></span>MAR 23, 2015</span>
-                                            <span><span class="fa fa-comment-o"></span>20</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section><!--blog-->
-
-    <section class="partners">
-        <div class="container wow fadeInUp" data-wow-delay="0.7s" data-wow-duration="1.5s">
-            <h2 class="title title--main"><span class="title__bold">Biker</span>Club'sTrustedPartners<span
-                    class="line line--title line--center"><span class="line__first"></span><span
-                        class="line__second"></span></span></h2>
-            <p class="text--small">Nullam ac velit. Fusce consequat ipsum non ipsum. Nam ullamcorper ipsum quis erat.
-                Aliquam non elit vitae
-                dui sagittis cursus. Duis convallis rutrum mauris. Maecenas eu neque lacinia.</p>
             <div class="row">
-                <div class="col-xs-10 col-xs-offset-1">
-                    <div class="brand">
-                        <img src="{{ asset('frontend/media/logos/luxe.png') }}" alt="brand" />
-                    </div>
-                    <div class="brand">
-                        <img src="{{ asset('frontend/media/logos/wuezon.png') }}" alt="brand" />
-                    </div>
-                    <div class="brand">
-                        <img src="{{ asset('frontend/media/logos/motox.png') }}" alt="brand" />
-                    </div>
-                    <div class="brand">
-                        <img src="{{ asset('frontend/media/logos/dna.png') }}" alt="brand" />
-                    </div>
-                    <div class="brand">
-                        <img src="{{ asset('frontend/media/logos/mint.png') }}" alt="brand" />
+                <!-- News Block -->
+                <div class="news-block col-lg-4 col-md-6 col-sm-12 wow fadeInUp">
+                    <div class="inner-box">
+                        <div class="image-box">
+                            <figure class="image"><a href="news-details.html"><img
+                                        src="{{ asset('frontend/images/resource/news-1.jpg') }}" alt=""></a>
+                            </figure>
+                            <span class="date">30 <span class="month">March</span></span>
+                        </div>
+                        <div class="lower-content">
+                            <ul class="post-info">
+                                <li><i class="fa fa-user-circle"></i>Admin</li>
+                                <li><i class="fa fa-comments"></i> 2 Comments</li>
+                            </ul>
+                            <h4 class="title"><a href="news-details.html">Top 9 most demand jobs in canada</a>
+                            </h4>
+                            <div class="text">There are not many of passages of lorem ipsum available alteration
+                                in some form.</div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section><!--partners-->
 
-    <section class="signup">
-        <div class="container">
-            <div class="row wow fadeInUp" data-wow-delay="0.7s" data-wow-duration="1.5s">
-                <div class="col-lg-5 col-md-6 col-xs-12">
-                    <div class="signup__desc">
-                        <h2 class="title title--main"><span class="fa fa-envelope-o"></span><span
-                                class="title__bold">SIGNUP</span>ForNewsletter</h2>
-                        <p class="text--small">Subscribe to our weekly newsletter to get notified and stay updated with
-                            latest Bikes news and sporting </p>
-                    </div>
-                </div>
-                <div class="col-lg-7 col-md-6 col-xs-12">
-                    <form action="https://pro-theme.com/" method="post" class="sign-form">
-                        <div class="relative-pos">
-                            <div class="input-triangle"></div><input class="sign-input" type="text" name="sign"
-                                placeholder="Enter your email address" />
-                        </div>
-                        <button type="submit"
-                            class="btn button button--red button--sign triangle triangle--12">SUBSCRIBE</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section><!--signup-->
 
-    <section class="link">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-10 col-md-offset-1 col-xs-12">
-                    <div class="row">
-                        <div class="col-xs-4 wow zoomInLeft" data-wow-delay="0.7s" data-wow-duration="1.5s">
-                            <div class="link__phone">
-                                <div class="link__square triangle triangle--12">
-                                    <span class="fa fa-mobile"></span>
-                                </div>
-                                <h3>PHONE</h3>
-                                <p>01316017328</p>
-                            </div>
+                <!-- News Block -->
+                <div class="news-block col-lg-4 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="300ms">
+                    <div class="inner-box">
+                        <div class="image-box">
+                            <figure class="image"><a href="news-details.html"><img
+                                        src="{{ asset('frontend/images/resource/news-2.jpg') }}" alt=""></a>
+                            </figure>
+                            <span class="date">30 <span class="month">March</span></span>
                         </div>
-                        <div class="col-xs-4 wow zoomInUp" data-wow-delay="0.7s" data-wow-duration="1.5s">
-                            <div class="link__phone">
-                                <div class="link__square triangle triangle--12">
-                                    <span class="fa fa-map-marker"></span>
-                                </div>
-                                <h3>ADDRESS</h3>
-                                <p>Link Road,Shamoli,Dhaka</p>
-                            </div>
+                        <div class="lower-content">
+                            <ul class="post-info">
+                                <li><i class="fa fa-user-circle"></i>Admin</li>
+                                <li><i class="fa fa-comments"></i> 2 Comments</li>
+                            </ul>
+                            <h4 class="title"><a href="news-details.html">Top 9 most demand jobs in canada</a>
+                            </h4>
+                            <div class="text">There are not many of passages of lorem ipsum available alteration
+                                in some form.</div>
                         </div>
-                        <div class="col-xs-4 wow zoomInRight" data-wow-delay="0.7s" data-wow-duration="1.5s">
-                            <div class="link__phone">
-                                <div class="link__square triangle triangle--12">
-                                    <span class="fa fa-envelope-o"></span>
-                                </div>
-                                <h3>EMAIL</h3>
-                                <p>bbykersociety@gmail.com</p>
-                            </div>
+                    </div>
+                </div>
+
+                <!-- News Block -->
+                <div class="news-block col-lg-4 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="600ms">
+                    <div class="inner-box">
+                        <div class="image-box">
+                            <figure class="image"><a href="news-details.html"><img
+                                        src="{{ asset('frontend/images/resource/news-3.jpg') }}" alt=""></a>
+                            </figure>
+                            <span class="date">30 <span class="month">March</span></span>
+                        </div>
+                        <div class="lower-content">
+                            <ul class="post-info">
+                                <li><i class="fa fa-user-circle"></i>Admin</li>
+                                <li><i class="fa fa-comments"></i> 2 Comments</li>
+                            </ul>
+                            <h4 class="title"><a href="news-details.html">Top 9 most demand jobs in canada</a>
+                            </h4>
+                            <div class="text">There are not many of passages of lorem ipsum available alteration
+                                in some form.</div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section><!--link-->
+    </section> --}}
+    <!--End News Section -->
 @endsection

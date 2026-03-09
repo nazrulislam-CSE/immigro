@@ -24,7 +24,7 @@ class FrontendController extends Controller
         $sliders = Slider::where('status',1)->latest()->get();
         $about = About::where('status', 1)->latest()->first();
         $teams = Team::orderBy('id','ASC')->where('status',1)->latest()->get();
-        $testimonials = Testimonial::where('status',1)->latest()->get();
+        $testimonials  = Testimonial::where('status',1)->latest()->get();
         $counters = Counter::where('status',1)->latest()->get();
         $services = Service::where('status',1)->latest()->get();
         $gallerys  = Gallery::where('status',1)->latest()->get();
@@ -33,7 +33,7 @@ class FrontendController extends Controller
         $pageTitle = 'Best Bikers Club Bangladesh';
 
 
-        return view('frontend.index',compact('sliders','about','teams','counters','services','gallerys','pageTitle','partners','notices'));
+        return view('frontend.index',compact('sliders','about','teams','counters','services','gallerys','pageTitle','partners','notices','testimonials'));
     }
 
     /* =========== SINGLE STUDY ABROAD SHOW ===========*/

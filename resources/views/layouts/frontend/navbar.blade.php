@@ -1,136 +1,224 @@
- <header id="header-top" class="top-header">
-     <div class="container">
-         <div class="top-header__main wow slideInDown" data-wow-delay="0.7s" data-wow-duration="1.5s">
-             <div class="row">
-                 <div class="col-xs-4">
-                     <div class="social social--top clearfix">
-                         <a href="#" class="social__one square">
-                             <span class="fa fa-twitter"></span>
-                         </a>
-                         <a href="#" class="social__one square">
-                             <span class="fa fa-facebook"></span>
-                         </a>
-                         <a href="#" class="social__one square">
-                             <span class="fa fa-google-plus"></span>
-                         </a>
-                         <a href="#" class="social__one square">
-                             <span class="fa fa-pinterest"></span>
-                         </a>
-                         <a href="#" class="social__one square">
-                             <span class="fa fa-instagram"></span>
-                         </a>
-                     </div>
-                 </div>
-                 <div class="col-xs-8">
-                     <div class="header-contacts clearfix">
-                         <div class="header-contacts__one">
-                             <a href="contacts.html" class="header-contacts__phone square">
-                                 <span class="fa fa-phone"></span>
-                             </a>
-                             <a href="contacts.html" class="header-contacts__link">01316017328</a>
-                         </div>
-                         <div class="header-contacts__one">
-                             <a href="contacts.html" class="header-contacts__email square">
-                                 <span class="fa fa-envelope"></span>
-                             </a>
-                             <a href="contacts.html" class="header-contacts__link">bbykersociety@gmail.com</a>
-                         </div>
-                     </div>
-                 </div>
-             </div>
-         </div>
-     </div>
- </header><!--top-header-->
+@php
+    $menuitems = App\Models\Menuitem::with(['subMenus.childMenus'])
+        ->whereNull('parent_id')
+        ->whereHas('get_menu', function ($query) {
+            $query->where('location', 'main_header');
+        })
+        ->orderby('position', 'asc')
+        ->get();
+    $currentUrl = request()->url();
+@endphp
+<header class="main-header header-style-one">
+    <!-- Header Top -->
+    <div class="header-top">
+        <div class="inner-container">
 
- <nav class="top-nav">
-     <div class="container">
-         <div class="top-nav__main">
-             <div class="row">
-                 <div class="col-md-3 col-xs-12">
-                     <a href="{{ route('frontend.home') }}" class="logo">
-                         <span class="logo__moto">
-                             <img src="{{ asset('frontend/images/svg/logo.svg') }}" alt="logo">
-                         </span>
-                         <h2 class="logo__title">
-                             BIKER<span>Club</span>
-                         </h2>
-                     </a>
-                 </div>
-                 <div class="col-md-9 col-xs-12">
-                     <div class="main-nav navbar-main-slide">
-                         <a href="#" class="btn_header_search main-nav__search no-decoration">
-                             <span class="fa fa-search"></span>
-                         </a>
-                         <div class="navbar-header">
-                             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#nav">
-                                 <span class="sr-only">Toggle navigation</span>
-                                 <span class="icon-bar"></span>
-                                 <span class="icon-bar"></span>
-                                 <span class="icon-bar"></span>
-                             </button>
-                         </div>
-                         <ul class="collapse navbar-collapse navbar-nav-menu" id="nav">
-                             <li class="dropdown">
-                                 <a class="no-decoration dropdown-toggle" data-toggle="dropdown"
-                                     href="home-main.html">Home <i class="fa fa-angle-down"></i></a>
-                                 <span class="main-nav__separator"><span></span><span></span><span></span></span>
-                                 <ul class="dropdown-menu">
-                                     <li><a href="home-main.html">Home 1</a></li>
-                                     <li class="dropdown submenu-item">
-                                         <a href="#">Home 2 <i class="fa fa-angle-down"></i></a>
-                                         <ul class="dropdown-menu">
-                                             <li><a href="#">Home 2.1</a></li>
-                                             <li><a href="#">Home 2.2</a></li>
-                                             <li><a href="#">Home 2.3</a></li>
-                                             <li><a href="#">Home 2.4</a></li>
-                                         </ul>
-                                     </li>
-                                     <li><a href="home2.html">Home 3</a></li>
-                                 </ul>
-                             </li>
-                             <li><a class="no-decoration" href="about.html">About us</a><span
-                                     class="main-nav__separator"><span></span><span></span><span></span></span></li>
-                             <li><a class="no-decoration" href="article.html">Services</a><span
-                                     class="main-nav__separator"><span></span><span></span><span></span></span></li>
-                             <li><a class="no-decoration" href="blog.html">Blog</a><span
-                                     class="main-nav__separator"><span></span><span></span><span></span></span></li>
-                             <li><a class="no-decoration" href="contacts.html">Contact</a><span
-                                     class="main-nav__separator"><span></span><span></span><span></span></span></li>
-                             <li><a class="no-decoration" href="shop.html">Shop</a></li>
-                                @if(Auth::guard('admin')->check())
-                                    {{-- Admin logged in --}}
-                                    <li>
-                                        <a class="no-decoration" href="{{ route('admin.admin.home') }}">
-                                            Dashboard
-                                        </a>
-                                    </li>
+            <div class="top-left">
+                <!-- Info List -->
+                <ul class="list-style-one">
+                    <li><i class="fa fa-envelope"></i> <a
+                            href="mailto:{{ get_setting('email')->value ?? '' }}">{{ get_setting('email')->value ?? '' }}</a>
+                    </li>
+                    <li><i class="fa fa-map-marker"></i> {{ get_setting('business_address')->value ?? '' }}</li>
+                    <li><i class="fa fa-clock"></i> {{ get_setting('business_hours')->value ?? '' }}</li>
+                </ul>
+            </div>
 
-                                @elseif(Auth::check())
-                                    {{-- Normal user logged in --}}
-                                    <li>
-                                        <a class="no-decoration" href="{{ route('user.home') }}">
-                                            Dashboard
-                                        </a>
-                                    </li>
+            <div class="top-right">
+                <ul class="social-icon-one">
+                    <li><a target="_blank" href="{{ get_setting('facebook_url')->value ?? '' }}"><span
+                                class="fab fa-facebook-f"></span></a></li>
+                    <li><a target="_blank" href="{{ get_setting('pinterest_url')->value ?? '' }}"><span
+                                class="fab fa-pinterest-p"></span></a></li>
+                    <li><a target="_blank" href="{{ get_setting('instagram_url')->value ?? '' }}"><span
+                                class="fab fa-instagram"></span></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- Header Top -->
 
+    <!-- Header Lower -->
+    <div class="header-lower">
+        <!-- Main box -->
+        <div class="main-box">
+            <div class="logo-box">
+                <div class="logo"><a href="{{ route('frontend.home') }}"><img
+                            src="{{ asset(get_setting('site_logo')->value ?? 'frontend/images/logo.png') }}"
+                            alt="" title=""></a>
+                </div>
+            </div>
+
+            @php
+                $currentUrl = request()->path(); // or use request()->url() or Route::currentRouteName() based on your routes
+            @endphp
+            <!--Nav Box-->
+            <div class="nav-outer">
+
+                <nav class="nav main-menu">
+                    <ul class="navigation">
+                        @if (count($menuitems) == 0)
+                            @for ($i = 1; $i < 6; $i++)
+                                <li><a href="#">Default Menu {{ $i }}</a></li>
+                            @endfor
+                        @endif
+                        @foreach ($menuitems as $menuitem)
+                            @php
+                                $isActiveParent = false;
+                                // Check if the parent menu is active
+                                if ($menuitem->url == 'home-page' && request()->routeIs('frontend.home')) {
+                                    $isActiveParent = true;
+                                } elseif (request()->is("menu/{$menuitem->url}")) {
+                                    $isActiveParent = true;
+                                } else {
+                                    // Check if any child submenu is active
+                                    foreach ($menuitem->subMenus as $subMenu) {
+                                        if (request()->is("menu/{$subMenu->url}")) {
+                                            $isActiveParent = true;
+                                            break;
+                                        }
+                                    }
+                                }
+                            @endphp
+                            <li class="dropdown {{ $isActiveParent ? 'active show' : '' }}">
+                                @if ($menuitem->url == 'home-page')
+                                    <a href="{{ route('frontend.home') }}">{{ $menuitem->title ?? '' }}</a>
                                 @else
-                                    {{-- Nobody logged in --}}
-                                    <li><a class="no-decoration" href="{{ route('login') }}">Login</a></li>
-                                    <li><a class="no-decoration" href="{{ route('register') }}">Register</a></li>
+                                    <a
+                                        href="{{ route('menu.page', $menuitem->url) }}">{{ $menuitem->title ?? '' }}</a>
                                 @endif
-                         </ul>
-                         <div class="search-form-modal transition">
-                             <form class="navbar-form header_search_form">
-                                 <i class="fa fa-times search-form_close"></i>
-                                 <div class="form-group">
-                                     <input type="text" class="form-control" placeholder="Search">
-                                 </div>
-                                 <button type="submit" class="btn btn_search customBgColor">Search</button>
-                             </form>
-                         </div>
-                     </div>
-                 </div>
-             </div>
-         </div>
-     </div>
- </nav><!--top-nav-->
+                                @if (count($menuitem->subMenus) > 0)
+                                    <ul>
+                                        @foreach ($menuitem->subMenus as $subMenu)
+                                            <li class="{{ request()->is("menu/{$subMenu->url}") ? 'active' : '' }}"><a
+                                                    href="{{ route('menu.page', $subMenu->url) }}">{{ $subMenu->title ?? '' }}</a>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                @endif
+                            </li>
+                        @endforeach
+                    </ul>
+                </nav>
+                <!-- Main Menu End-->
+
+                <div class="outer-box">
+                    <a href="tel:{{ get_setting('phone')->value ?? '' }}" class="info-btn">
+                        <img src="{{ asset('frontend/images/icons/icon-phone.png') }}" alt="" class="icon">
+                        <small>Call Anytime</small>
+                        <strong>{{ get_setting('phone')->value ?? '' }}</strong>
+                    </a>
+
+                    <div class="ui-btn-outer">
+                        <button class="ui-btn ui-btn search-btn">
+                            <span class="icon lnr lnr-icon-search"></span>
+                        </button>
+                    </div>
+
+                    <a href="#" class="theme-btn btn-style-one"><span class="btn-title">Book
+                            Consultation</span></a>
+
+                    <!-- Mobile Nav toggler -->
+                    <div class="mobile-nav-toggler"><span class="icon lnr-icon-bars"></span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Header Lower -->
+
+    <!-- Mobile Menu  -->
+    <div class="mobile-menu">
+        <div class="menu-backdrop"></div>
+
+        <!--Here Menu Will Come Automatically Via Javascript / Same Menu as in Header-->
+        <nav class="menu-box">
+            <div class="upper-box">
+                <div class="nav-logo"><a href="{{ route('home') }}"><img src="{{ asset(get_setting('site_logo')->value ?? 'frontend/images/logo.png') }}"
+                            alt="" title=""></a>
+                </div>
+                <div class="close-btn"><i class="icon fa fa-times"></i></div>
+            </div>
+
+            <ul class="navigation clearfix">
+                <!--Keep This Empty / Menu will come through Javascript-->
+            </ul>
+            <ul class="contact-list-one">
+                <li>
+                    <!-- Contact Info Box -->
+                    <div class="contact-info-box">
+                        <i class="icon lnr-icon-phone-handset"></i>
+                        <span class="title">Call Now</span>
+                        <a href="tel:{{ get_setting('phone')->value ?? '' }}">{{ get_setting('phone')->value ?? '' }}</a>
+                    </div>
+                </li>
+                <li>
+                    <!-- Contact Info Box -->
+                    <div class="contact-info-box">
+                        <span class="icon lnr-icon-envelope1"></span>
+                        <span class="title">Send Email</span>
+                        <a href="mailto:{{ get_setting('email')->value ?? '' }}">{{ get_setting('email')->value ?? '' }}</a>
+                    </div>
+                </li>
+                <li>
+                    <!-- Contact Info Box -->
+                    <div class="contact-info-box">
+                        <span class="icon lnr-icon-clock"></span>
+                        <span class="title">Send Email</span>
+                        {{ get_setting('business_hours')->value ?? '' }}
+                    </div>
+                </li>
+            </ul>
+
+
+            <ul class="social-links">
+                <li><a target="_blank" href="{{ get_setting('facebook_url')->value ?? '' }}"><i class="fab fa-facebook-f"></i></a></li>
+                <li><a target="_blank" href="{{ get_setting('pinterest_url')->value ?? '' }}"><i class="fab fa-pinterest"></i></a></li>
+                <li><a target="_blank" href="{{ get_setting('instagram_url')->value ?? '' }}"><i class="fab fa-instagram"></i></a></li>
+            </ul>
+        </nav>
+    </div><!-- End Mobile Menu -->
+
+    <!-- Header Search -->
+    <div class="search-popup">
+        <span class="search-back-drop"></span>
+        <button class="close-search"><span class="fa fa-times"></span></button>
+
+        <div class="search-inner">
+            <form method="post" action="#">
+                <div class="form-group">
+                    <input type="search" name="search-field" value="" placeholder="Search..." required="">
+                    <button type="submit"><i class="fa fa-search"></i></button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- End Header Search -->
+
+    <!-- Sticky Header  -->
+    <div class="sticky-header">
+        <div class="auto-container">
+            <div class="inner-container">
+                <!--Logo-->
+                <div class="logo">
+                    <a href="{{ route('frontend.home') }}" title=""><img src="{{ asset(get_setting('site_logo')->value ?? 'frontend/images/logo.png') }}"
+                            alt="" title=""></a>
+                </div>
+
+                <!--Right Col-->
+                <div class="nav-outer">
+                    <!-- Main Menu -->
+                    <nav class="main-menu">
+                        <div class="navbar-collapse show collapse clearfix">
+                            <ul class="navigation clearfix">
+                                <!--Keep This Empty / Menu will come through Javascript-->
+                            </ul>
+                        </div>
+                    </nav><!-- Main Menu End-->
+
+                    <!--Mobile Navigation Toggler-->
+                    <div class="mobile-nav-toggler"><span class="icon lnr-icon-bars"></span></div>
+                </div>
+            </div>
+        </div>
+    </div><!-- End Sticky Menu -->
+</header>

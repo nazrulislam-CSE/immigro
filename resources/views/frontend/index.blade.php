@@ -416,6 +416,52 @@
     </section>
     <!--End Countries Section Two -->
 
+    <!-- Teams Section -->
+    <!-- Page Content -->
+    <section class="page-content py-5">
+        <div class="container">
+
+            <!-- Section Title -->
+            <div class="row mb-5">
+                <div class="col-12 text-center">
+                    <h2 class="fw-bold">Our Team</h2>
+                    <p class="text-muted">Meet our professional team members</p>
+                </div>
+            </div>
+
+            <div class="row">
+                @foreach ($teams as $team)
+                    <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                        <div class="card h-100 text-center shadow-lg border-0">
+
+                            <img src="{{ !empty($team->image) ? url('upload/team/' . $team->image) : url('upload/avatar5.png') }}"
+                                class="card-img-top rounded-top" alt="{{ $team->name }}">
+
+                            <div class="card-body">
+                                <h5 class="card-title mb-1">{{ $team->name }}</h5>
+
+                                <p class="text-muted mb-2">
+                                    {{ $team->designation }}
+                                </p>
+
+                                <p class="mb-1">
+                                    <i class="fa fa-phone"></i> {{ $team->phone }}
+                                </p>
+
+                                <p class="small text-muted mb-0">
+                                    {{ $team->address }}
+                                </p>
+                            </div>
+
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+
+        </div>
+    </section>
+    <!-- End Teams Section -->
+
     <!-- Clients Section   -->
     <section class="clients-section">
         <div class="auto-container">

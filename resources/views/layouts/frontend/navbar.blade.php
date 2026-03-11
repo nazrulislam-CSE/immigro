@@ -80,7 +80,7 @@
                                     }
                                 }
                             @endphp
-                            <li class="dropdown {{ $isActiveParent ? 'active show' : '' }}">
+                            <li class="{{ $isActiveParent ? 'active show' : '' }}">
                                 @if ($menuitem->url == 'home-page')
                                     <a href="{{ route('frontend.home') }}">{{ $menuitem->title ?? '' }}</a>
                                 @else
@@ -98,6 +98,9 @@
                                 @endif
                             </li>
                         @endforeach
+                        <li>
+                            <a href="/admin/login">Login</a>
+                        </li>
                     </ul>
                 </nav>
                 <!-- Main Menu End-->

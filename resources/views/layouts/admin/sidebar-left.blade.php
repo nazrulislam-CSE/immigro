@@ -259,6 +259,42 @@
                 </li>
                 @endif
 
+                 {{-- Training Section --}}
+                @if($isSuperAdmin || $admin->canAny(['view Gallery', 'create Gallery', 'edit Gallery', 'delete Gallery']))
+                <li class="slide {{ Request::is('admin/training*') ? 'is-expanded' : '' }}">
+                    <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0);">
+                        <i class="side-menu__icon fas fa fa-ambulance"></i>
+                        <span class="side-menu__label">Training</span>
+                        <i class="angle fe fe-chevron-down hor-angle"></i>
+                    </a>
+                    <ul class="slide-menu">
+                        <li class="side-menu__label1"><a href="javascript:void(0);">Training</a></li>
+                        @if($isSuperAdmin || $admin->can('view Gallery'))
+                        <li><a class="slide-item {{ Request::is('admin/training/store') ? 'active' : '' }}"
+                                href="{{ route('admin.training.index') }}">Training List</a></li>
+                        @endif
+                    </ul>
+                </li>
+                @endif
+                
+                {{-- country Section --}}
+                @if($isSuperAdmin || $admin->canAny(['view Gallery', 'create Gallery', 'edit Gallery', 'delete Gallery']))
+                <li class="slide {{ Request::is('admin/country*') ? 'is-expanded' : '' }}">
+                    <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0);">
+                        <i class="side-menu__icon fas fa fa-ambulance"></i>
+                        <span class="side-menu__label">Country</span>
+                        <i class="angle fe fe-chevron-down hor-angle"></i>
+                    </a>
+                    <ul class="slide-menu">
+                        <li class="side-menu__label1"><a href="javascript:void(0);">Country</a></li>
+                        @if($isSuperAdmin || $admin->can('view Gallery'))
+                        <li><a class="slide-item {{ Request::is('admin/country/store') ? 'active' : '' }}"
+                                href="{{ route('admin.country.index') }}">Country List</a></li>
+                        @endif
+                    </ul>
+                </li>
+                @endif
+
                 {{-- Sections Module --}}
                 @if($isSuperAdmin || $admin->canAny(['view Sections', 'create Sections', 'edit Sections', 'delete Sections']))
                 <li class="slide {{ Request::is('admin/sections*') ? 'is-expanded' : '' }}">

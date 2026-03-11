@@ -33,6 +33,8 @@ use App\Http\Controllers\Admin\StaffPaymentController;
 use App\Http\Controllers\Admin\StaffAttendanceController;
 use App\Http\Controllers\Admin\SupplierPaymentController;
 use App\Http\Controllers\Admin\StaffPermissionController;
+use App\Http\Controllers\Admin\TrainingController;
+use App\Http\Controllers\Admin\CountryController;
 
 
 
@@ -313,6 +315,26 @@ Route::middleware('admin')->group(function () {
     Route::get('staff/permissions/{id}/edit', [StaffPermissionController::class, 'edit'])->name('staff.permissions.edit');
     Route::post('staff/permissions/{id}', [StaffPermissionController::class, 'update'])->name('staff.permissions.update');
     Route::get('staff/permissions/{id}', [StaffPermissionController::class, 'show'])->name('staff.permissions.show');
+
+    /* ============> Manage Training   <=========== */
+    Route::prefix('training')->group(function () {
+        Route::get('/index', [TrainingController::class, 'index'])->name('training.index');
+        Route::get('/create', [TrainingController::class, 'create'])->name('training.create');
+        Route::post('/store', [TrainingController::class, 'store'])->name('training.store');
+        Route::get('/edit/{id}', [TrainingController::class, 'edit'])->name('training.edit');
+        Route::post('/update/{id}', [TrainingController::class, 'update'])->name('training.update');
+        Route::get('/delete/{id}', [TrainingController::class, 'destroy'])->name('training.delete');
+        Route::get('/show/{id}', [TrainingController::class,'show'])->name('training.show');
+
+    });
+
+    /* ============> Manage Country   <=========== */
+    Route::prefix('country')->group(function () {
+        Route::get('/index', [CountryController::class, 'index'])->name('country.index');
+        Route::post('/store', [CountryController::class, 'store'])->name('country.store');
+        Route::post('/update/{id}', [CountryController::class, 'update'])->name('country.update');
+        Route::get('/delete/{id}', [CountryController::class, 'destroy'])->name('country.delete');
+    });
     
 
 });

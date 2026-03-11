@@ -212,81 +212,33 @@
 
             <div class="carousel-outer">
                 <div class="training-carousel owl-carousel owl-theme">
-                    <!-- Training Block -->
-                    <div class="training-block">
-                        <div class="inner-box">
-                            <div class="image-box">
-                                <figure class="image"><img src="{{ asset('frontend/images/resource/training-1.jpg') }}"
-                                        alt=""></figure>
-                                <div class="overlay"><a href="page-course-details.html" class="read-more"><i
-                                            class="fa fa-long-arrow-alt-right"></i></a></div>
-                            </div>
-                            <div class="lower-content">
-                                <a href="page-course-details.html" class="read-more"><i
-                                        class="fa fa-long-arrow-alt-right"></i></a>
-                                <h5 class="title"><a href="page-course-details.html">Citizenship Test</a></h5>
-                                <div class="text">There are many variations of passages of available, but the
-                                    majority have suffered freedom alteration.</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Training Block -->
-                    <div class="training-block">
-                        <div class="inner-box">
-                            <div class="image-box">
-                                <figure class="image"><img src="{{ asset('frontend/images/resource/training-2.jpg') }}"
-                                        alt=""></figure>
-                                <div class="overlay"><a href="page-course-details.html" class="read-more"><i
-                                            class="fa fa-long-arrow-alt-right"></i></a></div>
-                            </div>
-                            <div class="lower-content">
-                                <a href="page-course-details.html" class="read-more"><i
-                                        class="fa fa-long-arrow-alt-right"></i></a>
-                                <h5 class="title"><a href="page-course-details.html">Take IELTS</a></h5>
-                                <div class="text">There are many variations of passages of available, but the
-                                    majority have suffered freedom alteration.</div>
+                    @foreach ($trainings as $training)
+                        <!-- Training Block -->
+                        <div class="training-block">
+                            <div class="inner-box">
+                                <div class="image-box">
+                                    <figure class="image">
+                                        <img src="{{ asset('storage/' . $training->image) }}"
+                                            alt="{{ $training->title }}">
+                                    </figure>
+                                    <div class="overlay">
+                                        <a href="{{ $training->link ?? '#' }}" class="read-more">
+                                            <i class="fa fa-long-arrow-alt-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="lower-content">
+                                    <a href="{{ $training->link ?? '#' }}" class="read-more">
+                                        <i class="fa fa-long-arrow-alt-right"></i>
+                                    </a>
+                                    <h5 class="title">
+                                        <a href="{{ $training->link ?? '#' }}">{{ $training->title }}</a>
+                                    </h5>
+                                    <div class="text">{{ $training->description }}</div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-
-                    <!-- Training Block -->
-                    <div class="training-block">
-                        <div class="inner-box">
-                            <div class="image-box">
-                                <figure class="image"><img src="{{ asset('frontend/images/resource/training-3.jpg') }}"
-                                        alt=""></figure>
-                                <div class="overlay"><a href="page-course-details.html" class="read-more"><i
-                                            class="fa fa-long-arrow-alt-right"></i></a></div>
-                            </div>
-                            <div class="lower-content">
-                                <a href="page-course-details.html" class="read-more"><i
-                                        class="fa fa-long-arrow-alt-right"></i></a>
-                                <h5 class="title"><a href="page-course-details.html">PTE Coaching</a></h5>
-                                <div class="text">There are many variations of passages of available, but the
-                                    majority have suffered freedom alteration.</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Training Block -->
-                    <div class="training-block">
-                        <div class="inner-box">
-                            <div class="image-box">
-                                <figure class="image"><img src="{{ asset('frontend/images/resource/training-1.jpg') }}"
-                                        alt=""></figure>
-                                <div class="overlay"><a href="page-course-details.html" class="read-more"><i
-                                            class="fa fa-long-arrow-alt-right"></i></a></div>
-                            </div>
-                            <div class="lower-content">
-                                <a href="page-course-details.html" class="read-more"><i
-                                        class="fa fa-long-arrow-alt-right"></i></a>
-                                <h5 class="title"><a href="page-course-details.html">Citizenship Test</a></h5>
-                                <div class="text">There are many variations of passages of available, but the
-                                    majority have suffered freedom alteration.</div>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>
@@ -442,59 +394,22 @@
             <div class="carousel-outer">
                 <!-- Countries Carousel -->
                 <div class="countries-carousel owl-carousel owl-theme">
-                    <!-- Country Block-->
-                    <div class="country-block">
-                        <div class="inner-box">
-                            <div class="flag"><img src="{{ asset('frontend/images/resource/flag-1.png') }}"
-                                    alt=""></div>
-                            <a href="page-country-details.html" class="theme-btn">Australia</a>
+                    @foreach ($countries as $country)
+                        <!-- Country Block-->
+                        <div class="country-block">
+                            <div class="inner-box">
+                                <div class="flag">
+                                    @if ($country->flag)
+                                        <img src="{{ asset('storage/' . $country->flag) }}"
+                                            alt="{{ $country->name }} flag">
+                                    @else
+                                        <span>No flag</span>
+                                    @endif
+                                </div>
+                                <a href="{{ $country->link ?? '#' }}" class="theme-btn">{{ $country->name }}</a>
+                            </div>
                         </div>
-                    </div>
-
-                    <!-- Country Block-->
-                    <div class="country-block">
-                        <div class="inner-box">
-                            <div class="flag"><img src="{{ asset('frontend/images/resource/flag-2.png') }}"
-                                    alt=""></div>
-                            <a href="page-country-details.html" class="theme-btn">Germany</a>
-                        </div>
-                    </div>
-
-                    <!-- Country Block-->
-                    <div class="country-block">
-                        <div class="inner-box">
-                            <div class="flag"><img src="{{ asset('frontend/images/resource/flag-3.png') }}"
-                                    alt=""></div>
-                            <a href="page-country-details.html" class="theme-btn">Brazil</a>
-                        </div>
-                    </div>
-
-                    <!-- Country Block-->
-                    <div class="country-block">
-                        <div class="inner-box">
-                            <div class="flag"><img src="{{ asset('frontend/images/resource/flag-4.png') }}"
-                                    alt=""></div>
-                            <a href="page-country-details.html" class="theme-btn">Russia</a>
-                        </div>
-                    </div>
-
-                    <!-- Country Block-->
-                    <div class="country-block">
-                        <div class="inner-box">
-                            <div class="flag"><img src="{{ asset('frontend/images/resource/flag-5.png') }}"
-                                    alt=""></div>
-                            <a href="page-country-details.html" class="theme-btn">England</a>
-                        </div>
-                    </div>
-
-                    <!-- Country Block-->
-                    <div class="country-block">
-                        <div class="inner-box">
-                            <div class="flag"><img src="{{ asset('frontend/images/resource/flag-6.png') }}"
-                                    alt=""></div>
-                            <a href="page-country-details.html" class="theme-btn">India</a>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>
@@ -764,84 +679,4 @@
         </div>
     </section>
     <!-- End Contact Section -->
-
-    <!-- News Section -->
-    {{-- <section class="news-section">
-        <div class="auto-container">
-            <div class="sec-title text-center">
-                <span class="sub-title">News & Updates</span>
-                <h2>Latest news directly <br> from the <span class="color3">blog</span></h2>
-            </div>
-
-            <div class="row">
-                <!-- News Block -->
-                <div class="news-block col-lg-4 col-md-6 col-sm-12 wow fadeInUp">
-                    <div class="inner-box">
-                        <div class="image-box">
-                            <figure class="image"><a href="news-details.html"><img
-                                        src="{{ asset('frontend/images/resource/news-1.jpg') }}" alt=""></a>
-                            </figure>
-                            <span class="date">30 <span class="month">March</span></span>
-                        </div>
-                        <div class="lower-content">
-                            <ul class="post-info">
-                                <li><i class="fa fa-user-circle"></i>Admin</li>
-                                <li><i class="fa fa-comments"></i> 2 Comments</li>
-                            </ul>
-                            <h4 class="title"><a href="news-details.html">Top 9 most demand jobs in canada</a>
-                            </h4>
-                            <div class="text">There are not many of passages of lorem ipsum available alteration
-                                in some form.</div>
-                        </div>
-                    </div>
-                </div>
-
-
-                <!-- News Block -->
-                <div class="news-block col-lg-4 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="300ms">
-                    <div class="inner-box">
-                        <div class="image-box">
-                            <figure class="image"><a href="news-details.html"><img
-                                        src="{{ asset('frontend/images/resource/news-2.jpg') }}" alt=""></a>
-                            </figure>
-                            <span class="date">30 <span class="month">March</span></span>
-                        </div>
-                        <div class="lower-content">
-                            <ul class="post-info">
-                                <li><i class="fa fa-user-circle"></i>Admin</li>
-                                <li><i class="fa fa-comments"></i> 2 Comments</li>
-                            </ul>
-                            <h4 class="title"><a href="news-details.html">Top 9 most demand jobs in canada</a>
-                            </h4>
-                            <div class="text">There are not many of passages of lorem ipsum available alteration
-                                in some form.</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- News Block -->
-                <div class="news-block col-lg-4 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="600ms">
-                    <div class="inner-box">
-                        <div class="image-box">
-                            <figure class="image"><a href="news-details.html"><img
-                                        src="{{ asset('frontend/images/resource/news-3.jpg') }}" alt=""></a>
-                            </figure>
-                            <span class="date">30 <span class="month">March</span></span>
-                        </div>
-                        <div class="lower-content">
-                            <ul class="post-info">
-                                <li><i class="fa fa-user-circle"></i>Admin</li>
-                                <li><i class="fa fa-comments"></i> 2 Comments</li>
-                            </ul>
-                            <h4 class="title"><a href="news-details.html">Top 9 most demand jobs in canada</a>
-                            </h4>
-                            <div class="text">There are not many of passages of lorem ipsum available alteration
-                                in some form.</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section> --}}
-    <!--End News Section -->
 @endsection

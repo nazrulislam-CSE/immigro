@@ -15,6 +15,8 @@ use App\Models\Service;
 use App\Models\Gallery;
 use App\Models\Counter;
 use App\Models\Notice;
+use App\Models\Training;
+use App\Models\Country;
 use Illuminate\Support\Carbon;
 
 class FrontendController extends Controller
@@ -30,10 +32,12 @@ class FrontendController extends Controller
         $gallerys  = Gallery::where('status',1)->latest()->get();
         $partners  = Partner::where('status',1)->latest()->get();
         $notices = Notice::where('status', 1)->orderBy('date', 'desc')->get();
-        $pageTitle = 'Best Bikers Club Bangladesh';
+        $trainings = Training::active()->ordered()->get();
+        $countries = Country::active()->ordered()->get();
+        $pageTitle = 'Best Visa Services Bangladesh';
 
 
-        return view('frontend.index',compact('sliders','about','teams','counters','services','gallerys','pageTitle','partners','notices','testimonials'));
+        return view('frontend.index',compact('sliders','about','teams','counters','services','gallerys','pageTitle','partners','notices','testimonials','trainings','countries'));
     }
 
     /* =========== SINGLE STUDY ABROAD SHOW ===========*/

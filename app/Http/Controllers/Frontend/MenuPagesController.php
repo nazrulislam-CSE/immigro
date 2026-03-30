@@ -10,6 +10,7 @@ use App\Models\Contact;
 use App\Models\About;
 use App\Models\Team;
 use App\Models\Service;
+use App\Models\Education;
 use Illuminate\Support\Carbon;
 
 class MenuPagesController extends Controller
@@ -27,7 +28,8 @@ class MenuPagesController extends Controller
         $teams = Team::where('status',1)->latest()->get();
         $services = Service::where('status',1)->latest()->get();
         // dd($tours);
-        return view('frontend.menu.index',compact('page','pageTitle','abouts','teams','services'));
+        $educations = Education::where('status',1)->latest()->get();
+        return view('frontend.menu.index',compact('page','pageTitle','abouts','teams','services','educations'));
     }
 
     // search result show 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Partner;
+use App\Models\Ielt;
 use Illuminate\Support\Carbon;
 use Session;
 use Str;
@@ -145,6 +146,40 @@ class PartnerController extends Controller
 
         flash()->addError("Partner Deleted Successfully.");
         $url = '/admin/partner/index';
+        return redirect($url);
+    }
+
+    public function apply()
+    {
+        $pageTitle = 'Online Application List';
+        $ielts = Ielt::latest()->get();
+        return view('admin.partner.apply_list',compact('ielts','pageTitle'));
+    }
+
+    public function applyShow(string $id)
+    {
+        $pageTitle = 'Online Application Show';
+        $ielt = Ielt::find($id);
+        return view('admin.partner.apply_show',compact('pageTitle','ielt'));
+    }
+
+    public function applyDelete(string $id)
+    {
+        $ielt = Ielt::find($id);
+
+        // try {
+        //     if(file_exists($partner->image)){
+        //         unlink($partner->image);
+        //     }
+        // } catch (Exception $e) {
+
+        // }
+
+        $ielt->delete();
+
+
+        flash()->addError("Online Application Deleted Successfully.");
+        $url = '/admin/partner/apply/list';
         return redirect($url);
     }
 }

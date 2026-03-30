@@ -35,7 +35,10 @@ use App\Http\Controllers\Admin\SupplierPaymentController;
 use App\Http\Controllers\Admin\StaffPermissionController;
 use App\Http\Controllers\Admin\TrainingController;
 use App\Http\Controllers\Admin\CountryController;
-
+use App\Http\Controllers\Admin\BranchController;
+use App\Http\Controllers\Admin\CourseController;
+use App\Http\Controllers\Admin\EducationController;
+use App\Http\Controllers\Admin\VisaController;
 
 
 
@@ -209,6 +212,10 @@ Route::middleware('admin')->group(function () {
         Route::post('/update/{id}', [PartnerController::class, 'update'])->name('partner.update');
         Route::get('/delete/{id}', [PartnerController::class, 'destroy'])->name('partner.delete');
         Route::get('/show/{id}', [PartnerController::class,'show'])->name('partner.show');
+        // online applicaiton show
+        Route::get('/apply/list', [PartnerController::class,'apply'])->name('apply.list');
+        Route::get('/apply/list/show/{id}', [PartnerController::class,'applyShow'])->name('apply.list.show');
+        Route::get('/apply/list/show/delete/{id}', [PartnerController::class,'applyDelete'])->name('apply.list.delete');
 
     });
 
@@ -334,6 +341,59 @@ Route::middleware('admin')->group(function () {
         Route::post('/store', [CountryController::class, 'store'])->name('country.store');
         Route::post('/update/{id}', [CountryController::class, 'update'])->name('country.update');
         Route::get('/delete/{id}', [CountryController::class, 'destroy'])->name('country.delete');
+    });
+
+     /* ============> Manage Branch   <=========== */
+    Route::prefix('branch')->group(function () {
+        Route::get('/index', [BranchController::class, 'index'])->name('branch.index');
+        Route::get('/create', [BranchController::class, 'create'])->name('branch.create');
+        Route::post('/store', [BranchController::class, 'store'])->name('branch.store');
+        Route::get('/edit/{id}', [BranchController::class, 'edit'])->name('branch.edit');
+        Route::post('/update/{id}', [BranchController::class, 'update'])->name('branch.update');
+        Route::get('/delete/{id}', [BranchController::class, 'destroy'])->name('branch.delete');
+        Route::get('/show/{id}', [BranchController::class,'show'])->name('branch.show');
+
+    });
+
+    /* ============> Manage Course   <=========== */
+    Route::prefix('course')->group(function () {
+        Route::get('/index', [CourseController::class, 'index'])->name('course.index');
+        Route::get('/create', [CourseController::class, 'create'])->name('course.create');
+        Route::post('/store', [CourseController::class, 'store'])->name('course.store');
+        Route::get('/edit/{id}', [CourseController::class, 'edit'])->name('course.edit');
+        Route::post('/update/{id}', [CourseController::class, 'update'])->name('course.update');
+        Route::get('/delete/{id}', [CourseController::class, 'destroy'])->name('course.delete');
+        Route::get('/show/{id}', [CourseController::class,'show'])->name('course.show');
+
+    });
+
+    /* ============> Manage Education   <=========== */
+    Route::prefix('education')->group(function () {
+        Route::get('/index', [EducationController::class, 'index'])->name('education.index');
+        Route::get('/create', [EducationController::class, 'create'])->name('education.create');
+        Route::post('/store', [EducationController::class, 'store'])->name('education.store');
+        Route::get('/edit/{id}', [EducationController::class, 'edit'])->name('education.edit');
+        Route::post('/update/{id}', [EducationController::class, 'update'])->name('education.update');
+        Route::get('/delete/{id}', [EducationController::class, 'destroy'])->name('education.delete');
+        Route::get('/show/{id}', [EducationController::class,'show'])->name('education.show');
+
+    });
+
+
+    Route::prefix('visa')->group(function () {
+        Route::get('/index', [VisaController::class, 'index'])->name('visa.index');
+        Route::get('/create', [VisaController::class, 'create'])->name('visa.create');
+        Route::post('/store', [VisaController::class, 'store'])->name('visa.store');
+        Route::get('/edit/{id}', [VisaController::class, 'edit'])->name('visa.edit');
+        Route::post('/update/{id}', [VisaController::class, 'update'])->name('visa.update');
+        Route::get('/delete/{id}', [VisaController::class, 'destroy'])->name('visa.delete');
+        Route::get('/show/{id}', [VisaController::class,'show'])->name('visa.show');
+        Route::get('/request/list', [VisaController::class, 'visarequestList'])->name('visa.request.list');
+        Route::get('/request/show/{id}', [VisaController::class,'visarequestListShow'])->name('visa.request.list.show');
+        Route::get('/request/{id}', [VisaController::class, 'visarequestListedit'])->name('visa.request.list.edit');
+        Route::post('/request/update/{id}', [VisaController::class, 'visarequestupdate'])->name('visa.request.list.update');
+        Route::get('/request/delete/{id}', [VisaController::class, 'visarequestdestroy'])->name('visa.request.list.delete');
+
     });
     
 

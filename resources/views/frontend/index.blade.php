@@ -1,26 +1,46 @@
 @extends('layouts.frontend.app')
 @section('content')
-    <!-- Main Slider -->
-    <section class="main-slider">
-        <div class="rev_slider_wrapper fullwidthbanner-container" id="rev_slider_one_wrapper" data-source="gallery">
-            <div class="rev_slider fullwidthabanner" id="rev_slider_one" data-version="5.4.1">
-                <ul>
-                    @forelse ($sliders as $slider)
-                        <li data-index="rs-{{ $loop->iteration }}" data-transition="zoomout">
-                            <!-- MAIN IMAGE -->
-                            <img src="{{ asset('upload/slider/' . $slider->image) }}" alt="" class="rev-slidebg">
-                        </li>
-                    @empty
-                        <!-- Default Slider -->
-                        <li data-index="rs-1" data-transition="zoomout">
-                            <img src="{{ asset('frontend/images/main-slider/1.jpg') }}" alt="" class="rev-slidebg">
-                        </li>
-                    @endforelse
-                </ul>
+   <!-- Main Slider -->
+<section class="main-slider mt-4">
+    <div class="container-fluid p-0">
+        <div class="row g-0">
+            <div class="col-12">
+
+                <div id="mainSlider" class="carousel slide" data-bs-ride="carousel">
+                    
+                    <div class="carousel-inner">
+
+                        @forelse ($sliders as $slider)
+                            <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
+                                <img src="{{ asset('upload/slider/' . $slider->image) }}" 
+                                     class="d-block w-100 img-fluid slider-img" 
+                                     alt="Slider Image">
+                            </div>
+                        @empty
+                            <div class="carousel-item active">
+                                <img src="{{ asset('frontend/images/main-slider/1.jpg') }}" 
+                                     class="d-block w-100 img-fluid slider-img" 
+                                     alt="Default Slider">
+                            </div>
+                        @endforelse
+
+                    </div>
+
+                    <!-- Controls -->
+                    <button class="carousel-control-prev" type="button" data-bs-target="#mainSlider" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon"></span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#mainSlider" data-bs-slide="next">
+                        <span class="carousel-control-next-icon"></span>
+                    </button>
+
+                </div>
+
             </div>
         </div>
-    </section>
-    <!-- End Main Slider -->
+    </div>
+</section>
+<!-- End Main Slider -->
 
     <!-- About Section -->
     <section class="about-section">

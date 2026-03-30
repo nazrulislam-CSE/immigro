@@ -17,6 +17,7 @@ use App\Models\Counter;
 use App\Models\Notice;
 use App\Models\Training;
 use App\Models\Country;
+use App\Models\Education;
 use Illuminate\Support\Carbon;
 
 class FrontendController extends Controller
@@ -35,9 +36,9 @@ class FrontendController extends Controller
         $trainings = Training::active()->ordered()->get();
         $countries = Country::active()->ordered()->get();
         $pageTitle = 'Best Visa Services Bangladesh';
+        $educations = Education::where('status',1)->latest()->get();
 
-
-        return view('frontend.index',compact('sliders','about','teams','counters','services','gallerys','pageTitle','partners','notices','testimonials','trainings','countries'));
+        return view('frontend.index',compact('sliders','about','teams','counters','services','gallerys','pageTitle','partners','notices','testimonials','trainings','countries','educations'));
     }
 
     /* =========== SINGLE STUDY ABROAD SHOW ===========*/

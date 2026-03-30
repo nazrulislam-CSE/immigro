@@ -529,6 +529,71 @@
                 </li>
                 @endif
 
+                <li class="slide {{ Request::is('admin/branch*') ? 'is-expanded' : '' }}">
+                    <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0);">
+                        <i class="side-menu__icon fas fa-store-alt"></i>
+                        <span class="side-menu__label">Branch</span>
+                        <span class="badge bg-success side-badge"></span>
+                        <i class="angle fe fe-chevron-down hor-angle"></i>
+                    </a>
+                    <ul class="slide-menu">
+                        <li class="side-menu__label1"><a href="javascript:void(0);">Branch</a></li>
+                        <li><a class="slide-item {{ Request::is('admin/branch/index') ? 'active' : '' }}" href="{{ route('admin.branch.index')}}">Branch List</a></li>
+                    </ul>
+                </li>
+
+                <li class="slide {{ Request::is('admin/course*') ? 'is-expanded' : '' }}">
+                    <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0);">
+                        <i class="side-menu__icon fas fa-store-alt"></i>
+                        <span class="side-menu__label">Course</span>
+                        <i class="angle fe fe-chevron-down hor-angle"></i>
+                    </a>
+                    <ul class="slide-menu">
+                        <li class="side-menu__label1"><a href="javascript:void(0);">Course</a></li>
+                        <li><a class="slide-item {{ Request::is('admin/course/index') ? 'active' : '' }}" href="{{ route('admin.course.index')}}">Course List</a></li>
+                    </ul>
+                </li>
+
+                <li class="slide {{ Request::is('admin/education*') ? 'is-expanded' : '' }}">
+                    <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0);">
+                        <i class="side-menu__icon fas fa-user-graduate"></i>
+                        <span class="side-menu__label">Education</span>
+                        <i class="angle fe fe-chevron-down hor-angle"></i>
+                    </a>
+                    <ul class="slide-menu">
+                        <li class="side-menu__label1"><a href="javascript:void(0);">Education</a></li>
+                        <li><a class="slide-item {{ Request::is('admin/education/create') ? 'active' : '' }}" href="{{ route('admin.education.create')}}">Education Add</a></li>
+                        <li><a class="slide-item {{ Request::is('admin/education/index') ? 'active' : '' }}" href="{{ route('admin.education.index')}}">Education List</a></li>
+                    </ul>
+                </li>
+
+                <li class="slide {{ Request::is('admin/visa*') ? 'is-expanded' : '' }}">
+                    <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0);">
+                        <i class="side-menu__icon fas fa-file-invoice-dollar"></i>
+                        <span class="side-menu__label">Visa</span>
+                        <i class="angle fe fe-chevron-down hor-angle"></i>
+                    </a>
+                    <ul class="slide-menu">
+                        <li class="side-menu__label1"><a href="javascript:void(0);">Visa
+                        </a></li>
+                        <li><a class="slide-item {{ Request::is('admin/visa/create') ? 'active' : '' }}" href="{{ route('admin.visa.create')}}">Visa Add</a></li>
+                        <li><a class="slide-item {{ Request::is('admin/visa/index') ? 'active' : '' }}" href="{{ route('admin.visa.index')}}">Visa List</a></li>
+                        <li><a class="slide-item {{ Request::is('admin/visa/request/list') ? 'active' : '' }}" href="{{ route('admin.visa.request.list')}}">Request Visa List</a></li>
+                    </ul>
+                </li>
+
+                <li class="slide {{ Request::is('admin/partners*') ? 'is-expanded' : '' }}">
+                    <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0);">
+                        <i class="side-menu__icon fas fa-building"></i>
+                        <span class="side-menu__label">Online Apply </span>
+                        <i class="angle fe fe-chevron-down hor-angle"></i>
+                    </a>
+                    <ul class="slide-menu">
+                        <li class="side-menu__label1"><a href="javascript:void(0);">Apply</a></li>
+                        <li><a class="slide-item {{ Request::is('admin/partners/apply/list') ? 'active' : '' }}" href="{{ route('admin.apply.list')}}">Apply  List</a></li>
+                    </ul>
+                </li>
+
                 {{-- Advance Settings Module --}}
                 @if($isSuperAdmin || $admin->canAny(['view Advance Settings', 'create Advance Settings', 'edit Advance Settings', 'delete Advance Settings']))
                 <li class="slide {{ Request::is('admin/settings*') ? 'is-expanded' : '' }}">

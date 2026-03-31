@@ -11,22 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('visas', function (Blueprint $table) {
+        Schema::create('medical_visas', function (Blueprint $table) {
             $table->id();
             $table->string('country_name')->nullable();
             $table->string('slug')->nullable();
             $table->string('flug')->nullable();
-            $table->string('visa_category')->nullable();
-            $table->string('work_category')->nullable();
-            $table->string('company_contact')->nullable();
-            $table->string('processing_time')->nullable();
+            $table->string('visa_type')->nullable();
+            $table->string('visa_duration')->nullable();
             $table->double('apply_fee')->default(0.00)->nullable();
-            $table->double('medical_fee')->default(0.00)->nullable();
-            $table->double('agent_rate')->default(0.00)->nullable();
-            $table->double('customer_rate')->default(0.00)->nullable();
-            $table->double('advance_payment')->default(0.00)->nullable();
-            $table->double('after_visa_payment')->default(0.00)->nullable();
-            $table->double('manpower_ticket')->default(0.00)->nullable();
+            $table->string('processing_time')->nullable();
+            $table->date('publish_date')->nullable();
+            $table->string('service_charge')->nullable();
+            $table->double('visa_fee')->default(0.00)->nullable();
             $table->longtext('documents')->nullable();
             $table->unsignedTinyInteger('status')->default(1)->comment('1=>Active, 0=>Inactive');
             $table->timestamps();
@@ -38,6 +34,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('visas');
+        Schema::dropIfExists('medical_visas');
     }
 };

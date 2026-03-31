@@ -5,12 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Visa;
-use App\Models\RequestVisa;
-use App\Models\User;
-use App\Models\Applicant;
-use Illuminate\Support\Carbon;
-use Session;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
+use Exception;
 
 class VisaController extends Controller
 {
@@ -21,7 +18,7 @@ class VisaController extends Controller
     {
         $pageTitle = 'Visa List';
         $visas = Visa::latest()->get();
-        return view('admin.visa.index',compact('visas','pageTitle'));
+        return view('admin.visa.index', compact('visas', 'pageTitle'));
     }
 
     /**
@@ -30,7 +27,7 @@ class VisaController extends Controller
     public function create()
     {
         $pageTitle = 'Visa Create';
-        return view('admin.visa.create',compact('pageTitle'));
+        return view('admin.visa.create', compact('pageTitle'));
     }
 
     /**
@@ -38,118 +35,59 @@ class VisaController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
+        // Validation rules
+        $request->validate([
+            'country_name'      => 'required|string|max:255',
+            'slug'              => 'nullable|string|max:255|unique:visas,slug',
+            'flug'              => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'visa_category'     => 'nullable|string|max:255',
+            'work_category'     => 'nullable|string|max:255',
+            'company_contact'   => 'nullable|string|max:255',
+            'processing_time'   => 'nullable|string|max:255',
+            'apply_fee'         => 'nullable|numeric',
+            'medical_fee'       => 'nullable|numeric',
+            'agent_rate'        => 'nullable|numeric',
+            'customer_rate'     => 'nullable|numeric',
+            'advance_payment'   => 'nullable|numeric',
+            'after_visa_payment'=> 'nullable|numeric',
+            'manpower_ticket'   => 'nullable|numeric',
+            'documents'         => 'nullable|string',
+            'status'            => 'nullable|in:0,1',
+        ]);
 
-        if($request->visa_type == 1){
-            $this->validate($request, [
-                't_country_name' => 'required',
-                // 'description' => 'required',
-            ]);
-        }else{
-            $this->validate($request, [
-                'country_name' => 'required',
-                'visa_type' => 'required',
-                'image' => 'required|image|mimes:jpg,jpeg,png,gif,svg|max:2048',
-                // 'banner' => 'required|image|mimes:jpg,jpeg,png,gif,svg|max:2048',
-                // 'description' => 'required',
-            ]);
+        $visa = new Visa();
+
+        // Handle flag upload
+        if ($request->hasFile('flug')) {
+            $file = $request->file('flug');
+            $filename = date('YmdHi') . '_' . $file->getClientOriginalName();
+            $file->move(public_path('upload/visa'), $filename);
+            $visa->flug = $filename;
         }
 
-        if($request->visa_type == 1){
-            $visa = new Visa;
-            $visa->t_country_name       = $request->t_country_name;
-            $visa->t_clients_name       = $request->t_clients_name;
-            $visa->t_passport_number    = $request->t_passport_number;
-            $visa->t_phone              = $request->t_phone;
-            $visa->t_processing_time    = $request->t_processing_time;
-            $visa->t_agent_name         = $request->t_agent_name;
-            $visa->t_agent_price        = $request->t_agent_price;
-            $visa->t_customer_price     = $request->t_customer_price;
-            $visa->t_visa_duration      = $request->t_visa_duration;
-            $visa->t_documents          = $request->t_document;
+        // Auto-generate slug if not provided
+        $visa->slug = $request->slug ?? Str::slug($request->country_name);
 
-            if($request->t_status == Null){
-                $request->t_status = 0;
-            }
-            $visa->slug = preg_replace('/[^A-Za-z0-9\-]/', '', str_replace(' ', '-', strtolower($request->t_country_name)));
-            $visa->t_status = $request->t_status;
-            $visa->created_at = Carbon::now();
-            $visa->save();
+        // Fill other fields
+        $visa->country_name       = $request->country_name;
+        $visa->visa_category      = $request->visa_category;
+        $visa->work_category      = $request->work_category;
+        $visa->company_contact    = $request->company_contact;
+        $visa->processing_time    = $request->processing_time;
+        $visa->apply_fee          = $request->apply_fee ?? 0;
+        $visa->medical_fee        = $request->medical_fee ?? 0;
+        $visa->agent_rate         = $request->agent_rate ?? 0;
+        $visa->customer_rate      = $request->customer_rate ?? 0;
+        $visa->advance_payment    = $request->advance_payment ?? 0;
+        $visa->after_visa_payment = $request->after_visa_payment ?? 0;
+        $visa->manpower_ticket    = $request->manpower_ticket ?? 0;
+        $visa->documents          = $request->documents;
+        $visa->status             = $request->status ?? 1;
 
-            if ($request->file('t_image')) {
-                $file = $request->file('t_image');
-                @unlink(public_path('upload/visa/'.$visa->t_image));
-                $filename = date('YmdHi').$file->getClientOriginalName();
-                $file->move(public_path('upload/visa'),$filename);
-                $visa['t_image'] = $filename;
-            }
+        $visa->save();
 
-            if ($request->file('t_banner')) {
-                $file = $request->file('t_banner');
-                @unlink(public_path('upload/visa/'.$visa->t_banner));
-                $filename = date('YmdHi').$file->getClientOriginalName();
-                $file->move(public_path('upload/visa'),$filename);
-                $visa['t_banner'] = $filename;
-            }
-
-            $visa->save();
-
-            flash()->addSuccess("Visa Created Successfully.");
-            $url = '/admin/visa/index';
-            return redirect($url);
-        }else{
-
-            $visa = new Visa;
-
-            $visa->country_name         = $request->country_name;
-            $visa->documents            = $request->document;
-            $visa->visa_type            = $request->visa_type;
-            $visa->work_types           = $request->work_types;
-            $visa->contact_year         = $request->contact_year;
-            $visa->basic_salary         = $request->basic_salary;
-            $visa->overtime             = $request->overtime;
-            $visa->weekend              = $request->weekend;
-            $visa->accommodation_cost   = $request->accommodation_cost;
-            $visa->advance_payment      = $request->advance_payment;
-            $visa->after_work_permit    = $request->after_work_permit;
-            $visa->after_visa           = $request->after_visa;
-            $visa->total_cost           = $request->total_cost;
-            $visa->duration_visa        = $request->duration_visa;
-            $visa->visa_processing_time = $request->visa_processing_time;
-          
-    
-            if($request->status == Null){
-                $request->status = 0;
-            }
-            $visa->slug = preg_replace('/[^A-Za-z0-9\-]/', '', str_replace(' ', '-', strtolower($request->country_name)));
-            $visa->status = $request->status;
-            $visa->created_at = Carbon::now();
-            $visa->save();
-    
-    
-            if ($request->file('image')) {
-                $file = $request->file('image');
-                @unlink(public_path('upload/visa/'.$visa->image));
-                $filename = date('YmdHi').$file->getClientOriginalName();
-                $file->move(public_path('upload/visa'),$filename);
-                $visa['image'] = $filename;
-            }
-    
-            // if ($request->file('banner')) {
-            //     $file = $request->file('banner');
-            //     @unlink(public_path('upload/visa/'.$visa->banner));
-            //     $filename = date('YmdHi').$file->getClientOriginalName();
-            //     $file->move(public_path('upload/visa'),$filename);
-            //     $visa['banner'] = $filename;
-            // }
-    
-    
-            $visa->save();
-    
-            flash()->addSuccess("Visa Created Successfully.");
-            $url = '/admin/visa/index';
-            return redirect($url);
-        }
+        flash()->addSuccess("Visa Created Successfully.");
+        return redirect()->route('admin.visa.index');
     }
 
     /**
@@ -158,8 +96,8 @@ class VisaController extends Controller
     public function show(string $id)
     {
         $pageTitle = 'Visa Show';
-        $visa = Visa::find($id);
-        return view('admin.visa.show',compact('pageTitle','visa'));
+        $visa = Visa::findOrFail($id);
+        return view('admin.visa.show', compact('pageTitle', 'visa'));
     }
 
     /**
@@ -167,9 +105,9 @@ class VisaController extends Controller
      */
     public function edit(string $id)
     {
-        $visa = Visa::find($id);
+        $visa = Visa::findOrFail($id);
         $pageTitle = 'Visa Edit';
-        return view('admin.visa.edit', compact('visa','pageTitle'));
+        return view('admin.visa.edit', compact('visa', 'pageTitle'));
     }
 
     /**
@@ -177,102 +115,63 @@ class VisaController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $visa = Visa::find($id);
+        $visa = Visa::findOrFail($id);
 
-        if($request->visa_type == 1){
-            $visa->t_country_name       = $request->t_country_name;
-            $visa->t_clients_name       = $request->t_clients_name;
-            $visa->t_passport_number    = $request->t_passport_number;
-            $visa->t_phone              = $request->t_phone;
-            $visa->t_processing_time    = $request->t_processing_time;
-            $visa->t_agent_name         = $request->t_agent_name;
-            $visa->t_agent_price        = $request->t_agent_price;
-            $visa->t_customer_price     = $request->t_customer_price;
-            $visa->t_visa_duration      = $request->t_visa_duration;
-            $visa->t_documents          = $request->t_document;
+        // Validation rules (unique slug except current record)
+        $request->validate([
+            'country_name'      => 'required|string|max:255',
+            'slug'              => 'nullable|string|max:255|unique:visas,slug,' . $visa->id,
+            'flug'              => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'visa_category'     => 'nullable|string|max:255',
+            'work_category'     => 'nullable|string|max:255',
+            'company_contact'   => 'nullable|string|max:255',
+            'processing_time'   => 'nullable|string|max:255',
+            'apply_fee'         => 'nullable|numeric',
+            'medical_fee'       => 'nullable|numeric',
+            'agent_rate'        => 'nullable|numeric',
+            'customer_rate'     => 'nullable|numeric',
+            'advance_payment'   => 'nullable|numeric',
+            'after_visa_payment'=> 'nullable|numeric',
+            'manpower_ticket'   => 'nullable|numeric',
+            'documents'         => 'nullable|string',
+            'status'            => 'nullable|in:0,1',
+        ]);
 
-            if($request->t_status == Null){
-                $request->t_status = 0;
+        // Handle flag upload (delete old if new uploaded)
+        if ($request->hasFile('flug')) {
+            // Delete old image
+            if ($visa->flug && file_exists(public_path('upload/visa/' . $visa->flug))) {
+                @unlink(public_path('upload/visa/' . $visa->flug));
             }
-            $visa->slug = preg_replace('/[^A-Za-z0-9\-]/', '', str_replace(' ', '-', strtolower($request->t_country_name)));
-            $visa->t_status = $request->t_status;
-            $visa->updated_at = Carbon::now();
-            $visa->save();
-
-            if ($request->file('t_image')) {
-                $file = $request->file('t_image');
-                @unlink(public_path('upload/visa/'.$visa->t_image));
-                $filename = date('YmdHi').$file->getClientOriginalName();
-                $file->move(public_path('upload/visa'),$filename);
-                $visa['t_image'] = $filename;
-            }
-
-            if ($request->file('t_banner')) {
-                $file = $request->file('t_banner');
-                @unlink(public_path('upload/visa/'.$visa->t_banner));
-                $filename = date('YmdHi').$file->getClientOriginalName();
-                $file->move(public_path('upload/visa'),$filename);
-                $visa['t_banner'] = $filename;
-            }
-
-            $visa->save();
-
-            flash()->addSuccess("Visa  Updated Successfully.");
-            $url = '/admin/visa/index';
-            return redirect($url);
-        }else{
-
-            $visa->country_name         = $request->country_name;
-            $visa->documents            = $request->document;
-            $visa->visa_type            = $request->visa_type;
-            $visa->work_types           = $request->work_types;
-            $visa->contact_year         = $request->contact_year;
-            $visa->basic_salary         = $request->basic_salary;
-            $visa->overtime             = $request->overtime;
-            $visa->weekend              = $request->weekend;
-            $visa->accommodation_cost   = $request->accommodation_cost;
-            $visa->advance_payment      = $request->advance_payment;
-            $visa->after_work_permit    = $request->after_work_permit;
-            $visa->after_visa           = $request->after_visa;
-            $visa->total_cost           = $request->total_cost;
-            $visa->duration_visa        = $request->duration_visa;
-            $visa->visa_processing_time = $request->visa_processing_time;
-          
-    
-            if($request->status == Null){
-                $request->status = 0;
-            }
-            $visa->slug = preg_replace('/[^A-Za-z0-9\-]/', '', str_replace(' ', '-', strtolower($request->country_name)));
-            $visa->status = $request->status;
-            $visa->updated_at = Carbon::now();
-            $visa->save();
-    
-    
-            if ($request->file('image')) {
-                $file = $request->file('image');
-                @unlink(public_path('upload/visa/'.$visa->image));
-                $filename = date('YmdHi').$file->getClientOriginalName();
-                $file->move(public_path('upload/visa'),$filename);
-                $visa['image'] = $filename;
-            }
-    
-            if ($request->file('banner')) {
-                $file = $request->file('banner');
-                @unlink(public_path('upload/visa/'.$visa->banner));
-                $filename = date('YmdHi').$file->getClientOriginalName();
-                $file->move(public_path('upload/visa'),$filename);
-                $visa['banner'] = $filename;
-            }
-    
-    
-            $visa->save();
-    
-            flash()->addSuccess("Visa  Updated Successfully.");
-            $url = '/admin/visa/index';
-            return redirect($url);
+            $file = $request->file('flug');
+            $filename = date('YmdHi') . '_' . $file->getClientOriginalName();
+            $file->move(public_path('upload/visa'), $filename);
+            $visa->flug = $filename;
         }
 
-    
+        // Update slug
+        $visa->slug = $request->slug ?? Str::slug($request->country_name);
+
+        // Update other fields
+        $visa->country_name       = $request->country_name;
+        $visa->visa_category      = $request->visa_category;
+        $visa->work_category      = $request->work_category;
+        $visa->company_contact    = $request->company_contact;
+        $visa->processing_time    = $request->processing_time;
+        $visa->apply_fee          = $request->apply_fee ?? 0;
+        $visa->medical_fee        = $request->medical_fee ?? 0;
+        $visa->agent_rate         = $request->agent_rate ?? 0;
+        $visa->customer_rate      = $request->customer_rate ?? 0;
+        $visa->advance_payment    = $request->advance_payment ?? 0;
+        $visa->after_visa_payment = $request->after_visa_payment ?? 0;
+        $visa->manpower_ticket    = $request->manpower_ticket ?? 0;
+        $visa->documents          = $request->documents;
+        $visa->status             = $request->status ?? 1;
+
+        $visa->save();
+
+        flash()->addSuccess("Visa Updated Successfully.");
+        return redirect()->route('admin.visa.index');
     }
 
     /**
@@ -280,95 +179,16 @@ class VisaController extends Controller
      */
     public function destroy(string $id)
     {
-        $visa = Visa::find($id);
+        $visa = Visa::findOrFail($id);
 
-        
-        if($visa->visa_type == 1){
-            try {
-                if(file_exists($visa->image)){
-                    unlink($visa->image);
-                }
-            } catch (Exception $e) {
-    
-            }
-        }else{
-            try {
-                if(file_exists($visa->t_image)){
-                    unlink($visa->t_image);
-                }
-            } catch (Exception $e) {
-    
-            }
+        // Delete flag image if exists
+        if ($visa->flug && file_exists(public_path('upload/visa/' . $visa->flug))) {
+            @unlink(public_path('upload/visa/' . $visa->flug));
         }
-
-
 
         $visa->delete();
 
-
         flash()->addError("Visa Deleted Successfully.");
-        $url = '/admin/visa/index';
-        return redirect($url);
+        return redirect()->route('admin.visa.index');
     }
-
-
-    // request visa list
-    public function visarequestList(){
-        $pageTitle = ' Request Visa List';
-        $visas = RequestVisa::latest()->get();
-        return view('admin.visa.requestvisa', compact('pageTitle','visas'));
-    }
-
-    // visa requestLis Show
-    public function visarequestListShow(string $id)
-    {
-       
-        $visa = RequestVisa::find($id);
-        if($visa->request_visa_type == 5){
-            $pageTitle = 'Software Order Show';
-        }else{
-            $pageTitle = 'Request Visa Show';
-        }
-        return view('admin.visa.requestvisashow',compact('pageTitle','visa'));
-    }
-
-    // visa request edit
-    public function visarequestListedit(string $id)
-    {
-        $visa = RequestVisa::find($id);
-        $pageTitle = 'Request Visa Edit';
-        $applicants = Applicant::latest()->get();
-        return view('admin.visa.requestvisaedit', compact('visa','pageTitle','applicants'));
-    }
-
-    // visa request update
-    public function visarequestupdate(Request $request,string $id)
-    {
-        // dd($request->all());
-        $visa = RequestVisa::find($id);
-        $visa->status               = $request->status;
-        $visa->save();
-
-        // commission after successful update
-        if($visa->status == '4'){
-            $visa->amount               = $request->amount;
-            $visa->commission_amount    = $request->commission;
-            $visa->total_amount         = $request->total_amount;
-            $visa->save();
-
-            // total commission amount
-            $agent = User::where('id',$visa->user_id)->first();
-            $agent->visa_amount += $request->commission;
-            $agent->save();
-        }
-        
-
-       
-        flash()->addSuccess("Visa Request Updated Successfully.");
-        $url = '/admin/visa/request/list';
-        return redirect($url);
-    }
-    
-
-
 }

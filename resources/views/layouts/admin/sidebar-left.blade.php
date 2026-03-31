@@ -576,9 +576,9 @@
                     <ul class="slide-menu">
                         <li class="side-menu__label1"><a href="javascript:void(0);">Visa
                         </a></li>
-                        <li><a class="slide-item {{ Request::is('admin/visa/create') ? 'active' : '' }}" href="{{ route('admin.visa.create')}}">Visa Add</a></li>
-                        <li><a class="slide-item {{ Request::is('admin/visa/index') ? 'active' : '' }}" href="{{ route('admin.visa.index')}}">Visa List</a></li>
-                        <li><a class="slide-item {{ Request::is('admin/visa/request/list') ? 'active' : '' }}" href="{{ route('admin.visa.request.list')}}">Request Visa List</a></li>
+                        <li><a class="slide-item {{ Request::is('admin/visa/index') ? 'active' : '' }}" href="{{ route('admin.visa.index')}}">Work Permit Visa List</a></li>
+                        <li><a class="slide-item {{ Request::is('admin/student/visa/index') ? 'active' : '' }}" href="{{ route('admin.student.visa.index')}}">Student Visa List</a></li>
+                        <li><a class="slide-item {{ Request::is('admin/medical/visa/index') ? 'active' : '' }}" href="{{ route('admin.medical.visa.index')}}">Medical Visa List</a></li>
                     </ul>
                 </li>
 

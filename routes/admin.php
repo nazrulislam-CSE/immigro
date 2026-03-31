@@ -39,6 +39,8 @@ use App\Http\Controllers\Admin\BranchController;
 use App\Http\Controllers\Admin\CourseController;
 use App\Http\Controllers\Admin\EducationController;
 use App\Http\Controllers\Admin\VisaController;
+use App\Http\Controllers\Admin\StudentVisaController;
+use App\Http\Controllers\Admin\MedicalVisaController;
 
 
 
@@ -385,7 +387,7 @@ Route::middleware('admin')->group(function () {
         Route::get('/create', [VisaController::class, 'create'])->name('visa.create');
         Route::post('/store', [VisaController::class, 'store'])->name('visa.store');
         Route::get('/edit/{id}', [VisaController::class, 'edit'])->name('visa.edit');
-        Route::post('/update/{id}', [VisaController::class, 'update'])->name('visa.update');
+        Route::put('/update/{id}', [VisaController::class, 'update'])->name('visa.update');
         Route::get('/delete/{id}', [VisaController::class, 'destroy'])->name('visa.delete');
         Route::get('/show/{id}', [VisaController::class,'show'])->name('visa.show');
         Route::get('/request/list', [VisaController::class, 'visarequestList'])->name('visa.request.list');
@@ -394,6 +396,27 @@ Route::middleware('admin')->group(function () {
         Route::post('/request/update/{id}', [VisaController::class, 'visarequestupdate'])->name('visa.request.list.update');
         Route::get('/request/delete/{id}', [VisaController::class, 'visarequestdestroy'])->name('visa.request.list.delete');
 
+    });
+
+    Route::prefix('student/visa')->group(function () {
+        Route::get('/index', [StudentVisaController::class, 'index'])->name('student.visa.index');
+        Route::get('/create', [StudentVisaController::class, 'create'])->name('student.visa.create');
+        Route::post('/store', [StudentVisaController::class, 'store'])->name('student.visa.store');
+        Route::get('/edit/{id}', [StudentVisaController::class, 'edit'])->name('student.visa.edit');
+        Route::put('/update/{id}', [StudentVisaController::class, 'update'])->name('student.visa.update');
+        Route::get('/delete/{id}', [StudentVisaController::class, 'destroy'])->name('student.visa.delete');
+        Route::get('/show/{id}', [StudentVisaController::class,'show'])->name('student.visa.show');
+    });
+    
+
+    Route::prefix('medical/visa')->group(function () {
+        Route::get('/index', [MedicalVisaController::class, 'index'])->name('medical.visa.index');
+        Route::get('/create', [MedicalVisaController::class, 'create'])->name('medical.visa.create');
+        Route::post('/store', [MedicalVisaController::class, 'store'])->name('medical.visa.store');
+        Route::get('/edit/{id}', [MedicalVisaController::class, 'edit'])->name('medical.visa.edit');
+        Route::put('/update/{id}', [MedicalVisaController::class, 'update'])->name('medical.visa.update');
+        Route::get('/delete/{id}', [MedicalVisaController::class, 'destroy'])->name('medical.visa.delete');
+        Route::get('/show/{id}', [MedicalVisaController::class,'show'])->name('medical.visa.show');
     });
     
 

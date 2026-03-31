@@ -18,8 +18,8 @@
             <div class="card-header border-bottom d-flex justify-content-between align-items-center">
                 <p class="card-title my-0">{{ $pageTitle }}</p>
                 <div class="d-flex">
-                    <a href="{{ route('admin.visa.index') }}" class="btn btn-danger me-2">
-                        <i class="fas fa-list d-inline"></i> Visa List
+                    <a href="{{ route('admin.medical.visa.index') }}" class="btn btn-danger me-2">
+                        <i class="fas fa-list d-inline"></i> Medical Visa List
                     </a>
                 </div>
             </div>
@@ -28,67 +28,52 @@
                     <div class="col-md-12">
                         <table class="table table-bordered">
                             <tr>
-                                <th>Country Name</th>
-                                <td>{{ $visa->country_name }}</td>
+                                <th width="200">Country Name</th>
+                                <td>{{ $medicalVisa->country_name }}</td>
                             </tr>
                             <tr>
                                 <th>Slug</th>
-                                <td>{{ $visa->slug }}</td>
+                                <td>{{ $medicalVisa->slug }}</td>
                             </tr>
                             <tr>
                                 <th>Flag</th>
                                 <td>
-                                    <img src="{{ $visa->flug ? asset('upload/visa/'.$visa->flug) : asset('upload/no_image.jpg') }}" width="80" alt="Flag">
+                                    <img src="{{ $medicalVisa->flug ? asset('upload/medical_visa/'.$medicalVisa->flug) : asset('upload/no_image.jpg') }}"
+                                         width="80" alt="Flag">
                                 </td>
                             </tr>
                             <tr>
-                                <th>Visa Category</th>
-                                <td>{{ $visa->visa_category }}</td>
+                                <th>Visa Type</th>
+                                <td>{{ $medicalVisa->visa_type ?? 'N/A' }}</td>
                             </tr>
                             <tr>
-                                <th>Work Category</th>
-                                <td>{{ $visa->work_category }}</td>
-                            </tr>
-                            <tr>
-                                <th>Company Contact</th>
-                                <td>{{ $visa->company_contact }}</td>
-                            </tr>
-                            <tr>
-                                <th>Processing Time</th>
-                                <td>{{ $visa->processing_time }}</td>
+                                <th>Visa Duration</th>
+                                <td>{{ $medicalVisa->visa_duration ?? 'N/A' }}</td>
                             </tr>
                             <tr>
                                 <th>Apply Fee</th>
-                                <td>{{ number_format($visa->apply_fee, 2) }}</td>
+                                <td>{{ number_format($medicalVisa->apply_fee, 2) }}</td>
                             </tr>
                             <tr>
-                                <th>Medical Fee</th>
-                                <td>{{ number_format($visa->medical_fee, 2) }}</td>
+                                <th>Processing Time</th>
+                                <td>{{ $medicalVisa->processing_time ?? 'N/A' }}</td>
                             </tr>
                             <tr>
-                                <th>Agent Rate</th>
-                                <td>{{ number_format($visa->agent_rate, 2) }}</td>
+                                <th>Publish Date</th>
+                                <td>{{ $medicalVisa->publish_date ? $medicalVisa->publish_date->format('d M Y') : 'N/A' }}</td>
                             </tr>
                             <tr>
-                                <th>Customer Rate</th>
-                                <td>{{ number_format($visa->customer_rate, 2) }}</td>
+                                <th>Service Charge</th>
+                                <td>{{ $medicalVisa->service_charge ?? 'N/A' }}</td>
                             </tr>
                             <tr>
-                                <th>Advance Payment</th>
-                                <td>{{ number_format($visa->advance_payment, 2) }}</td>
-                            </tr>
-                            <tr>
-                                <th>After Visa Payment</th>
-                                <td>{{ number_format($visa->after_visa_payment, 2) }}</td>
-                            </tr>
-                            <tr>
-                                <th>Manpower Ticket</th>
-                                <td>{{ number_format($visa->manpower_ticket, 2) }}</td>
+                                <th>Visa Fee</th>
+                                <td>{{ number_format($medicalVisa->visa_fee, 2) }}</td>
                             </tr>
                             <tr>
                                 <th>Status</th>
                                 <td>
-                                    @if($visa->status == 1)
+                                    @if($medicalVisa->status)
                                         <span class="badge bg-success">Active</span>
                                     @else
                                         <span class="badge bg-danger">Inactive</span>
@@ -97,7 +82,7 @@
                             </tr>
                             <tr>
                                 <th>Documents</th>
-                                <td>{!! $visa->documents !!}</td>
+                                <td>{!! $medicalVisa->documents !!}</td>
                             </tr>
                         </table>
                     </div>

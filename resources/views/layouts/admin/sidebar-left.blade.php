@@ -594,6 +594,19 @@
                     </ul>
                 </li>
 
+                <li class="slide {{ Request::is('admin/softwares*') ? 'is-expanded' : '' }}">
+                    <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0);">
+                        <i class="side-menu__icon fas fa-building"></i>
+                        <span class="side-menu__label">Software Sale</span>
+                        <i class="angle fe fe-chevron-down hor-angle"></i>
+                    </a>
+                    <ul class="slide-menu">
+                        <li class="side-menu__label1"><a href="javascript:void(0);">Software Sale</a></li>
+                        <li><a class="slide-item {{ Request::is('admin/software/sale/list') ? 'active' : '' }}" href="{{ route('admin.software.sale.list')}}">Software Sale  List</a></li>
+                    </ul>
+                </li>
+
+
                 {{-- Advance Settings Module --}}
                 @if($isSuperAdmin || $admin->canAny(['view Advance Settings', 'create Advance Settings', 'edit Advance Settings', 'delete Advance Settings']))
                 <li class="slide {{ Request::is('admin/settings*') ? 'is-expanded' : '' }}">

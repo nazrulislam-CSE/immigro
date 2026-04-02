@@ -461,6 +461,7 @@ Route::middleware('admin')->group(function () {
         Route::put('/update/{id}', [ProductOrderController::class, 'update'])->name('product.order.update');
         Route::get('/delete/{id}', [ProductOrderController::class, 'destroy'])->name('product.order.delete');
         Route::get('/show/{id}', [ProductOrderController::class,'show'])->name('product.order.show');
+        Route::get('/voucher/{id}', [ProductOrderController::class, 'voucher'])->name('product.order.voucher');
     });
     
 

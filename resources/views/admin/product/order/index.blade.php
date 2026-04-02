@@ -52,6 +52,9 @@
                                     <td>{{ number_format($order->advance_payment,2) }}</td>
                                     <td>{!! $order->status_badge !!}</td>
                                     <td>
+                                        <a href="{{ route('admin.product.order.voucher', $order->id) }}" target="_blank" class="btn btn-sm btn-info">
+                                            <i class="fas fa-receipt"></i> Voucher
+                                        </a>
                                         <a href="{{ route('admin.product.order.show', $order->id) }}" class="btn btn-sm btn-success"><i class="fas fa-eye"></i></a>
                                         <a href="{{ route('admin.product.order.edit', $order->id) }}" class="btn btn-sm btn-primary"><i class="fas fa-edit"></i></a>
                                         <a href="{{ route('admin.product.order.delete', $order->id) }}" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')"><i class="fas fa-trash"></i></a>

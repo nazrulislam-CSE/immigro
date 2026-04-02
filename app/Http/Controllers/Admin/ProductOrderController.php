@@ -119,4 +119,10 @@ class ProductOrderController extends Controller
         flash()->addError('Order deleted successfully.');
         return redirect()->route('admin.product.order.list');
     }
+
+    public function voucher($id)
+    {
+        $order = ProductOrder::with('product')->findOrFail($id);
+        return view('admin.product.order.voucher', compact('order'));
+    }
 }

@@ -43,6 +43,8 @@ use App\Http\Controllers\Admin\StudentVisaController;
 use App\Http\Controllers\Admin\MedicalVisaController;
 use App\Http\Controllers\Admin\SoftwareSaleController;
 use App\Http\Controllers\Admin\BookSaleController;
+use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\ProductOrderController;
 
 
 
@@ -439,6 +441,26 @@ Route::middleware('admin')->group(function () {
         Route::put('/update/{id}', [BookSaleController::class, 'update'])->name('book.sale.update');
         Route::get('/delete/{id}', [BookSaleController::class, 'destroy'])->name('book.sale.delete');
         Route::get('/show/{id}', [BookSaleController::class,'show'])->name('book.sale.show');
+    });
+
+    Route::prefix('products')->group(function () {
+        Route::get('/index', [ProductController::class, 'index'])->name('product.list');
+        Route::get('/create', [ProductController::class, 'create'])->name('product.create');
+        Route::post('/store', [ProductController::class, 'store'])->name('product.store');
+        Route::get('/edit/{id}', [ProductController::class, 'edit'])->name('product.edit');
+        Route::put('/update/{id}', [ProductController::class, 'update'])->name('product.update');
+        Route::get('/delete/{id}', [ProductController::class, 'destroy'])->name('product.delete');
+        Route::get('/show/{id}', [ProductController::class,'show'])->name('product.show');
+    });
+
+    Route::prefix('product/orders')->group(function () {
+        Route::get('/index', [ProductOrderController::class, 'index'])->name('product.order.list');
+        Route::get('/create', [ProductOrderController::class, 'create'])->name('product.order.create');
+        Route::post('/store', [ProductOrderController::class, 'store'])->name('product.order.store');
+        Route::get('/edit/{id}', [ProductOrderController::class, 'edit'])->name('product.order.edit');
+        Route::put('/update/{id}', [ProductOrderController::class, 'update'])->name('product.order.update');
+        Route::get('/delete/{id}', [ProductOrderController::class, 'destroy'])->name('product.order.delete');
+        Route::get('/show/{id}', [ProductOrderController::class,'show'])->name('product.order.show');
     });
     
 

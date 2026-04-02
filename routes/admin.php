@@ -42,6 +42,7 @@ use App\Http\Controllers\Admin\VisaController;
 use App\Http\Controllers\Admin\StudentVisaController;
 use App\Http\Controllers\Admin\MedicalVisaController;
 use App\Http\Controllers\Admin\SoftwareSaleController;
+use App\Http\Controllers\Admin\BookSaleController;
 
 
 
@@ -428,6 +429,16 @@ Route::middleware('admin')->group(function () {
         Route::put('/update/{id}', [SoftwareSaleController::class, 'update'])->name('software.sale.update');
         Route::get('/delete/{id}', [SoftwareSaleController::class, 'destroy'])->name('software.sale.delete');
         Route::get('/show/{id}', [SoftwareSaleController::class,'show'])->name('software.sale.show');
+    });
+    
+    Route::prefix('books')->group(function () {
+        Route::get('/index', [BookSaleController::class, 'index'])->name('book.sale.list');
+        Route::get('/create', [BookSaleController::class, 'create'])->name('book.sale.create');
+        Route::post('/store', [BookSaleController::class, 'store'])->name('book.sale.store');
+        Route::get('/edit/{id}', [BookSaleController::class, 'edit'])->name('book.sale.edit');
+        Route::put('/update/{id}', [BookSaleController::class, 'update'])->name('book.sale.update');
+        Route::get('/delete/{id}', [BookSaleController::class, 'destroy'])->name('book.sale.delete');
+        Route::get('/show/{id}', [BookSaleController::class,'show'])->name('book.sale.show');
     });
     
 

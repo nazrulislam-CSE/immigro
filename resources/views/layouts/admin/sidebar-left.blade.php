@@ -606,6 +606,18 @@
                     </ul>
                 </li>
 
+                <li class="slide {{ Request::is('admin/books*') ? 'is-expanded' : '' }}">
+                    <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0);">
+                        <i class="side-menu__icon fas fa-building"></i>
+                        <span class="side-menu__label">Books</span>
+                        <i class="angle fe fe-chevron-down hor-angle"></i>
+                    </a>
+                    <ul class="slide-menu">
+                        <li class="side-menu__label1"><a href="javascript:void(0);">Books</a></li>
+                        <li><a class="slide-item {{ Request::is('admin/books/index') ? 'active' : '' }}" href="{{ route('admin.book.sale.list')}}">Books List</a></li>
+                    </ul>
+                </li>
+
 
                 {{-- Advance Settings Module --}}
                 @if($isSuperAdmin || $admin->canAny(['view Advance Settings', 'create Advance Settings', 'edit Advance Settings', 'delete Advance Settings']))

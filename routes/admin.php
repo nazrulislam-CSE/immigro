@@ -45,6 +45,8 @@ use App\Http\Controllers\Admin\SoftwareSaleController;
 use App\Http\Controllers\Admin\BookSaleController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProductOrderController;
+use App\Http\Controllers\Admin\Account\IncomeController;
+use App\Http\Controllers\Admin\Account\ExpenseController;
 
 
 
@@ -463,6 +465,27 @@ Route::middleware('admin')->group(function () {
         Route::get('/show/{id}', [ProductOrderController::class,'show'])->name('product.order.show');
         Route::get('/voucher/{id}', [ProductOrderController::class, 'voucher'])->name('product.order.voucher');
     });
-    
+
+    Route::prefix('income')->group(function () {
+        Route::get('/index', [IncomeController::class, 'index'])->name('income.list');
+        Route::get('/create', [IncomeController::class, 'create'])->name('income.create');
+        Route::post('/store', [IncomeController::class, 'store'])->name('income.store');
+        Route::get('/edit/{id}', [IncomeController::class, 'edit'])->name('income.edit');
+        Route::put('/update/{id}', [IncomeController::class, 'update'])->name('income.update');
+        Route::get('/delete/{id}', [IncomeController::class, 'destroy'])->name('income.delete');
+        Route::get('/show/{id}', [IncomeController::class,'show'])->name('income.show');
+        Route::get('/voucher/{id}', [IncomeController::class, 'voucher'])->name('income.voucher');
+    });
+
+    Route::prefix('expense')->group(function () {
+        Route::get('/index', [ExpenseController::class, 'index'])->name('expense.list');
+        Route::get('/create', [ExpenseController::class, 'create'])->name('expense.create');
+        Route::post('/store', [ExpenseController::class, 'store'])->name('expense.store');
+        Route::get('/edit/{id}', [ExpenseController::class, 'edit'])->name('expense.edit');
+        Route::put('/update/{id}', [ExpenseController::class, 'update'])->name('expense.update');
+        Route::get('/delete/{id}', [ExpenseController::class, 'destroy'])->name('expense.delete');
+        Route::get('/show/{id}', [ExpenseController::class,'show'])->name('expense.show');
+        Route::get('/voucher/{id}', [ExpenseController::class,'voucher'])->name('expense.voucher');
+    });
 
 });

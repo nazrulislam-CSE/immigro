@@ -39,4 +39,9 @@ class Client extends Model
         $this->total_refund = $this->refunds()->sum('refund_amount');
         $this->saveQuietly();
     }
+
+    public function incomes()
+    {
+        return $this->hasMany(Income::class);
+    }
 }

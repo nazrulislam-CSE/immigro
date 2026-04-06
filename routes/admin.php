@@ -47,6 +47,8 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProductOrderController;
 use App\Http\Controllers\Admin\Account\IncomeController;
 use App\Http\Controllers\Admin\Account\ExpenseController;
+use App\Http\Controllers\Admin\Account\AccountStatementController;
+use App\Http\Controllers\Admin\Account\DueListController;
 
 
 
@@ -488,4 +490,6 @@ Route::middleware('admin')->group(function () {
         Route::get('/voucher/{id}', [ExpenseController::class,'voucher'])->name('expense.voucher');
     });
 
+    Route::get('account-statement', [AccountStatementController::class, 'index'])->name('account.statement');
+    Route::get('due-list', [DueListController::class, 'index'])->name('due.list');
 });

@@ -49,9 +49,11 @@
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h4 class="card-title">{{ $pageTitle }}</h4>
+                    @if(auth('admin')->user()->can('create staff payments'))
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#paymentModal" id="addPaymentBtn">
                         <i class="fas fa-plus"></i> Add Payment
                     </button>
+                    @endcan
                 </div>
                 <div class="card-body">
                     {{-- Filter Form --}}
@@ -121,6 +123,7 @@
                                     <td>{{ $payment->reference }}</td>
                                     <td>{{ $payment->notes }}</td>
                                     <td>
+                                        @if(auth('admin')->user()->can('view staff payments'))
                                         {{-- View Receipt Button --}}
                                         <button type="button" class="btn btn-sm btn-info view-receipt-btn"
                                             data-id="{{ $payment->id }}"
@@ -134,7 +137,8 @@
                                             data-bs-toggle="modal" data-bs-target="#receiptModal">
                                             <i class="fas fa-receipt"></i>
                                         </button>
-
+                                        @endif
+                                        @if(auth('admin')->user()->can('edit staff payments'))
                                         {{-- Edit Button --}}
                                         <button type="button" class="btn btn-sm btn-primary edit-btn"
                                             data-id="{{ $payment->id }}"
@@ -148,11 +152,13 @@
                                             data-bs-toggle="modal" data-bs-target="#paymentModal">
                                             <i class="fas fa-edit"></i>
                                         </button>
-
+                                        @endcan
+                                        @if(auth('admin')->user()->can('delete staff payments'))
                                         {{-- Delete Button --}}
                                         <a href="{{ route('admin.staff.payment.delete', $payment->id) }}" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">
                                             <i class="fa fa-trash"></i>
                                         </a>
+                                        @endcan
                                     </td>
                                 </tr>
                                 @empty

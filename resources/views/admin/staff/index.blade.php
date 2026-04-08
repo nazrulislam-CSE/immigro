@@ -7,10 +7,12 @@
                 <div class="card">
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <h4 class="card-title">{{ $pageTitle }}</h4>
+                        @if(auth('admin')->user()->can('create Staff'))
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staffModal"
                             id="addStaffBtn">
                             <i class="fas fa-plus"></i> Add Staff
                         </button>
+                        @endcan
                     </div>
                     <div class="card-body">
                         @if (session('success'))
@@ -54,6 +56,7 @@
                                             <td>{{ ucfirst($member->payment_system) }}</td>
                                             <td>৳ {{ number_format($member->payment_amount, 2) }}</td>
                                             <td>
+                                                @if(auth('admin')->user()->can('view Staff'))
                                                 {{-- View Button --}}
                                                 <button type="button" class="btn btn-sm btn-info view-btn"
                                                     data-id="{{ $member->id }}"
@@ -82,7 +85,9 @@
                                                     data-bs-toggle="modal" data-bs-target="#staffModal">
                                                     <i class="fas fa-eye"></i>
                                                 </button>
+                                                @endcan
 
+                                                @if(auth('admin')->user()->can('edit Staff'))
                                                 {{-- Edit Button --}}
                                                 <button type="button" class="btn btn-sm btn-primary edit-btn"
                                                     data-id="{{ $member->id }}"
@@ -111,12 +116,15 @@
                                                     data-bs-toggle="modal" data-bs-target="#staffModal">
                                                     <i class="fas fa-edit"></i>
                                                 </button>
+                                                @endcan
 
-                                                {{-- Delete Button --}}
-                                                <a href="{{ route('admin.staff.delete', $member->id) }}"
-                                                    class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">
-                                                    <i class="fa fa-trash"></i>
-                                                </a>
+                                                @if(auth('admin')->user()->can('delete Staff'))
+                                                    <a href="{{ route('admin.staff.delete', $member->id) }}"
+                                                    class="btn btn-sm btn-danger"
+                                                    onclick="return confirm('Are you sure?')">
+                                                        <i class="fa fa-trash"></i>
+                                                    </a>
+                                                @endif
                                             </td>
                                         </tr>
                                     @endforeach

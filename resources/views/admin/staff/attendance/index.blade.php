@@ -7,9 +7,11 @@
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h4 class="card-title">{{ $pageTitle }}</h4>
+                    @if(auth('admin')->user()->can('create staff attendance'))
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#attendanceModal" id="addAttendanceBtn">
                         <i class="fas fa-plus"></i> Add Attendance
                     </button>
+                    @endcan
                 </div>
                 <div class="card-body">
                     {{-- Filter Form --}}
@@ -91,6 +93,7 @@
                                     <td>{{ $att->overtime_hours }}</td>
                                     <td>{{ $att->notes }}</td>
                                     <td>
+                                        @if(auth('admin')->user()->can('edit staff attendance'))
                                         <button type="button" class="btn btn-sm btn-primary edit-btn"
                                             data-id="{{ $att->id }}"
                                             data-staff_id="{{ $att->staff_id }}"
@@ -103,9 +106,12 @@
                                             data-bs-toggle="modal" data-bs-target="#attendanceModal">
                                             <i class="fas fa-edit"></i>
                                         </button>
+                                        @endcan
+                                        @if(auth('admin')->user()->can('delete staff attendance'))
                                         <a href="{{ route('admin.staff.attendance.delete', $att->id) }}" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">
                                             <i class="fa fa-trash"></i>
                                         </a>
+                                        @endcan
                                     </td>
                                 </tr>
                                 @empty

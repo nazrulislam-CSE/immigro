@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Spatie\Permission\Models\Role;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\DB;
 
 class StaffController extends Controller
 {
@@ -51,33 +53,60 @@ class StaffController extends Controller
             'role_id'               => 'required|exists:roles,id',
         ]);
 
-        // Handle photo upload
-        if ($request->hasFile('photo')) {
-            $path = $request->file('photo')->store('staff', 'public');
-            $validated['photo'] = $path;
+        DB::beginTransaction();
+
+        try {
+            // Handle photo upload
+            $photoPath = null;
+            if ($request->hasFile('photo')) {
+                $photoPath = $request->file('photo')->store('staff', 'public');
+            }
+
+            // Create Admin user
+            $admin = Admin::create([
+                'name'          => $validated['staff_name'],
+                'username'      => $validated['staff_name'],
+                'email'         => $validated['email'],
+                'phone'         => $validated['mobile_number'] ?? null,
+                'password'      => Hash::make($validated['password']),
+                'show_password' => $validated['password'],
+                'status'        => $validated['status'] ?? 1,
+            ]);
+
+            // Create Staff record linked to the Admin
+            $staffData = $validated;
+            $staffData['admin_id'] = $admin->id;
+            $staffData['photo'] = $photoPath;
+            $staff = Staff::create($staffData);
+
+            // Find role with proper guard_name 'admin'
+            $role = Role::where('id', $validated['role_id'])
+                        ->where('guard_name', 'admin')
+                        ->first();
+
+            if (!$role) {
+                throw new \Exception("Invalid role selected. Role not found for admin guard.");
+            }
+
+            // Assign role to the Admin
+            $admin->assignRole($role->name);
+
+            DB::commit();
+
+            return redirect()->route('admin.staff.index')->with('success', 'Staff added successfully.');
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            // Optional: delete uploaded photo if exists
+            if (isset($photoPath) && \Storage::disk('public')->exists($photoPath)) {
+                \Storage::disk('public')->delete($photoPath);
+            }
+
+            return redirect()->back()
+                ->withInput()
+                ->withErrors(['error' => 'Failed to create staff: ' . $e->getMessage()]);
         }
-
-        // Create Admin user
-        $admin = Admin::create([
-            'name'          => $validated['staff_name'],
-            'username'      => $validated['staff_name'],
-            'email'         => $validated['email'],
-            'phone'         => $validated['mobile_number'] ?? null,
-            'password'      => Hash::make($validated['password']),
-            'show_password' => $validated['password'], // if you store plain password
-            'status'        => $validated['status'] ?? 1,
-        ]);
-
-        // Create Staff record linked to the Admin
-        $staffData = $validated;
-        $staffData['admin_id'] = $admin->id;
-        $staff = Staff::create($staffData);
-
-        // Assign role to the Admin
-        $role = Role::findById($validated['role_id']);
-        $admin->assignRole($role->name);
-
-        return redirect()->route('admin.staff.index')->with('success', 'Staff added successfully.');
     }
 
     public function update(Request $request, $id)

@@ -12,10 +12,9 @@ class RolePermissionSeeder extends Seeder
 {
     public function run()
     {
-        // ক্যাশ রিসেট
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 
-        // ========= ১. পারমিশন তৈরি =========
+        // ========= ১. মূল মডিউলসমূহ =========
         $modules = [
             'Dashboard' => 'Dashboard',
             'Visitors'  => 'Visitors',
@@ -38,10 +37,21 @@ class RolePermissionSeeder extends Seeder
             'Counters'  => 'Counters',
             'Services'  => 'Services',
             'Gallery'   => 'Gallery',
-            'Advance Settings' => 'Advance Settings'
+            'Advance Settings' => 'Advance Settings',
+            'Training'  => 'Training',
+            'Country'   => 'Country',
+            'Branch'    => 'Branch',
+            'Course'    => 'Course',
+            'Education' => 'Education',
+            'Visa'      => 'Visa',
+            'Online Apply' => 'Online Apply',
+            'Software Sale' => 'Software Sale',
+            'Books'     => 'Books',
+            'Products'  => 'Products',
+            'Account'   => 'Account',
         ];
 
-        // প্রতিটি মডিউলের জন্য 'view' পারমিশন
+        // View permissions
         foreach ($modules as $moduleName => $groupName) {
             Permission::firstOrCreate([
                 'name'       => "view {$moduleName}",
@@ -50,11 +60,14 @@ class RolePermissionSeeder extends Seeder
             ]);
         }
 
-        // যে মডিউলগুলোতে create/edit/delete লাগবে
-        $crudModules = ['Visitors', 'Clients', 'Agents', 'Suppliers', 'Invoices',
-                        'Passports', 'Refunds', 'Staff', 'Sections', 'Sliders',
-                        'Pages', 'Teams', 'Partners', 'Testimonials', 'Counters',
-                        'Services', 'Gallery', 'Advance Settings'];
+        // CRUD permissions for standard modules
+        $crudModules = [
+            'Visitors', 'Clients', 'Agents', 'Suppliers', 'Invoices',
+            'Passports', 'Refunds', 'Staff', 'Sections', 'Sliders',
+            'Pages', 'Teams', 'Partners', 'Testimonials', 'Counters',
+            'Services', 'Gallery', 'Advance Settings',
+            'Training', 'Country', 'Education', 'Products'
+        ];
 
         foreach ($crudModules as $module) {
             Permission::firstOrCreate([
@@ -74,22 +87,42 @@ class RolePermissionSeeder extends Seeder
             ]);
         }
 
-        // স্পেশাল পারমিশন (supplier payments, staff payments, staff attendance)
-        Permission::firstOrCreate([
-            'name'       => 'view supplier payments',
-            'guard_name' => 'admin',
-            'group_name' => 'Suppliers'
-        ]);
-        Permission::firstOrCreate([
-            'name'       => 'view staff payments',
-            'guard_name' => 'admin',
-            'group_name' => 'Staff'
-        ]);
-        Permission::firstOrCreate([
-            'name'       => 'view staff attendance',
-            'guard_name' => 'admin',
-            'group_name' => 'Staff'
-        ]);
+        // ========= বিশেষ পারমিশন (যেগুলো CRUD-এর বাইরে) =========
+        $specialPermissions = [
+            // Supplier payments
+            ['name' => 'view supplier payments', 'group' => 'Suppliers'],
+            // Staff payments & attendance
+            ['name' => 'view staff payments', 'group' => 'Staff'],
+            ['name' => 'create staff payments', 'group' => 'Staff'],
+            ['name' => 'edit staff payments', 'group' => 'Staff'],
+            ['name' => 'delete staff payments', 'group' => 'Staff'],
+            ['name' => 'view staff attendance', 'group' => 'Staff'],
+            ['name' => 'create staff attendance', 'group' => 'Staff'],
+            ['name' => 'edit staff attendance', 'group' => 'Staff'],
+            ['name' => 'delete staff attendance', 'group' => 'Staff'],
+            // Staff permissions management
+            ['name' => 'view staff permissions', 'group' => 'Staff'],
+            ['name' => 'create staff permissions', 'group' => 'Staff'],
+            ['name' => 'edit staff permissions', 'group' => 'Staff'],
+            ['name' => 'delete staff permissions', 'group' => 'Staff'],
+            // Visa types
+            ['name' => 'view work permit visa', 'group' => 'Visa'],
+            ['name' => 'view student visa', 'group' => 'Visa'],
+            ['name' => 'view medical visa', 'group' => 'Visa'],
+            // Account
+            ['name' => 'view income', 'group' => 'Account'],
+            ['name' => 'view expense', 'group' => 'Account'],
+            ['name' => 'view account statement', 'group' => 'Account'],
+            ['name' => 'view due list', 'group' => 'Account'],
+        ];
+
+        foreach ($specialPermissions as $perm) {
+            Permission::firstOrCreate([
+                'name'       => $perm['name'],
+                'guard_name' => 'admin',
+                'group_name' => $perm['group']
+            ]);
+        }
 
         // ========= ২. রোল তৈরি =========
         $superAdminRole = Role::firstOrCreate(['name' => 'Super Admin', 'guard_name' => 'admin']);
@@ -99,59 +132,12 @@ class RolePermissionSeeder extends Seeder
 
         // ========= ৩. রোলগুলিতে পারমিশন অ্যাসাইন =========
         $superAdminRole->givePermissionTo(Permission::all());
+        $adminRole->givePermissionTo(Permission::all());
 
-        $adminRole->givePermissionTo([
-            'view Dashboard',
-            'view Visitors', 'create Visitors', 'edit Visitors', 'delete Visitors',
-            'view Clients', 'create Clients', 'edit Clients', 'delete Clients',
-            'view Agents', 'create Agents', 'edit Agents', 'delete Agents',
-            'view Suppliers', 'create Suppliers', 'edit Suppliers', 'delete Suppliers',
-            'view supplier payments',
-            'view Invoices', 'create Invoices', 'edit Invoices', 'delete Invoices',
-            'view Passports', 'create Passports', 'edit Passports', 'delete Passports',
-            'view Refunds', 'create Refunds', 'edit Refunds', 'delete Refunds',
-            'view Staff', 'create Staff', 'edit Staff', 'delete Staff',
-            'view staff payments', 'view staff attendance',
-            'view SMS',
-            'view Sections', 'create Sections', 'edit Sections', 'delete Sections',
-            'view Sliders', 'create Sliders', 'edit Sliders', 'delete Sliders',
-            'view About',
-            'view Pages', 'create Pages', 'edit Pages', 'delete Pages',
-            'view Menu Builder',
-            'view Teams', 'create Teams', 'edit Teams', 'delete Teams',
-            'view Partners', 'create Partners', 'edit Partners', 'delete Partners',
-            'view Testimonials', 'create Testimonials', 'edit Testimonials', 'delete Testimonials',
-            'view Counters', 'create Counters', 'edit Counters', 'delete Counters',
-            'view Services', 'create Services', 'edit Services', 'delete Services',
-            'view Gallery', 'create Gallery', 'edit Gallery', 'delete Gallery',
-        ]);
+        // Manager - সব পারমিশন (এখন আর error হবে না)
+        $managerRole->givePermissionTo(Permission::all()); // সহজ উপায়
 
-        $managerRole->givePermissionTo([
-            'view Dashboard',
-            'view Visitors', 'create Visitors', 'edit Visitors',
-            'view Clients', 'create Clients', 'edit Clients',
-            'view Agents', 'create Agents', 'edit Agents',
-            'view Suppliers', 'create Suppliers', 'edit Suppliers',
-            'view supplier payments',
-            'view Invoices', 'create Invoices', 'edit Invoices',
-            'view Passports', 'create Passports', 'edit Passports',
-            'view Refunds', 'create Refunds', 'edit Refunds',
-            'view Staff', 'create Staff', 'edit Staff',
-            'view staff payments', 'view staff attendance',
-            'view SMS',
-            'view Sections', 'create Sections', 'edit Sections',
-            'view Sliders', 'create Sliders', 'edit Sliders',
-            'view About',
-            'view Pages', 'create Pages', 'edit Pages',
-            'view Menu Builder',
-            'view Teams', 'create Teams', 'edit Teams',
-            'view Partners', 'create Partners', 'edit Partners',
-            'view Testimonials', 'create Testimonials', 'edit Testimonials',
-            'view Counters', 'create Counters', 'edit Counters',
-            'view Services', 'create Services', 'edit Services',
-            'view Gallery', 'create Gallery', 'edit Gallery',
-        ]);
-
+        // Staff - সীমিত পারমিশন
         $staffRole->givePermissionTo([
             'view Staff',
             'view staff payments',

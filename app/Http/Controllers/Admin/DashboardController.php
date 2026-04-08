@@ -21,6 +21,9 @@ use App\Models\Supplier;
 use App\Models\Passport;  
 use App\Models\Invoice;  
 use App\Models\Refund;  
+use App\Models\Staff;  
+use App\Models\StaffPayment;  
+use App\Models\StaffAttendance;  
 use Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
@@ -29,6 +32,40 @@ class DashboardController extends Controller
 {
     public function index()
     {
+        $admin = auth('admin')->user();
+
+        // Permission check
+        if (!$admin->can('view Dashboard')) {
+            abort(403, 'You do not have permission to view the dashboard.');
+        }
+
+        // Staff
+        if ($admin->hasRole('Staff')) {
+            $pageTitle = 'Staff Dashboard';
+            
+            // Get the staff record for the logged-in admin
+            $staff = Staff::where('admin_id', $admin->id)->first();
+            
+            // Current month attendance count
+            $currentMonth = now()->month;
+            $currentYear = now()->year;
+            $attendanceCount = StaffAttendance::where('staff_id', $staff->id)
+                                ->whereMonth('attendance_date', $currentMonth)
+                                ->whereYear('attendance_date', $currentYear)
+                                ->count();
+            
+            // Recent payments
+            $recentPayments = StaffPayment::where('staff_id', $staff->id)
+                                ->latest()
+                                ->take(5)
+                                ->get();
+            
+            return view('admin.dashboard.staff', compact(
+                'pageTitle', 'staff', 'attendanceCount', 'recentPayments','admin'
+            ));
+        }
+
+
         $pageTitle    = 'Dashboard';
         $sections     = Section::latest()->get();   
         $pages        = Page::latest()->get();   

@@ -235,10 +235,8 @@
                                 href="{{ route('admin.staff.attendance.index') }}">Staff Attendance</a></li>
                         @endif
                         @if($isSuperAdmin || $admin->canAny(['view Staff', 'create Staff', 'edit Staff', 'delete Staff']))
-                            @if($isSuperAdmin || $admin->can('view staff permissions'))
-                            <li><a class="slide-item {{ Request::is('admin/staff/permissions*') ? 'active' : '' }}"
-                                    href="{{ route('admin.staff.permissions.index') }}">Staff Permissions</a></li>
-                            @endcan
+                        <li><a class="slide-item {{ Request::is('admin/staff/permissions*') ? 'active' : '' }}"
+                                href="{{ route('admin.staff.permissions.index') }}">Staff Permissions</a></li>
                         @endif
                     </ul>
                 </li>

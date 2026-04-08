@@ -60,16 +60,20 @@
                                         </td>
                                         <td>
                                             <div class="btn-group" role="group">
+                                                @if(auth('admin')->user()->can('view staff permissions'))
                                                 <a href="{{ route('admin.staff.permissions.show', $staff->id) }}" 
                                                    class="btn btn-sm btn-info" 
                                                    title="View Permissions">
                                                     <i class="fas fa-eye"></i>
                                                 </a>
+                                                @endcan
+                                                @if(auth('admin')->user()->can('edit staff permissions'))
                                                 <a href="{{ route('admin.staff.permissions.edit', $staff->id) }}" 
                                                    class="btn btn-sm btn-primary" 
                                                    title="Manage Permissions">
                                                     <i class="fas fa-shield-alt"></i>
                                                 </a>
+                                                @endcan
                                             </div>
                                         </td>
                                     </tr>

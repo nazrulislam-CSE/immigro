@@ -7,9 +7,11 @@
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h4 class="card-title">{{ $pageTitle }}</h4>
+                    @if(auth('admin')->user()->can('create Refunds'))
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#refundModal" id="addRefundBtn">
                         <i class="fas fa-plus"></i> Add Refund
                     </button>
+                    @endif
                 </div>
                 <div class="card-body">
                     @if(session('success'))
@@ -42,6 +44,7 @@
                                     <td>{{ $refund->date ? $refund->date->format('d-m-Y') : '' }}</td>
                                     <td>{{ $refund->reason }}</td>
                                     <td>
+                                        @if(auth('admin')->user()->can('edit Refunds'))
                                         <button type="button" class="btn btn-sm btn-primary edit-btn"
                                             data-id="{{ $refund->id }}"
                                             data-client_id="{{ $refund->client_id }}"
@@ -52,9 +55,12 @@
                                             data-bs-toggle="modal" data-bs-target="#refundModal">
                                             <i class="fas fa-edit"></i>
                                         </button>
+                                        @endif
+                                        @if(auth('admin')->user()->can('delete Refunds'))
                                         <a href="{{ route('admin.refund.delete', $refund->id) }}" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">
                                             <i class="fa fa-trash"></i>
                                         </a>
+                                        @endif
                                     </td>
                                 </tr>
                                 @endforeach

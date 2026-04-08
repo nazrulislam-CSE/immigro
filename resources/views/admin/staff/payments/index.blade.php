@@ -53,7 +53,7 @@
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#paymentModal" id="addPaymentBtn">
                         <i class="fas fa-plus"></i> Add Payment
                     </button>
-                    @endcan
+                    @endif
                 </div>
                 <div class="card-body">
                     {{-- Filter Form --}}
@@ -152,13 +152,13 @@
                                             data-bs-toggle="modal" data-bs-target="#paymentModal">
                                             <i class="fas fa-edit"></i>
                                         </button>
-                                        @endcan
+                                        @endif
                                         @if(auth('admin')->user()->can('delete staff payments'))
                                         {{-- Delete Button --}}
                                         <a href="{{ route('admin.staff.payment.delete', $payment->id) }}" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">
                                             <i class="fa fa-trash"></i>
                                         </a>
-                                        @endcan
+                                        @endif
                                     </td>
                                 </tr>
                                 @empty

@@ -7,9 +7,11 @@
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h4 class="card-title">{{ $pageTitle }}</h4>
+                    @if(auth('admin')->user()->can('create Country'))
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addCountryModal">
                         <i class="fas fa-plus"></i> Add Country
                     </button>
+                    @endif
                 </div>
                 <div class="card-body">
                     @if(session('success'))
@@ -53,14 +55,21 @@
                                         </span>
                                     </td>
                                     <td>
+                                        @if(auth('admin')->user()->can('view Country'))
+                                        <a href="{{ route('admin.country.show', $country->id) }}" class="btn btn-sm btn-success"><i class="fas fa-eye"></i></a>
+                                        @endif
+                                        @if(auth('admin')->user()->can('edit Country'))
                                         <button type="button" class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#editCountryModal{{ $country->id }}">
                                             <i class="fas fa-edit"></i>
                                         </button>
+                                        @endif
+                                        @if(auth('admin')->user()->can('delete Country'))
                                         <form action="{{ route('admin.country.delete', $country->id) }}" method="GET" class="d-inline" onsubmit="return confirm('Are you sure?')">
                                             <button type="submit" class="btn btn-sm btn-danger">
                                                 <i class="fas fa-trash"></i>
                                             </button>
                                         </form>
+                                        @endif
                                     </td>
                                 </tr>
 

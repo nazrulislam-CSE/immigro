@@ -76,4 +76,11 @@ class CountryController extends Controller
 
         return redirect()->route('admin.country.index')->with('success', 'Country deleted successfully.');
     }
+
+    public function show($id)
+    {
+        $country = Country::findOrFail($id);
+        $pageTitle = 'Country Details';
+        return view('admin.country.show', compact('pageTitle', 'country'));
+    }
 }

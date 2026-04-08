@@ -7,9 +7,11 @@
                 <div class="card">
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <h4 class="card-title">{{ $pageTitle }}</h4>
+                        @if(auth('admin')->user()->can('create Clients'))
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addClientModal">
                             <i class="fas fa-plus"></i> Add Client
                         </button>
+                        @endif
                     </div>
                     <div class="card-body">
                         @if (session('success'))
@@ -46,14 +48,18 @@
                                             <td>৳ {{ number_format(($client->total_amount ?? 0) - ($client->total_refund ?? 0), 2) }}
                                             <td>{{ $client->agent_name }}</td>
                                             <td>
+                                                @if(auth('admin')->user()->can('create Clients'))
                                                 <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal"
                                                     data-bs-target="#editClientModal{{ $client->id }}">
                                                     <i class="fas fa-edit"></i>
                                                 </button>
+                                                @endif
+                                                @if(auth('admin')->user()->can('delete Clients'))
                                                 <a href="{{ route('admin.client.delete', $client->id) }}"
                                                     class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">
                                                     <i class="fa fa-trash"></i>
                                                 </a>
+                                                @endif
                                             </td>
                                         </tr>
                                     @endforeach

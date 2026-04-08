@@ -51,9 +51,11 @@
                             <p class="card-title my-0">{{ $pageTitle ?? 'Page Title'}} <span class="badge bg-danger side-badge" style="font-size:17px;">{{ count($pages) }}</span> </p>
 
                             <div class="d-flex">
+                                @if(auth('admin')->user()->can('create Pages'))
                                 <a href="{{ route('admin.page.create')}}" class="btn btn-success me-2">
                                     <i class="fas fa-plus d-inline"></i> Add Now Page
                                 </a>
+                                @endif
                             </div>
                         </div>
                         <div class="card-body">
@@ -108,9 +110,15 @@
                                                 @endif
                                             </td>
                                             <td>
+                                                @if(auth('admin')->user()->can('view Pages'))
                                                 <a href="{{ route('admin.page.show',$page->id)}}" class="btn btn-success btn-sm mr-2"><i class="fas fa-eye"></i></a>
+                                                @endif
+                                                @if(auth('admin')->user()->can('edit Pages'))
                                                 <a href="{{ route('admin.page.edit',$page->id)}}" class="btn btn-primary btn-sm mr-2"><i class="fas fa-edit"></i></a>
+                                                @endif
+                                                @if(auth('admin')->user()->can('delete Pages'))
                                                 <a href="{{ route('admin.page.delete',$page->id)}}" class="btn btn-danger btn-sm" title="Delete Data" id="delete"><i class="fa fa-trash"></i></a>
+                                                @endif
                                             </td>
                                         </tr>
                                         @endforeach

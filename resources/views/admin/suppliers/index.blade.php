@@ -7,9 +7,11 @@
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h4 class="card-title">{{ $pageTitle }}</h4>
+                    @if(auth('admin')->user()->can('create Suppliers'))
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addSupplierModal">
                         <i class="fas fa-plus"></i> Add Supplier
                     </button>
+                    @endif
                 </div>
                 <div class="card-body">
                     @if(session('success'))
@@ -36,12 +38,16 @@
                                     <td>{{ $supplier->address }}</td>
                                     <td>{{ $supplier->previous_due }}</td>
                                     <td>
+                                        @if(auth('admin')->user()->can('edit Suppliers'))
                                         <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#editSupplierModal{{ $supplier->id }}">
                                             <i class="fas fa-edit"></i>
                                         </button>
+                                        @endif
+                                        @if(auth('admin')->user()->can('delete Suppliers'))
                                         <a href="{{ route('admin.supplier.delete', $supplier->id) }}" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">
                                             <i class="fa fa-trash"></i>
                                         </a>
+                                        @endif
                                     </td>
                                 </tr>
                                 @endforeach

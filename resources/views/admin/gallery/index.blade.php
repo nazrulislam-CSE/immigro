@@ -51,9 +51,11 @@
                             <p class="card-title my-0">{{ $pageTitle ?? 'Page Title'}} <span class="badge bg-danger side-badge" style="font-size:17px;">{{ count($gallerys) }}</span> </p>
 
                             <div class="d-flex">
+                                @if(auth('admin')->user()->can('create Gallery'))
                                 <a href="{{ route('admin.gallery.create')}}" class="btn btn-success me-2">
                                     <i class="fas fa-list d-inline"></i> Add Now Gallery
                                 </a>
+                                @endcan
                             </div>
                         </div>
                         <div class="card-body">
@@ -86,6 +88,7 @@
                                                 @endif
                                             </td>
                                             <td>
+                                                 @if(auth('admin')->user()->can('view Gallery'))
                                                 <a href="{{ route('admin.gallery.show',$gallery->id)}}" class="btn btn-success btn-sm mr-2"><i class="fas fa-eye"></i></a>
                                                 <a href="{{ route('admin.gallery.edit',$gallery->id)}}" class="btn btn-primary btn-sm mr-2"><i class="fas fa-edit"></i></a>
                                                 <a href="{{ route('admin.gallery.delete',$gallery->id)}}" class="btn btn-danger btn-sm" title="Delete Data" id="delete"><i class="fa fa-trash"></i></a>

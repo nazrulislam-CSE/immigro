@@ -351,6 +351,7 @@ Route::middleware('admin')->group(function () {
         Route::post('/store', [CountryController::class, 'store'])->name('country.store');
         Route::post('/update/{id}', [CountryController::class, 'update'])->name('country.update');
         Route::get('/delete/{id}', [CountryController::class, 'destroy'])->name('country.delete');
+        Route::get('/show/{id}', [CountryController::class,'show'])->name('country.show');
     });
 
      /* ============> Manage Branch   <=========== */

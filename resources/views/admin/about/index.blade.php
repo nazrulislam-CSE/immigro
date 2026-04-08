@@ -88,9 +88,15 @@
                                                 @endif
                                             </td>
                                             <td>
+                                                @if(auth('admin')->user()->can('view About'))
                                                 <a href="{{ route('admin.about.show',$about->id)}}" class="btn btn-success btn-sm mr-2"><i class="fas fa-eye"></i></a>
+                                                @endif
+                                                @if(auth('admin')->user()->can('view About'))
                                                 <a href="{{ route('admin.about.edit',$about->id)}}" class="btn btn-primary btn-sm mr-2"><i class="fas fa-edit"></i></a>
-                                                {{-- <a href="{{ route('admin.about.delete',$about->id)}}" class="btn btn-danger btn-sm" title="Delete Data" id="delete"><i class="fa fa-trash"></i></a> --}}
+                                                @endif
+                                                {{-- @if(auth('admin')->user()->can('delete Abouts'))
+                                                <a href="{{ route('admin.about.delete',$about->id)}}" class="btn btn-danger btn-sm" title="Delete Data" id="delete"><i class="fa fa-trash"></i></a>
+                                                @endif --}}
                                             </td>
                                         </tr>
                                         @endforeach

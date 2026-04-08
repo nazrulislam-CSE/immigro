@@ -7,9 +7,11 @@
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h4 class="card-title">{{ $pageTitle }}</h4>
+                    @if(auth('admin')->user()->can('create Agents'))
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addAgentModal">
                         <i class="fas fa-plus"></i> Add Agent
                     </button>
+                    @endif
                 </div>
                 <div class="card-body">
                     @if(session('success'))
@@ -42,12 +44,16 @@
                                         @endif
                                     </td>
                                     <td>
+                                        @if(auth('admin')->user()->can('create Agents'))
                                         <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#editAgentModal{{ $agent->id }}">
                                             <i class="fas fa-edit"></i>
                                         </button>
+                                        @endif
+                                        @if(auth('admin')->user()->can('delete Agents'))
                                         <a href="{{ route('admin.agent.delete', $agent->id) }}" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">
                                             <i class="fa fa-trash"></i>
                                         </a>
+                                        @endif
                                     </td>
                                 </tr>
                                 @endforeach

@@ -12,7 +12,7 @@
                             id="addStaffBtn">
                             <i class="fas fa-plus"></i> Add Staff
                         </button>
-                        @endcan
+                        @endif
                     </div>
                     <div class="card-body">
                         @if (session('success'))
@@ -85,7 +85,7 @@
                                                     data-bs-toggle="modal" data-bs-target="#staffModal">
                                                     <i class="fas fa-eye"></i>
                                                 </button>
-                                                @endcan
+                                                @endif
 
                                                 @if(auth('admin')->user()->can('edit Staff'))
                                                 {{-- Edit Button --}}
@@ -116,7 +116,7 @@
                                                     data-bs-toggle="modal" data-bs-target="#staffModal">
                                                     <i class="fas fa-edit"></i>
                                                 </button>
-                                                @endcan
+                                                @endif
 
                                                 @if(auth('admin')->user()->can('delete Staff'))
                                                     <a href="{{ route('admin.staff.delete', $member->id) }}"

@@ -19,9 +19,11 @@
                 <div class="card-header border-bottom d-flex justify-content-between align-items-center">
                     <p class="card-title my-0">{{ $pageTitle }} <span class="badge bg-danger">{{ count($products) }}</span></p>
                     <div class="d-flex">
+                        @if(auth('admin')->user()->can('create Products'))
                         <a href="{{ route('admin.product.create') }}" class="btn btn-success">
                             <i class="fas fa-plus"></i> Add Product
                         </a>
+                        @endif
                     </div>
                 </div>
                 <div class="card-body">
@@ -65,12 +67,18 @@
                                         @endif
                                     </td>
                                     <td>
+                                        @if(auth('admin')->user()->can('view Products'))
                                         <a href="{{ route('admin.product.show', $product->id) }}" class="btn btn-sm btn-success"><i class="fas fa-eye"></i></a>
+                                        @endif
+                                        @if(auth('admin')->user()->can('edit Products'))
                                         <a href="{{ route('admin.product.edit', $product->id) }}" class="btn btn-sm btn-primary"><i class="fas fa-edit"></i></a>
+                                        @endif
+                                        @if(auth('admin')->user()->can('delete Products'))
                                         <form action="{{ route('admin.product.delete', $product->id) }}" method="POST" style="display:inline;">
                                             @csrf @method('DELETE')
                                             <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')"><i class="fas fa-trash"></i></button>
                                         </form>
+                                        @endif
                                     </td>
                                 </tr>
                                 @endforeach

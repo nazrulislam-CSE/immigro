@@ -7,9 +7,11 @@
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h4 class="card-title">{{ $pageTitle }}</h4>
+                    @if(auth('admin')->user()->can('create Training'))
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addTrainingModal">
                         <i class="fas fa-plus"></i> Add Training
                     </button>
+                    @endif
                 </div>
                 <div class="card-body">
                     @if(session('success'))
@@ -47,14 +49,18 @@
                                         </span>
                                     </td>
                                     <td>
+                                        @if(auth('admin')->user()->can('view Training'))
                                         <button type="button" class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#editTrainingModal{{ $training->id }}">
                                             <i class="fas fa-edit"></i>
                                         </button>
+                                        @endif
+                                        @if(auth('admin')->user()->can('delete Training'))
                                         <form action="{{ route('admin.training.delete', $training->id) }}" method="GET" class="d-inline" onsubmit="return confirm('Are you sure?')">
                                             <button type="submit" class="btn btn-sm btn-danger">
                                                 <i class="fas fa-trash"></i>
                                             </button>
                                         </form>
+                                        @endif
                                     </td>
                                 </tr>
 

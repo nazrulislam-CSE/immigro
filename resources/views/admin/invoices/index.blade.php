@@ -7,10 +7,12 @@
                 <div class="card">
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <h4 class="card-title">{{ $pageTitle }}</h4>
+                        @if(auth('admin')->user()->can('create Invoices'))
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#invoiceModal"
                             id="addInvoiceBtn">
                             <i class="fas fa-plus"></i> Add Invoice
                         </button>
+                        @endif
                     </div>
                     <div class="card-body">
                         @if (session('success'))
@@ -46,6 +48,7 @@
                                             <td>{{ $invoice->processing_time }}</td>
                                             <td>
                                                 {{-- View Receipt Button --}}
+                                                @if(auth('admin')->user()->can('view Invoices'))
                                                 <button type="button" class="btn btn-sm btn-info receipt-btn"
                                                     data-id="{{ $invoice->id }}"
                                                     data-invoice_no="{{ $invoice->invoice_no }}"
@@ -60,7 +63,8 @@
                                                     data-bs-toggle="modal" data-bs-target="#receiptModal">
                                                     <i class="fas fa-receipt"></i>
                                                 </button>
-
+                                                @endif
+                                                @if(auth('admin')->user()->can('edit Invoices'))
                                                 {{-- Edit Button --}}
                                                 <button type="button" class="btn btn-sm btn-primary edit-btn"
                                                     data-id="{{ $invoice->id }}"
@@ -74,12 +78,15 @@
                                                     data-bs-toggle="modal" data-bs-target="#invoiceModal">
                                                     <i class="fas fa-edit"></i>
                                                 </button>
+                                                @endif
 
+                                                @if(auth('admin')->user()->can('delete Invoices'))
                                                 {{-- Delete Button --}}
                                                 <a href="{{ route('admin.invoice.delete', $invoice->id) }}"
                                                     class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">
                                                     <i class="fa fa-trash"></i>
                                                 </a>
+                                                @endif
                                             </td>
                                         </tr>
                                     @endforeach

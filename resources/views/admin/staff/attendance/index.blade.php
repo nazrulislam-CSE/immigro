@@ -11,7 +11,7 @@
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#attendanceModal" id="addAttendanceBtn">
                         <i class="fas fa-plus"></i> Add Attendance
                     </button>
-                    @endcan
+                    @endif
                 </div>
                 <div class="card-body">
                     {{-- Filter Form --}}
@@ -106,12 +106,12 @@
                                             data-bs-toggle="modal" data-bs-target="#attendanceModal">
                                             <i class="fas fa-edit"></i>
                                         </button>
-                                        @endcan
+                                        @endif
                                         @if(auth('admin')->user()->can('delete staff attendance'))
                                         <a href="{{ route('admin.staff.attendance.delete', $att->id) }}" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">
                                             <i class="fa fa-trash"></i>
                                         </a>
-                                        @endcan
+                                        @endif
                                     </td>
                                 </tr>
                                 @empty

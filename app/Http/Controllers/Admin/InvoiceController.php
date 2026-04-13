@@ -87,4 +87,10 @@ class InvoiceController extends Controller
             'previous_due' => number_format($totalDue, 2),
         ]);
     }
+
+    public function receipt($id)
+    {
+        $invoice = Invoice::with('client')->findOrFail($id);
+        return view('admin.invoices.receipt', compact('invoice'));
+    }
 }

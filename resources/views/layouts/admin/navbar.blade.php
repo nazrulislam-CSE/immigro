@@ -1,15 +1,33 @@
+@php
+    $admin = Auth::guard('admin')->user();
+    $isSuperAdmin = $admin && $admin->hasRole('Super Admin');
+@endphp
+@if (!$isSuperAdmin)
+    <style>
+        .side-header {
+            background: #20916c;
+        }
+
+        .main-header.side-header.fixed-header {
+            background: #20916c;
+
+        }
+    </style>
+@endif
 <div class="main-header side-header sticky nav nav-item">
     <div class="container-fluid main-container ">
         <div class="main-header-left ">
             <div class="app-sidebar__toggle mobile-toggle" data-bs-toggle="sidebar">
                 <a class="open-toggle" href="javascript:void(0);"><i class="header-icons" data-eva="menu-outline"></i></a>
-                <a class="close-toggle" href="javascript:void(0);"><i class="header-icons" data-eva="close-outline"></i></a>
+                <a class="close-toggle" href="javascript:void(0);"><i class="header-icons"
+                        data-eva="close-outline"></i></a>
             </div>
             <div class="responsive-logo">
                 <h5 class="text-uppercase font-weight-bolder text-light">Evisa</h5>
             </div>
             <ul class="header-megamenu-dropdown  nav">
-                <a href="{{ route('frontend.home')}}" target="_blank" class="btn btn-success text-center"><i class="fa fa-share"></i> View Website</a>
+                <a href="{{ route('frontend.home') }}" target="_blank" class="btn btn-success text-center"><i
+                        class="fa fa-share"></i> View Website</a>
                 {{-- <li class="nav-item">
                     <div class="btn-group dropdown">
                         <button aria-expanded="false" aria-haspopup="true" class="btn btn-link dropdown-toggle" data-bs-toggle="dropdown" id="dropdownMenuButton2" type="button"><span><i class="fe fe-settings"></i> Settings </span></button>
@@ -76,7 +94,9 @@
                 </li> --}}
             </ul>
         </div>
-        <button class="navbar-toggler nav-link icon navresponsive-toggler vertical-icon ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent-4" aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler nav-link icon navresponsive-toggler vertical-icon ms-auto" type="button"
+            data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent-4"
+            aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
             <i class="fe fe-more-vertical header-icons navbar-toggler-icon"></i>
         </button>
         <div class="mb-0 navbar navbar-expand-lg navbar-nav-right responsive-navbar navbar-dark p-0  mg-lg-s-auto">
@@ -105,22 +125,26 @@
                     </li>
                     <div class="nav nav-item  navbar-nav-right mg-lg-s-auto">
                         <div class="nav-item full-screen fullscreen-button">
-                            <a class="new nav-link full-screen-link" href="javascript:void(0);"><i class="fe fe-maximize"></i></span></a>
+                            <a class="new nav-link full-screen-link" href="javascript:void(0);"><i
+                                    class="fe fe-maximize"></i></span></a>
                         </div>
                         <div class="dropdown  nav-item main-header-message ">
-                            <a class="new nav-link" href="javascript:void(0);"><i class="fe fe-mail"></i><span class=" pulse-danger"></span></a>
+                            <a class="new nav-link" href="javascript:void(0);"><i class="fe fe-mail"></i><span
+                                    class=" pulse-danger"></span></a>
                             <div class="dropdown-menu">
                                 <div class="menu-header-content bg-primary-gradient text-start d-flex">
                                     <div class="">
                                         <h6 class="menu-header-title text-white mb-0">5 new Messages</h6>
                                     </div>
                                     <div class="my-auto mg-s-auto">
-                                        <a class="badge bg-pill bg-warning float-end" href="javascript:void(0);">Mark All Read</a>
+                                        <a class="badge bg-pill bg-warning float-end" href="javascript:void(0);">Mark
+                                            All Read</a>
                                     </div>
                                 </div>
                                 <div class="main-message-list chat-scroll">
                                     <a href="mail.html" class="p-3 d-flex border-bottom">
-                                        <div class="drop-img  cover-image  " data-bs-image-src="{{ asset('dashboard/img/avatar5.png') }}">
+                                        <div class="drop-img  cover-image  "
+                                            data-bs-image-src="{{ asset('dashboard/img/avatar5.png') }}">
                                             <span class="avatar-status bg-teal"></span>
                                         </div>
 
@@ -133,7 +157,8 @@
                                         </div>
                                     </a>
                                     <a href="mail.html" class="p-3 d-flex border-bottom">
-                                        <div class="drop-img cover-image" data-bs-image-src="{{ asset('dashboard/img/avatar5.png') }}">
+                                        <div class="drop-img cover-image"
+                                            data-bs-image-src="{{ asset('dashboard/img/avatar5.png') }}">
                                             <span class="avatar-status bg-teal"></span>
                                         </div>
                                         <div class="wd-90p">
@@ -145,7 +170,8 @@
                                         </div>
                                     </a>
                                     <a href="mail.html" class="p-3 d-flex border-bottom">
-                                        <div class="drop-img cover-image" data-bs-image-src="{{ asset('dashboard/img/avatar5.png') }}">
+                                        <div class="drop-img cover-image"
+                                            data-bs-image-src="{{ asset('dashboard/img/avatar5.png') }}">
                                             <span class="avatar-status bg-teal"></span>
                                         </div>
                                         <div class="wd-90p">
@@ -157,7 +183,8 @@
                                         </div>
                                     </a>
                                     <a href="mail.html" class="p-3 d-flex border-bottom">
-                                        <div class="drop-img cover-image" data-bs-image-src="{{ asset('dashboard/img/avatar5.png') }}">
+                                        <div class="drop-img cover-image"
+                                            data-bs-image-src="{{ asset('dashboard/img/avatar5.png') }}">
                                             <span class="avatar-status bg-danger"></span>
                                         </div>
                                         <div class="wd-90p">
@@ -169,7 +196,8 @@
                                         </div>
                                     </a>
                                     <a href="mail.html" class="p-3 d-flex border-bottom">
-                                        <div class="drop-img cover-image" data-bs-image-src="{{ asset('dashboard/img/avatar5.png') }}">
+                                        <div class="drop-img cover-image"
+                                            data-bs-image-src="{{ asset('dashboard/img/avatar5.png') }}">
                                             <span class="avatar-status bg-teal"></span>
                                         </div>
                                         <div class="wd-90p">
@@ -187,14 +215,16 @@
                             </div>
                         </div>
                         <div class="dropdown nav-item main-header-notification">
-                            <a class="new nav-link" href="javascript:void(0);"><i class="fe fe-bell"></i><span class=" pulse"></span></a>
+                            <a class="new nav-link" href="javascript:void(0);"><i class="fe fe-bell"></i><span
+                                    class=" pulse"></span></a>
                             <div class="dropdown-menu">
                                 <div class="menu-header-content bg-primary-gradient text-start d-flex">
                                     <div class="">
                                         <h6 class="menu-header-title text-white mb-0">7 new Notifications</h6>
                                     </div>
                                     <div class="my-auto ms-auto">
-                                        <a class="badge bg-pill bg-warning float-end" href="javascript:void(0);">Mark All Read</a>
+                                        <a class="badge bg-pill bg-warning float-end" href="javascript:void(0);">Mark
+                                            All Read</a>
                                     </div>
                                 </div>
                                 <div class="main-notification-list Notification-scroll">
@@ -277,19 +307,29 @@
                             </div>
                         </div>
                         <div class="dropdown main-profile-menu nav nav-item nav-link">
-                            <a class="profile-user d-flex" href=""><img src="{{ (!empty( Auth::guard('admin')->user()->image)) ? url('upload/admin_images/'.Auth::guard('admin')->user()->image):url('dashboard/img/avatar5.png') }}" alt="user-img" class="rounded-circle"><span></span></a>
+                            <a class="profile-user d-flex" href=""><img
+                                    src="{{ !empty(Auth::guard('admin')->user()->image) ? url('upload/admin_images/' . Auth::guard('admin')->user()->image) : url('dashboard/img/avatar5.png') }}"
+                                    alt="user-img" class="rounded-circle"><span></span></a>
 
                             <div class="dropdown-menu">
                                 <div class="main-header-profile header-img">
-                                    <div class="main-img-user"><img alt="" src="{{ (!empty( Auth::guard('admin')->user()->image)) ? url('upload/admin_images/'.Auth::guard('admin')->user()->image):url('dashboard/img/avatar5.png') }}"></div>
+                                    <div class="main-img-user"><img alt=""
+                                            src="{{ !empty(Auth::guard('admin')->user()->image) ? url('upload/admin_images/' . Auth::guard('admin')->user()->image) : url('dashboard/img/avatar5.png') }}">
+                                    </div>
                                     <h6>{{ Auth::guard('admin')->user()->name }}</h6><span></span>
                                 </div>
-                                <a class="dropdown-item" href="{{ route('admin.profile.view')}}"><i class="far fa-user"></i> My Profile</a>
-                                <a class="dropdown-item" href="{{ route('admin.password.change')}}"><i class="fe fe-settings"></i> Change Password</a>
-                                <a class="dropdown-item" href="{{ route('admin.settings.index')}}"><i class="fas fa-sliders-h"></i> Account Settings</a>
-                                <a class="dropdown-item" href="{{ route('admin.logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="fas fa-sign-out-alt"></i> Sign Out</a>
+                                <a class="dropdown-item" href="{{ route('admin.profile.view') }}"><i
+                                        class="far fa-user"></i> My Profile</a>
+                                <a class="dropdown-item" href="{{ route('admin.password.change') }}"><i
+                                        class="fe fe-settings"></i> Change Password</a>
+                                <a class="dropdown-item" href="{{ route('admin.settings.index') }}"><i
+                                        class="fas fa-sliders-h"></i> Account Settings</a>
+                                <a class="dropdown-item" href="{{ route('admin.logout') }}"
+                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i
+                                        class="fas fa-sign-out-alt"></i> Sign Out</a>
 
-                                <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" class="d-none">
+                                <form id="logout-form" action="{{ route('admin.logout') }}" method="POST"
+                                    class="d-none">
                                     @csrf
                                 </form>
                             </div>

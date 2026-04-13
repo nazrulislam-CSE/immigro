@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ $pageTitle }} #{{ $income->id }}</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <title>Money Receipt #{{ $invoice->invoice_no }}</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap"
+        rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -19,17 +22,18 @@
             color: #1a2c3e;
         }
 
-        .voucher-container {
+        .receipt-container {
             max-width: 880px;
             margin: 0 auto;
             background: #ffffff;
             border-radius: 20px;
             box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.1);
             overflow: hidden;
+            transition: all 0.2s;
         }
 
-        /* Header with gradient */
-        .voucher-header {
+        /* Header with subtle gradient */
+        .receipt-header {
             background: linear-gradient(135deg, #1e466e 0%, #0f2c44 100%);
             color: white;
             padding: 30px 35px;
@@ -70,22 +74,22 @@
             line-height: 1.4;
         }
 
-        .voucher-title {
+        .receipt-title {
             text-align: right;
         }
 
-        .voucher-title h2 {
+        .receipt-title h2 {
             font-size: 32px;
             font-weight: 800;
             letter-spacing: 1px;
-            background: rgba(255,255,255,0.15);
+            background: rgba(255, 255, 255, 0.15);
             display: inline-block;
             padding: 8px 20px;
             border-radius: 40px;
             backdrop-filter: blur(4px);
         }
 
-        .voucher-title p {
+        .receipt-title p {
             font-size: 14px;
             margin-top: 8px;
             opacity: 0.8;
@@ -98,12 +102,12 @@
             width: 100%;
         }
 
-        /* Main body */
-        .voucher-body {
+        /* Main content */
+        .receipt-body {
             padding: 30px 35px 35px;
         }
 
-        /* Meta row */
+        /* Invoice meta row */
         .meta-row {
             display: flex;
             justify-content: space-between;
@@ -121,7 +125,7 @@
             margin-right: 10px;
         }
 
-        /* Info grid */
+        /* Client info grid */
         .info-section {
             margin-bottom: 30px;
         }
@@ -135,7 +139,7 @@
             margin-bottom: 18px;
         }
 
-        .info-grid {
+        .client-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 16px 30px;
@@ -145,7 +149,7 @@
             border: 1px solid #eef2f0;
         }
 
-        .info-grid .field {
+        .client-grid .field {
             display: flex;
             align-items: baseline;
             flex-wrap: wrap;
@@ -175,7 +179,7 @@
             font-size: 15px;
             border-radius: 16px;
             overflow: hidden;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
         }
 
         .amount-table th {
@@ -224,6 +228,7 @@
             color: #5c7f9c;
         }
 
+        /* Footer note */
         .footer-note {
             text-align: center;
             font-size: 12px;
@@ -248,7 +253,7 @@
             cursor: pointer;
             transition: 0.2s;
             margin: 0 auto 30px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
         }
 
         .btn-print:hover {
@@ -267,163 +272,163 @@
                 padding: 0;
                 margin: 0;
             }
-            .voucher-container {
+
+            .receipt-container {
                 box-shadow: none;
                 border-radius: 0;
                 margin: 0;
             }
-            .btn-print, .print-wrapper {
+
+            .btn-print,
+            .print-wrapper {
                 display: none;
             }
-            .voucher-header {
+
+            .receipt-header {
                 background: #1e466e;
                 -webkit-print-color-adjust: exact;
                 print-color-adjust: exact;
             }
+
             .divider {
                 -webkit-print-color-adjust: exact;
                 print-color-adjust: exact;
             }
-            .info-grid, .meta-row {
+
+            .client-grid,
+            .meta-row {
                 break-inside: avoid;
             }
+
             .amount-table {
                 break-inside: avoid;
             }
         }
     </style>
 </head>
+
 <body>
 
-<div class="voucher-container">
-    <!-- Header with gradient background -->
-    <div class="voucher-header">
-        <div class="header-content">
-            <div class="logo-area">
-                @php
-                    $logoPath = get_setting('site_logo')->value ?? null;
-                @endphp
-                @if($logoPath && file_exists(public_path($logoPath)))
-                    <img src="{{ asset($logoPath) }}" alt="Logo" class="logo-img">
-                @else
-                    <div style="width: 60px; height: 60px; background: rgba(255,255,255,0.2); border-radius: 12px;"></div>
-                @endif
-                <div class="company-info">
-                    <h1>{{ get_setting('site_name')->value ?? 'Your Company' }}</h1>
-                    <p>{{ get_setting('business_address')->value ?? '' }}<br>
-                    Phone: {{ get_setting('phone')->value ?? 'N/A' }} | Email: {{ get_setting('email')->value ?? '' }}</p>
+    <div class="receipt-container">
+        <!-- Header with gradient background -->
+        <div class="receipt-header">
+            <div class="header-content">
+                <div class="logo-area">
+                    @php
+                        $logoPath = get_setting('site_logo')->value ?? null;
+                    @endphp
+                    @if ($logoPath && file_exists(public_path($logoPath)))
+                        <img src="{{ asset($logoPath) }}" alt="Logo" class="logo-img">
+                    @else
+                        <div style="width: 60px; height: 60px; background: rgba(255,255,255,0.2); border-radius: 12px;">
+                        </div>
+                    @endif
+                    <div class="company-info">
+                        <h1>{{ get_setting('site_name')->value ?? 'Your Company' }}</h1>
+                        <p>{{ get_setting('business_address')->value ?? '' }}<br>
+                            Phone: {{ get_setting('phone')->value ?? 'N/A' }} | Email:
+                            {{ get_setting('email')->value ?? '' }}</p>
+                    </div>
+                </div>
+                <div class="receipt-title">
+                    <h2>RECEIPT</h2>
+                    <p>Payment Acknowledgement</p>
                 </div>
             </div>
-            <div class="voucher-title">
-                <h2>VOUCHER</h2>
-                <p>Income Acknowledgement</p>
+        </div>
+        <div class="divider"></div>
+
+        <div class="receipt-body">
+            <!-- Invoice meta -->
+            <div class="meta-row">
+                <div class="meta-item"><span>Invoice No:</span> <strong>{{ $invoice->invoice_no }}</strong></div>
+                <div class="meta-item"><span>Date:</span> <strong>{{ $invoice->created_at->format('d-m-Y') }}</strong>
+                </div>
+                <div class="meta-item"><span>Status:</span>
+                    @php
+                        $statusClass = $invoice->due > 0 ? 'warning' : 'success';
+                    @endphp
+                    <span style="color: {{ $invoice->due > 0 ? '#e8891c' : '#2b7e3a' }}; font-weight:600;">
+                        {{ $invoice->due > 0 ? 'Partial Paid' : 'Fully Paid' }}
+                    </span>
+                </div>
+            </div>
+
+            <!-- Client Information (2‑column grid) -->
+            <div class="info-section">
+                <div class="section-title">Client Details</div>
+                <div class="client-grid">
+                    <div class="field">
+                        <div class="field-label">Full Name</div>
+                        <div class="field-value">{{ $invoice->client->client_name ?? '—' }}</div>
+                    </div>
+                    <div class="field">
+                        <div class="field-label">Mobile Number</div>
+                        <div class="field-value">{{ $invoice->mobile }}</div>
+                    </div>
+                    <div class="field">
+                        <div class="field-label">Country</div>
+                        <div class="field-value">{{ $invoice->country_name }}</div>
+                    </div>
+                    <div class="field">
+                        <div class="field-label">Processing Time</div>
+                        <div class="field-value">{{ $invoice->processing_time ?? 'Standard' }}</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Amount breakdown -->
+            <div class="amount-section">
+                <div class="section-title">Payment Summary</div>
+                <table class="amount-table">
+                    <thead>
+                        <tr>
+                            <th>Description</th>
+                            <th class="text-right">Amount (৳)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Total Invoice Amount</td>
+                            <td class="text-right">৳ {{ number_format($invoice->total_amount, 2) }}</td>
+                        </tr>
+                        <tr>
+                            <td>Advance / Paid Amount</td>
+                            <td class="text-right">৳ {{ number_format($invoice->advance_pay, 2) }}</td>
+                        </tr>
+                        <tr class="total-row">
+                            <td><strong>Due Balance</strong></td>
+                            <td class="text-right"><strong>৳ {{ number_format($invoice->due, 2) }}</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Signature & footer -->
+            <div class="signature-area">
+                <div class="signature-line">Received by</div>
+                <div class="signature-line">Authorised Signature</div>
+            </div>
+
+            <div class="footer-note">
+                This is a computer generated receipt – valid without signature.<br>
+                Thank you for your business!
             </div>
         </div>
     </div>
-    <div class="divider"></div>
 
-    <div class="voucher-body">
-        <!-- Meta row -->
-        <div class="meta-row">
-            <div class="meta-item"><span>Voucher No:</span> <strong>#{{ $income->id }}</strong></div>
-            <div class="meta-item"><span>Date:</span> <strong>{{ $income->date ? $income->date->format('d M Y') : 'N/A' }}</strong></div>
-            <div class="meta-item"><span>Status:</span>
-                @php
-                    $statusText = $income->due_amount > 0 ? 'Partial Payment' : 'Fully Paid';
-                    $statusColor = $income->due_amount > 0 ? '#e8891c' : '#2b7e3a';
-                @endphp
-                <span style="color: {{ $statusColor }}; font-weight:600;">{{ $statusText }}</span>
-            </div>
-        </div>
-
-        <!-- Client & Income Details (2-column grid) -->
-        <div class="info-section">
-            <div class="section-title">Income Details</div>
-            <div class="info-grid">
-                <div class="field">
-                    <div class="field-label">Client</div>
-                    <div class="field-value">{{ $income->client->client_name ?? 'N/A' }}</div>
-                </div>
-                <div class="field">
-                    <div class="field-label">Income Category</div>
-                    <div class="field-value">{{ $income->income_category ?? 'N/A' }}</div>
-                </div>
-                <div class="field">
-                    <div class="field-label">Payment Method</div>
-                    <div class="field-value">{{ $income->payment_method ?? 'N/A' }}</div>
-                </div>
-                <div class="field">
-                    <div class="field-label">Received By</div>
-                    <div class="field-value">{{ $income->received_by ?? 'N/A' }}</div>
-                </div>
-                <div class="field">
-                    <div class="field-label">Payment Date</div>
-                    <div class="field-value">{{ $income->payment_date ? $income->payment_date->format('d M Y') : 'N/A' }}</div>
-                </div>
-                <div class="field">
-                    <div class="field-label">Created At</div>
-                    <div class="field-value">{{ $income->created_at->format('d M Y h:i A') }}</div>
-                </div>
-                @if($income->comments)
-                <div class="field" style="grid-column: span 2;">
-                    <div class="field-label">Comments</div>
-                    <div class="field-value">{{ $income->comments }}</div>
-                </div>
-                @endif
-            </div>
-        </div>
-
-        <!-- Amount breakdown -->
-        <div class="amount-section">
-            <div class="section-title">Financial Summary</div>
-            <table class="amount-table">
-                <thead>
-                    <tr>
-                        <th>Description</th>
-                        <th class="text-right">Amount (৳)</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Total Income Amount</td>
-                        <td class="text-right">৳ {{ number_format($income->total_amount, 2) }}</td>
-                    </tr>
-                    <tr>
-                        <td>Payment Received</td>
-                        <td class="text-right">৳ {{ number_format($income->payment_amount, 2) }}</td>
-                    </tr>
-                    <tr class="total-row">
-                        <td><strong>Due Amount</strong></td>
-                        <td class="text-right"><strong>৳ {{ number_format($income->due_amount, 2) }}</strong></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <!-- Signature & footer -->
-        <div class="signature-area">
-            <div class="signature-line">Received by</div>
-            <div class="signature-line">Authorised Signature</div>
-        </div>
-
-        <div class="footer-note">
-            This is a computer-generated voucher – valid without signature.<br>
-            Thank you for your payment!
-        </div>
+    <div class="print-wrapper">
+        <button class="btn-print" onclick="window.print();">
+            🖨️ Print Receipt
+        </button>
     </div>
-</div>
 
-<div class="print-wrapper">
-    <button class="btn-print" onclick="window.print();">
-        🖨️ Print Voucher
-    </button>
-</div>
-
-<script>
-    // Auto-print if ?print=1 is present in URL
-    if (window.location.search.includes('print=1')) {
-        window.print();
-    }
-</script>
+    <script>
+        // Auto‑print if ?print=1 is present in URL
+        if (window.location.search.includes('print=1')) {
+            window.print();
+        }
+    </script>
 </body>
+
 </html>

@@ -52,7 +52,7 @@
                                     <td>{{ $income->payment_date ? \Carbon\Carbon::parse($income->payment_date)->format('d M Y') : 'N/A' }}</td>
                                     <td>{{ $income->payment_method ?? 'N/A' }}</td>
                                     <td>
-                                        <a href="{{ route('admin.income.voucher', $income->id) }}" target="_blank" class="btn btn-sm btn-info"><i class="fas fa-receipt"></i> Voucher</a>
+                                        <a href="{{ route('admin.income.voucher', $income->id) }}" target="_blank" class="btn btn-sm btn-info"><i class="fas fa-receipt"></i></a>
                                         <a href="{{ route('admin.income.show', $income->id) }}" class="btn btn-sm btn-success"><i class="fas fa-eye"></i></a>
                                         <a href="{{ route('admin.income.edit', $income->id) }}" class="btn btn-sm btn-primary"><i class="fas fa-edit"></i></a>
                                         <a href="{{ route('admin.income.delete', $income->id) }}" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')"><i class="fas fa-trash"></i></a>

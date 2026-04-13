@@ -91,21 +91,21 @@
     <div class="row row-sm g-4">
         <!-- Profile Card (Stylish) -->
         <div class="col-xl-4 col-lg-6 col-md-12">
-            <div class="card stat-card shadow-sm h-100">
+        <div class=" stat-card shadow-sm h-100" style="background: linear-gradient(135deg, rgb(0, 198, 255), rgb(215 5 5 / 53%));">
                 <div class="card-body text-center">
                     <div class="position-relative d-inline-block mb-3">
                         <img src="{{ $staff->photo ? asset('storage/' . $staff->photo) : asset('dashboard/img/avatar5.png') }}" 
                              class="rounded-circle wd-100 ht-100 border border-3 border-primary p-1" alt="profile">
                         <span class="position-absolute bottom-0 end-0 bg-success border border-light rounded-circle p-1" style="width: 16px; height: 16px;"></span>
                     </div>
-                    <h5 class="mb-1 fw-bold">{{ $staff->staff_name }}</h5>
-                    <p class="text-muted mb-2"><i class="fe fe-mail"></i> {{ $admin->email }}</p>
+                    <h5 class="mb-1 fw-bold text-light">{{ $staff->staff_name }}</h5>
+                    <p class=" mb-2 text-light"><i class="fe fe-mail"></i> {{ $admin->email }}</p>
                     <div class="d-flex justify-content-center gap-3 mb-2">
-                        <span><i class="fe fe-phone text-primary"></i> {{ $staff->mobile_number ?? 'N/A' }}</span>
-                        <span><i class="fe fe-map-pin text-danger"></i> {{ $staff->present_address ? Str::limit($staff->present_address, 20) : 'Not provided' }}</span>
+                        <span class="text-light"><i class="fe fe-phone text-primary"></i> {{ $staff->mobile_number ?? 'N/A' }}</span>
+                        <span class="text-light"><i class="fe fe-map-pin text-danger"></i> {{ $staff->present_address ? Str::limit($staff->present_address, 20) : 'Not provided' }}</span>
                     </div>
                     <div class="mt-2">
-                        <a href="{{ route('admin.profile.view') }}" class="btn btn-sm btn-outline-primary rounded-pill px-4">Update Profile</a>
+                        <a href="{{ route('admin.profile.view') }}" class="btn btn-sm btn-primary rounded-pill px-4">Update Profile</a>
                     </div>
                 </div>
             </div>
@@ -113,35 +113,35 @@
 
         <!-- Salary Summary Card (Neumorphic style) -->
         <div class="col-xl-4 col-lg-6 col-md-12">
-            <div class="card stat-card shadow-sm h-100">
+            <div class="stat-card shadow-sm h-100" style="background: linear-gradient(135deg, rgb(0, 198, 255), rgb(18 231 83));">
                 <div class="card-header bg-transparent border-0 pt-3">
                     <h5 class="card-title mb-0"><i class="fe fe-dollar-sign text-success me-1"></i> Salary Breakdown</h5>
                 </div>
                 <div class="card-body pt-0">
                     <ul class="list-unstyled salary-list mb-0">
                         <li class="d-flex justify-content-between">
-                            <span><i class="fe fe-file-text"></i> Basic Salary</span>
-                            <strong class="text-dark">{{ number_format($staff->basic_salary ?? 0) }} TK</strong>
+                            <span class="text-light"><i class="fe fe-file-text"></i> Basic Salary</span>
+                            <strong class="text-light">{{ number_format($staff->basic_salary ?? 0) }} TK</strong>
                         </li>
                         <li class="d-flex justify-content-between">
-                            <span><i class="fe fe-home"></i> House Rent</span>
-                            <strong>{{ number_format($staff->house_rent ?? 0) }} TK</strong>
+                            <span class="text-light"><i class="fe fe-home"></i> House Rent</span>
+                            <strong class="text-light">{{ number_format($staff->house_rent ?? 0) }} TK</strong>
                         </li>
                         <li class="d-flex justify-content-between">
-                            <span><i class="fe fe-crosshair"></i> Medical Allowance</span>
-                            <strong>{{ number_format($staff->medical_allowance ?? 0) }} TK</strong>
+                            <span class="text-light"><i class="fe fe-crosshair"></i> Medical Allowance</span>
+                            <strong class="text-light">{{ number_format($staff->medical_allowance ?? 0) }} TK</strong>
                         </li>
                         <li class="d-flex justify-content-between">
-                            <span><i class="fe fe-trending-up"></i> Target Incentive</span>
-                            <strong>{{ number_format($staff->target_incentive ?? 0) }} TK</strong>
+                            <span class="text-light"><i class="fe fe-trending-up"></i> Target Incentive</span>
+                            <strong class="text-light">{{ number_format($staff->target_incentive ?? 0) }} TK</strong>
                         </li>
                         <li class="d-flex justify-content-between mt-2 pt-2 border-top border-2">
-                            <span class="fw-bold">Gross Salary</span>
-                            <strong class="text-success fs-5">{{ number_format($staff->gross_salary ?? 0) }} TK</strong>
+                            <span class="fw-bold text-light">Gross Salary</span>
+                            <strong class="text-light fs-5">{{ number_format($staff->gross_salary ?? 0) }} TK</strong>
                         </li>
                     </ul>
-                    <div class="mt-3 small text-muted">
-                        <i class="fe fe-credit-card"></i> Payment: <span class="badge bg-soft-info">{{ ucfirst($staff->payment_system ?? 'Cash') }}</span>
+                    <div class="mt-3 small text-light">
+                        <i class="fe fe-credit-card"></i> Payment: <span class="badge bg-soft-info text-light">{{ ucfirst($staff->payment_system ?? 'Cash') }}</span>
                     </div>
                 </div>
             </div>
@@ -149,13 +149,13 @@
 
         <!-- Attendance Card (with gradient progress) -->
         <div class="col-xl-4 col-lg-6 col-md-12">
-            <div class="card stat-card shadow-sm h-100">
+            <div class="stat-card shadow-sm h-100" style="background: linear-gradient(135deg, rgb(0, 198, 255), rgb(255 0 129));">
                 <div class="card-header bg-transparent border-0 pt-3">
-                    <h5 class="card-title mb-0"><i class="fe fe-calendar text-primary me-1"></i> Monthly Attendance</h5>
+                    <h5 class="card-title mb-0"><i class="fe fe-calendar text-light me-1"></i> Monthly Attendance</h5>
                 </div>
                 <div class="card-body text-center">
-                    <div class="display-4 fw-bold text-primary">{{ $attendanceCount ?? 0 }}</div>
-                    <p class="text-muted">days present out of 26 working days</p>
+                    <div class="display-4 fw-bold text-light">{{ $attendanceCount ?? 0 }}</div>
+                    <p class="text-light">days present out of 26 working days</p>
                     <div class="progress mb-2" style="height: 12px; border-radius: 20px;">
                         <div class="progress-bar progress-bar-custom" 
                              role="progressbar" 
@@ -167,10 +167,10 @@
                     </div>
                     <div class="d-flex justify-content-between mt-3">
                         <div>
-                            <small>Present: {{ $attendanceCount }}</small>
+                            <small class="text-light">Present: {{ $attendanceCount }}</small>
                         </div>
                         <div>
-                            <small>Absent: {{ max(0, 26 - $attendanceCount) }}</small>
+                            <small class="text-light">Absent: {{ max(0, 26 - $attendanceCount) }}</small>
                         </div>
                     </div>
                     <div class="mt-3">

@@ -347,7 +347,7 @@ $branches = App\Models\Branch::where('status',1)->latest()->get();
                 </div>
             </div>
         </section>
-    @elseif($page->page_slug == 'apply')
+    @elseif($page->page_slug == 'apply-now')
      <!-- Breadcrumb Banner Start -->
         <section class="breadcrumb-banner"
             style="

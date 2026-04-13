@@ -15,6 +15,20 @@ class PageSeeder extends Seeder
     {
         $pages = [
             [
+                'page_name'        => 'Apply Now',
+                'page_title'       => 'Apply Now',
+                'page_slug'        => 'apply-now',
+                'page_description' => 'This is Apply Now Page',
+                'meta_title'       => 'apply-now',
+                'keywords'         => 'about, company, info',
+                'meta_description' => 'This is Apply Now page',
+                'status'           => 1,
+                'is_default'       => 1,
+                'created_by'       => 1,
+                'position'         => 2,
+                'created_at'       => now(),
+            ],
+            [
                 'page_name'        => 'Visa Service',
                 'page_title'       => 'Visa Service',
                 'page_slug'        => 'visa-service',

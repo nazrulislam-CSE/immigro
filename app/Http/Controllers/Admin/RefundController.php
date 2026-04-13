@@ -71,4 +71,10 @@ class RefundController extends Controller
         }
         return response()->json(['error' => 'Client not found'], 404);
     }
+
+    public function receipt($id)
+    {
+        $refund = Refund::with('client')->findOrFail($id);
+        return view('admin.refunds.receipt', compact('refund'));
+    }
 }

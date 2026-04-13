@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ $pageTitle }} #{{ $income->id }}</title>
+    <title>{{ $pageTitle ?? 'Refund Receipt' }} #{{ $refund->id }}</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
     <style>
         * {
@@ -19,7 +19,7 @@
             color: #1a2c3e;
         }
 
-        .voucher-container {
+        .receipt-container {
             max-width: 880px;
             margin: 0 auto;
             background: #ffffff;
@@ -29,7 +29,7 @@
         }
 
         /* Header with gradient */
-        .voucher-header {
+        .receipt-header {
             background: linear-gradient(135deg, #1e466e 0%, #0f2c44 100%);
             color: white;
             padding: 30px 35px;
@@ -70,11 +70,11 @@
             line-height: 1.4;
         }
 
-        .voucher-title {
+        .receipt-title {
             text-align: right;
         }
 
-        .voucher-title h2 {
+        .receipt-title h2 {
             font-size: 32px;
             font-weight: 800;
             letter-spacing: 1px;
@@ -85,7 +85,7 @@
             backdrop-filter: blur(4px);
         }
 
-        .voucher-title p {
+        .receipt-title p {
             font-size: 14px;
             margin-top: 8px;
             opacity: 0.8;
@@ -99,7 +99,7 @@
         }
 
         /* Main body */
-        .voucher-body {
+        .receipt-body {
             padding: 30px 35px 35px;
         }
 
@@ -153,7 +153,7 @@
 
         .field-label {
             font-weight: 600;
-            width: 110px;
+            width: 120px;
             color: #2c4c6e;
             font-size: 14px;
         }
@@ -267,7 +267,7 @@
                 padding: 0;
                 margin: 0;
             }
-            .voucher-container {
+            .receipt-container {
                 box-shadow: none;
                 border-radius: 0;
                 margin: 0;
@@ -275,7 +275,7 @@
             .btn-print, .print-wrapper {
                 display: none;
             }
-            .voucher-header {
+            .receipt-header {
                 background: #1e466e;
                 -webkit-print-color-adjust: exact;
                 print-color-adjust: exact;
@@ -295,9 +295,9 @@
 </head>
 <body>
 
-<div class="voucher-container">
+<div class="receipt-container">
     <!-- Header with gradient background -->
-    <div class="voucher-header">
+    <div class="receipt-header">
         <div class="header-content">
             <div class="logo-area">
                 @php
@@ -314,68 +314,48 @@
                     Phone: {{ get_setting('phone')->value ?? 'N/A' }} | Email: {{ get_setting('email')->value ?? '' }}</p>
                 </div>
             </div>
-            <div class="voucher-title">
-                <h2>VOUCHER</h2>
-                <p>Income Acknowledgement</p>
+            <div class="receipt-title">
+                <h2>REFUND</h2>
+                <p>Payment Refund Acknowledgement</p>
             </div>
         </div>
     </div>
     <div class="divider"></div>
 
-    <div class="voucher-body">
+    <div class="receipt-body">
         <!-- Meta row -->
         <div class="meta-row">
-            <div class="meta-item"><span>Voucher No:</span> <strong>#{{ $income->id }}</strong></div>
-            <div class="meta-item"><span>Date:</span> <strong>{{ $income->date ? $income->date->format('d M Y') : 'N/A' }}</strong></div>
-            <div class="meta-item"><span>Status:</span>
-                @php
-                    $statusText = $income->due_amount > 0 ? 'Partial Payment' : 'Fully Paid';
-                    $statusColor = $income->due_amount > 0 ? '#e8891c' : '#2b7e3a';
-                @endphp
-                <span style="color: {{ $statusColor }}; font-weight:600;">{{ $statusText }}</span>
-            </div>
+            <div class="meta-item"><span>Refund ID:</span> <strong>#{{ $refund->id }}</strong></div>
+            <div class="meta-item"><span>Date:</span> <strong>{{ $refund->date ? $refund->date->format('d M Y') : 'N/A' }}</strong></div>
+            <div class="meta-item"><span>Status:</span> <span style="color: #2b7e3a; font-weight:600;">Refunded</span></div>
         </div>
 
-        <!-- Client & Income Details (2-column grid) -->
+        <!-- Client Details -->
         <div class="info-section">
-            <div class="section-title">Income Details</div>
+            <div class="section-title">Client Information</div>
             <div class="info-grid">
                 <div class="field">
-                    <div class="field-label">Client</div>
-                    <div class="field-value">{{ $income->client->client_name ?? 'N/A' }}</div>
+                    <div class="field-label">Client Name</div>
+                    <div class="field-value">{{ $refund->client->client_name ?? 'N/A' }}</div>
                 </div>
                 <div class="field">
-                    <div class="field-label">Income Category</div>
-                    <div class="field-value">{{ $income->income_category ?? 'N/A' }}</div>
+                    <div class="field-label">Mobile Number</div>
+                    <div class="field-value">{{ $refund->client->phone_number ?? $refund->client->mobile ?? 'N/A' }}</div>
+                </div>
+                <div class="field">
+                    <div class="field-label">Country</div>
+                    <div class="field-value">{{ $refund->client->country_name ?? 'N/A' }}</div>
                 </div>
                 <div class="field">
                     <div class="field-label">Payment Method</div>
-                    <div class="field-value">{{ $income->payment_method ?? 'N/A' }}</div>
+                    <div class="field-value">{{ $refund->payment_method ?? 'N/A' }}</div>
                 </div>
-                <div class="field">
-                    <div class="field-label">Received By</div>
-                    <div class="field-value">{{ $income->received_by ?? 'N/A' }}</div>
-                </div>
-                <div class="field">
-                    <div class="field-label">Payment Date</div>
-                    <div class="field-value">{{ $income->payment_date ? $income->payment_date->format('d M Y') : 'N/A' }}</div>
-                </div>
-                <div class="field">
-                    <div class="field-label">Created At</div>
-                    <div class="field-value">{{ $income->created_at->format('d M Y h:i A') }}</div>
-                </div>
-                @if($income->comments)
-                <div class="field" style="grid-column: span 2;">
-                    <div class="field-label">Comments</div>
-                    <div class="field-value">{{ $income->comments }}</div>
-                </div>
-                @endif
             </div>
         </div>
 
-        <!-- Amount breakdown -->
+        <!-- Refund Summary -->
         <div class="amount-section">
-            <div class="section-title">Financial Summary</div>
+            <div class="section-title">Refund Summary</div>
             <table class="amount-table">
                 <thead>
                     <tr>
@@ -384,38 +364,40 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Total Income Amount</td>
-                        <td class="text-right">৳ {{ number_format($income->total_amount, 2) }}</td>
-                    </tr>
-                    <tr>
-                        <td>Payment Received</td>
-                        <td class="text-right">৳ {{ number_format($income->payment_amount, 2) }}</td>
-                    </tr>
                     <tr class="total-row">
-                        <td><strong>Due Amount</strong></td>
-                        <td class="text-right"><strong>৳ {{ number_format($income->due_amount, 2) }}</strong></td>
+                        <td><strong>Refund Amount</strong></td>
+                        <td class="text-right"><strong>৳ {{ number_format($refund->refund_amount, 2) }}</strong></td>
                     </tr>
                 </tbody>
             </table>
         </div>
 
+        <!-- Reason for refund -->
+        @if($refund->reason)
+        <div class="info-section">
+            <div class="section-title">Reason for Refund</div>
+            <div style="background: #fefef7; padding: 15px 20px; border-radius: 16px; border: 1px solid #eef2f0;">
+                {{ $refund->reason }}
+            </div>
+        </div>
+        @endif
+
         <!-- Signature & footer -->
         <div class="signature-area">
-            <div class="signature-line">Received by</div>
+            <div class="signature-line">Received by (Client)</div>
             <div class="signature-line">Authorised Signature</div>
         </div>
 
         <div class="footer-note">
-            This is a computer-generated voucher – valid without signature.<br>
-            Thank you for your payment!
+            This is a computer-generated receipt – valid without signature.<br>
+            Thank you for your business!
         </div>
     </div>
 </div>
 
 <div class="print-wrapper">
     <button class="btn-print" onclick="window.print();">
-        🖨️ Print Voucher
+        🖨️ Print Receipt
     </button>
 </div>
 

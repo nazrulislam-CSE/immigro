@@ -49,7 +49,7 @@
                                             <td>
                                                 <a href="{{ route('admin.expense.voucher', $expense->id) }}"
                                                     target="_blank" class="btn btn-sm btn-info">
-                                                    <i class="fas fa-receipt"></i> Voucher
+                                                    <i class="fas fa-receipt"></i>
                                                 </a>
                                                 <a href="{{ route('admin.expense.show', $expense->id) }}"
                                                     class="btn btn-sm btn-success"><i class="fas fa-eye"></i></a>

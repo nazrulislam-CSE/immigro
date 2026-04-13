@@ -1,6 +1,9 @@
 @extends('layouts.admin.app', ['pageTitle' => $pageTitle])
 
 @section('content')
+ @php
+        $admin = Auth::guard('admin')->user();
+    @endphp
 <div class="breadcrumb-header justify-content-between">
     <div class="d-flex align-items-center">
         <nav aria-label="breadcrumb">
@@ -22,9 +25,11 @@
                         <span class="badge bg-danger side-badge" style="font-size:17px;">{{ count($medicalVisas) }}</span>
                     </p>
                     <div class="d-flex">
+                        @if ($admin && $admin->hasRole('Super Admin'))
                         <a href="{{ route('admin.medical.visa.create') }}" class="btn btn-success me-2">
                             <i class="fas fa-plus d-inline"></i> Add New Medical Visa
                         </a>
+                        @endif
                     </div>
                 </div>
                 <div class="card-body">
@@ -67,13 +72,17 @@
                                         <a href="{{ route('admin.medical.visa.show', $visa->id) }}" class="btn btn-success btn-sm me-1" title="View">
                                             <i class="fas fa-eye"></i>
                                         </a>
+                                        @if ($admin && $admin->hasRole('Super Admin'))
                                         <a href="{{ route('admin.medical.visa.edit', $visa->id) }}" class="btn btn-primary btn-sm me-1" title="Edit">
                                             <i class="fas fa-edit"></i>
                                         </a>
+                                        @endif
+                                        @if ($admin && $admin->hasRole('Super Admin'))
                                         <a href="{{ route('admin.medical.visa.delete', $visa->id) }}" id="delete" class="btn btn-danger btn-sm" title="Delete"
                                           >
                                             <i class="fa fa-trash"></i>
                                         </a>
+                                        @endif
                                     </td>
                                 </tr>
                                 @endforeach

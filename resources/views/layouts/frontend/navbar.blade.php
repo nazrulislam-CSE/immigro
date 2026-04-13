@@ -1,3 +1,11 @@
+<style>
+.header-lower .main-box {
+  background: linear-gradient(0deg, rgba(34, 193, 195, 1) 0%, rgba(253, 187, 45, 1) 100%);
+}
+.main-menu .navigation > li > a {
+    color:#fff;
+}
+</style>
 @php
     $menuitems = App\Models\Menuitem::with(['subMenus.childMenus'])
         ->whereNull('parent_id')
@@ -37,7 +45,6 @@
         </div>
     </div>
     <!-- Header Top -->
-
     <!-- Header Lower -->
     <div class="header-lower">
         <!-- Main box -->

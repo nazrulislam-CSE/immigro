@@ -284,6 +284,7 @@ Route::middleware('admin')->group(function () {
         Route::get('/delete/{id}', [InvoiceController::class, 'destroy'])->name('delete');
         Route::get('/get-client/{id}', [InvoiceController::class, 'getClientInfo'])->name('getClient');
         Route::get('/get-client-due/{id}', [InvoiceController::class, 'getClientDue'])->name('getClientDue');
+        Route::get('invoice/receipt/{id}', [InvoiceController::class, 'receipt'])->name('receipt');
     });
 
     // Passport
@@ -301,6 +302,7 @@ Route::middleware('admin')->group(function () {
         Route::post('/update/{id}', [RefundController::class, 'update'])->name('update');
         Route::get('/delete/{id}', [RefundController::class, 'destroy'])->name('delete');
         Route::get('/get-client/{id}', [RefundController::class, 'getClientInfo'])->name('getClient');
+        Route::get('/receipt/{id}', [RefundController::class, 'receipt'])->name('receipt');
     });
 
     // Staff

@@ -6,7 +6,7 @@
   @if (!$isSuperAdmin)
       <style>
           .app-sidebar {
-              background: #b5af00d6;
+              background: linear-gradient(135deg, rgb(0, 198, 255), rgb(255 181 106 / 75%));
           }
       </style>
   @endif

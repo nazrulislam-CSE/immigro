@@ -28,6 +28,10 @@
 
     <!--- Animations css --->
     <link href="{{ asset('dashboard/css/animate.css') }}" rel="stylesheet">
+
+    <!--- Custom Animated css --->
+    <link rel="stylesheet" href="{{ asset('dashboard/css/custom-animated.css') }}">
+
     
 
     @stack('css')

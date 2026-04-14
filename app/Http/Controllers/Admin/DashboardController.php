@@ -65,6 +65,17 @@ class DashboardController extends Controller
             ));
         }
 
+        // Agent
+        if ($admin->hasRole('Agent')) {
+            $pageTitle = 'Agent Dashboard';
+            
+            // Get the agent record for the logged-in admin
+            $agent = Staff::where('admin_id', $admin->id)->first();
+            
+            return view('admin.dashboard.agent', compact(
+                'pageTitle', 'agent','admin'
+            ));
+        }
 
         $pageTitle    = 'Dashboard';
         $sections     = Section::latest()->get();   

@@ -284,63 +284,58 @@
         </section>
         </div>
     @elseif($page->page_slug == 'education')
-        <!-- Breadcrumb Banner Start -->
-        <section class="breadcrumb-banner"
-            style="
+        <!-- Start main-content -->
+        <section class="page-title" style="
         background-image: url('{{ !empty($page->image) ? url('upload/page/' . $page->image) : url('frontend/img/slider/7.jpg') }}');
         background-size: cover;
         background-position: center center;
-        background-repeat: no-repeat;
-        padding: 200px 0;
-        text-align: center;
-        color: #fff;
-    ">
+        background-repeat: no-repeat;">
+            <div class="auto-container">
+                <div class="title-outer">
+                    <h1 class="title">{{ $page->page_title ?? '' }}</h1>
+                    <ul class="page-breadcrumb">
+                        <li><a href="{{ route('frontend.home') }}">Home</a></li>
+                        <li><a href="#">{{ $page->page_title ?? '' }}</a></li>
+                    </ul>
+                </div>
+            </div>
         </section>
-        <!-- Breadcrumb Banner End -->
-        <div class="container mt-5">
-            <div class="row g-xl-5 mt-n2-2">
-                @foreach ($educations as $education)
-                    <div class="col-md-6 col-lg-4 mt-2-2 wow fadeInUp " data-wow-delay="100ms">
-                        <article class="card  h-100 rounded-0 shadow-lg">
-                            <div class="blog-img position-relative overflow-hidden">
-                                <img src="{{ !empty($education->image) ? url('upload/education/' . $education->image) : url('upload/no_image.jpg') }}"
-                                    alt="...">
-                                <div class="card-list p-3">
-                                    <a href="{{ route('single.education.page', $education->slug) }}">
-                                        @if ($education->study_type == 1)
-                                            Bachelor
-                                        @elseif($education->study_type == 2)
-                                            Masters
-                                        @elseif($education->study_type == 3)
-                                            Nursing
-                                        @elseif($education->study_type == 4)
-                                            Diploma
-                                        @else
-                                            PHd
-                                        @endif
-                                    </a>
+        <!-- end main-content -->
+
+        <!-- Courses Section -->
+        <section class="bg-silver-light">
+            <div class="container pb-100">
+                <div class="row">
+                    <!-- Course Block-->
+                    @foreach ($educations as $education)
+                    <div class="col-lg-4 col-md-6 col-sm-12">
+                        <!-- Training Block Three-->
+                        <div class="training-block mb-4">
+                            <div class="inner-box">
+                                <div class="image-box">
+                                    <figure class="image"><img src="{{ !empty($education->image) ? url('upload/education/' . $education->image) : url('upload/no_image.jpg') }}" alt="">
+                                    </figure>
+                                    <div class="overlay"><a href="{{ route('single.education.page', $education->slug) }}" class="read-more"><i
+                                                class="fa fa-long-arrow-alt-right"></i></a></div>
+                                </div>
+                                <div class="lower-content">
+                                    <a href="{{ route('single.education.page', $education->slug) }}" class="read-more"><i
+                                            class="fa fa-long-arrow-alt-right"></i></a>
+                                    <h5 class="title"><a href="{{ route('single.education.page', $education->slug) }}">
+                                        {{ $education->course_name ?? '' }}
+                                    </a></h5>
+                                    <div class="text">
+                                        {!! Str::limit($education->description, 100) !!}
+                                    </div>
                                 </div>
                             </div>
-                            <div class="card-body p-1-9">
-                                {{-- <span class="text-primary d-block mb-2 font-weight-600">June 01, 2022</span> --}}
-                                <h3 class="h4 mb-0">
-                                    <a href="{{ route('single.education.page', $education->slug) }}">
-                                        <?php $p_name_bn = strip_tags(html_entity_decode($education->course_materials)); ?>
-                                        {{ Str::limit($p_name_bn, $limit = 20, $end = '. . .') }}
-                                    </a>
-                                </h3>
-                            </div>
-                            <div
-                                class="d-flex fw-bold border-top px-1-9 py-3 border-color-light-black justify-content-between p-3">
-                                <a href="{{ route('single.education.page', $education->slug) }}">Read more</a>
-                                <a href="{{ route('single.education.page', $education->slug) }}"><i
-                                        class="ti-arrow-right"></i></a>
-                            </div>
-                        </article>
+                        </div>
                     </div>
-                @endforeach
+                    @endforeach
+                </div>
             </div>
-        </div>
+        </section>
+        <!-- End Courses Section-->
     @elseif($page->page_slug == 'contact-us')
         <!-- Breadcrumb Banner Start -->
         <section class="breadcrumb-banner"
@@ -355,120 +350,122 @@
     ">
         </section>
         <!-- Breadcrumb Banner End -->
-          <div class="container">
+        <div class="container">
 
-                <!--Contact Details Start-->
-                <section class="contact-details">
-                    <div class="container ">
-                        <div class="row">
-                            <div class="col-xl-7 col-lg-6">
+            <!--Contact Details Start-->
+            <section class="contact-details">
+                <div class="container ">
+                    <div class="row">
+                        <div class="col-xl-7 col-lg-6">
+                            <div class="sec-title">
+                                <span class="sub-title">Send us email</span>
+                                <h2>Feel free to write</h2>
+                            </div>
+                            <!-- Contact Form -->
+                            <form id="contact_form" name="contact_form" class="" action="#" method="post">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="mb-3">
+                                            <input name="form_name" class="form-control" type="text"
+                                                placeholder="Enter Name">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="mb-3">
+                                            <input name="form_email" class="form-control required email" type="email"
+                                                placeholder="Enter Email">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="mb-3">
+                                            <input name="form_subject" class="form-control required" type="text"
+                                                placeholder="Enter Subject">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="mb-3">
+                                            <input name="form_phone" class="form-control" type="text"
+                                                placeholder="Enter Phone">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <textarea name="form_message" class="form-control required" rows="7" placeholder="Enter Message"></textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <input name="form_botcheck" class="form-control" type="hidden" value="" />
+                                    <button type="submit" class="theme-btn btn-style-one"
+                                        data-loading-text="Please wait..."><span class="btn-title">Send
+                                            message</span></button>
+                                    <button type="reset" class="theme-btn btn-style-one bg-theme-color5"><span
+                                            class="btn-title">Reset</span></button>
+                                </div>
+                            </form>
+                            <!-- Contact Form Validation-->
+                        </div>
+                        <div class="col-xl-5 col-lg-6">
+                            <div class="contact-details__right">
                                 <div class="sec-title">
-                                    <span class="sub-title">Send us email</span>
-                                    <h2>Feel free to write</h2>
+                                    <span class="sub-title">Need any help?</span>
+                                    <h2>Get in touch with us</h2>
+                                    <div class="text">Lorem ipsum is simply free text available dolor sit amet
+                                        consectetur
+                                        notted adipisicing elit sed do eiusmod tempor incididunt simply dolore magna.
+                                    </div>
                                 </div>
-                                <!-- Contact Form -->
-                                <form id="contact_form" name="contact_form" class=""
-                                    action="#"
-                                    method="post">
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <div class="mb-3">
-                                                <input name="form_name" class="form-control" type="text"
-                                                    placeholder="Enter Name">
-                                            </div>
+                                <ul class="list-unstyled contact-details__info">
+                                    <li>
+                                        <div class="icon">
+                                            <span class="lnr-icon-phone-plus"></span>
                                         </div>
-                                        <div class="col-sm-6">
-                                            <div class="mb-3">
-                                                <input name="form_email" class="form-control required email" type="email"
-                                                    placeholder="Enter Email">
-                                            </div>
+                                        <div class="text">
+                                            <h6>Have any question?</h6>
+                                            <a href="tel:{{ get_setting('phone')->value ?? '' }}"><span>Free</span>
+                                                {{ get_setting('phone')->value ?? '' }}</a>
                                         </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <div class="mb-3">
-                                                <input name="form_subject" class="form-control required" type="text"
-                                                    placeholder="Enter Subject">
-                                            </div>
+                                    </li>
+                                    <li>
+                                        <div class="icon">
+                                            <span class="lnr-icon-envelope1"></span>
                                         </div>
-                                        <div class="col-sm-6">
-                                            <div class="mb-3">
-                                                <input name="form_phone" class="form-control" type="text"
-                                                    placeholder="Enter Phone">
-                                            </div>
+                                        <div class="text">
+                                            <h6>Write email</h6>
+                                            <a
+                                                href="mailto:{{ get_setting('email')->value ?? '' }}">{{ get_setting('email')->value ?? '' }}</a>
                                         </div>
-                                    </div>
-                                    <div class="mb-3">
-                                        <textarea name="form_message" class="form-control required" rows="7" placeholder="Enter Message"></textarea>
-                                    </div>
-                                    <div class="mb-3">
-                                        <input name="form_botcheck" class="form-control" type="hidden"
-                                            value="" />
-                                        <button type="submit" class="theme-btn btn-style-one"
-                                            data-loading-text="Please wait..."><span class="btn-title">Send
-                                                message</span></button>
-                                        <button type="reset" class="theme-btn btn-style-one bg-theme-color5"><span
-                                                class="btn-title">Reset</span></button>
-                                    </div>
-                                </form>
-                                <!-- Contact Form Validation-->
-                            </div>
-                            <div class="col-xl-5 col-lg-6">
-                                <div class="contact-details__right">
-                                    <div class="sec-title">
-                                        <span class="sub-title">Need any help?</span>
-                                        <h2>Get in touch with us</h2>
-                                        <div class="text">Lorem ipsum is simply free text available dolor sit amet
-                                            consectetur
-                                            notted adipisicing elit sed do eiusmod tempor incididunt simply dolore magna.
+                                    </li>
+                                    <li>
+                                        <div class="icon">
+                                            <span class="lnr-icon-location"></span>
                                         </div>
-                                    </div>
-                                    <ul class="list-unstyled contact-details__info">
-                                        <li>
-                                            <div class="icon">
-                                                <span class="lnr-icon-phone-plus"></span>
-                                            </div>
-                                            <div class="text">
-                                                <h6>Have any question?</h6>
-                                                <a href="tel:{{ get_setting('phone')->value ?? '' }}"><span>Free</span> {{ get_setting('phone')->value ?? '' }}</a>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="icon">
-                                                <span class="lnr-icon-envelope1"></span>
-                                            </div>
-                                            <div class="text">
-                                                <h6>Write email</h6>
-                                                <a href="mailto:{{ get_setting('email')->value ?? '' }}">{{ get_setting('email')->value ?? '' }}</a>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="icon">
-                                                <span class="lnr-icon-location"></span>
-                                            </div>
-                                            <div class="text">
-                                                <h6>Visit anytime</h6>
-                                                <span>{{ get_setting('business_address')->value ?? '' }}</span>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
+                                        <div class="text">
+                                            <h6>Visit anytime</h6>
+                                            <span>{{ get_setting('business_address')->value ?? '' }}</span>
+                                        </div>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                     </div>
-                </section>
-                <!--Contact Details End-->
+                </div>
+            </section>
+            <!--Contact Details End-->
 
-                <!-- Divider: Google Map -->
-                <section>
-                    <div class="container-fluid p-0">
-                        <div class="row">
-                            <!-- Google Map HTML Codes -->
-                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d58144.787229144335!2d88.60616015!3d24.37959175!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39fbefa96a38d031%3A0x10f93a950ed6f410!2sRajshahi!5e0!3m2!1sen!2sbd!4v1773211282518!5m2!1sen!2sbd" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                        </div>
+            <!-- Divider: Google Map -->
+            <section>
+                <div class="container-fluid p-0">
+                    <div class="row">
+                        <!-- Google Map HTML Codes -->
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d58144.787229144335!2d88.60616015!3d24.37959175!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39fbefa96a38d031%3A0x10f93a950ed6f410!2sRajshahi!5e0!3m2!1sen!2sbd!4v1773211282518!5m2!1sen!2sbd"
+                            width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
-                </section>
-            </div>
+                </div>
+            </section>
+        </div>
     @elseif($page->page_slug == 'about-us')
         <!-- Breadcrumb Banner Start -->
         <section class="breadcrumb-banner"
@@ -483,7 +480,7 @@
     ">
         </section>
         <!-- Breadcrumb Banner End -->
-         <div class="container mt-5">
+        <div class="container mt-5">
             <div class="row">
                 <!-- Content Column -->
                 <div class="content-column col-xl-6 col-lg-6 col-md-12 col-sm-12 wow fadeInRight" data-wow-delay="600ms">
@@ -501,7 +498,8 @@
                             </h4>
 
                             <div class="text">
-                                {!! $about->description ?? 'Web designing in a powerful way of just not only professions, however, in a passion for our Company.' !!}
+                                {!! $about->description ??
+                                    'Web designing in a powerful way of just not only professions, however, in a passion for our Company.' !!}
                             </div>
 
                         </div>
@@ -592,7 +590,7 @@
                 </div>
 
             </div>
-            </div>
+        </div>
     @elseif($page->page_slug == 'apply-now')
         <!-- Breadcrumb Banner Start -->
         <section class="breadcrumb-banner"
@@ -1161,7 +1159,8 @@
                                                         </option>
                                                         <option class="" country="Panama" value="PA">Panama
                                                         </option>
-                                                        <option class="" country="Papua New Guinea" value="PG">
+                                                        <option class="" country="Papua New Guinea"
+                                                            value="PG">
                                                             Papua New Guinea</option>
                                                         <option class="" country="Paraguay" value="PY">
                                                             Paraguay</option>
@@ -1181,7 +1180,8 @@
                                                         </option>
                                                         <option class="" country="Reunion" value="RE">
                                                             Reunion</option>
-                                                        <option class="" country="RomaniaRomania" value="RO">
+                                                        <option class="" country="RomaniaRomania"
+                                                            value="RO">
                                                             Romania</option>
                                                         <option class="" country="Russian Federation"
                                                             value="RU">Russian Federation</option>
@@ -1191,8 +1191,8 @@
                                                             value="KN">Saint Kitts and Nevis</option>
                                                         <option class="" country="Saint LUCIA" value="LC">
                                                             Saint LUCIA</option>
-                                                        <option class="" country="Saint Vincent and the Grenadines"
-                                                            value="VC">
+                                                        <option class=""
+                                                            country="Saint Vincent and the Grenadines" value="VC">
                                                             Saint Vincent and the Grenadines</option>
                                                         <option class="" country="Samoa" value="WS">Samoa
                                                         </option>
@@ -1214,7 +1214,8 @@
                                                             value="SK">Slovakia (Slovak Republic)</option>
                                                         <option class="" country="Slovenia" value="SI">
                                                             Slovenia</option>
-                                                        <option class="" country="Solomon Islands" value="SB">
+                                                        <option class="" country="Solomon Islands"
+                                                            value="SB">
                                                             Solomon Islands</option>
                                                         <option class="" country="Somalia" value="SO">
                                                             Somalia</option>
@@ -1279,12 +1280,14 @@
                                                             Ukraine</option>
                                                         <option class="" country="United Arab Emirates"
                                                             value="AE">United Arab Emirates</option>
-                                                        <option class="" country="United Kingdom" value="GB">
+                                                        <option class="" country="United Kingdom"
+                                                            value="GB">
                                                             United Kingdom</option>
                                                         <option class="" country="United States" value="US">
                                                             United States</option>
                                                         <option class=""
-                                                            country="United States Minor Outlying Islands" value="UM">
+                                                            country="United States Minor Outlying Islands"
+                                                            value="UM">
                                                             United States Minor Outlying Islands
                                                         </option>
                                                         <option class="" country="Uruguay" value="UY">
@@ -1303,7 +1306,8 @@
                                                             value="VI">Virgin Islands (U.S.)</option>
                                                         <option class="" country="Wallis and Futuna Islands"
                                                             value="WF">Wallis and Futuna Islands</option>
-                                                        <option class="" country="Western Sahara" value="EH">
+                                                        <option class="" country="Western Sahara"
+                                                            value="EH">
                                                             Western Sahara</option>
                                                         <option class="" country="Yemen" value="YE">Yemen
                                                         </option>

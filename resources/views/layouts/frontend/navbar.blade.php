@@ -1,10 +1,11 @@
 <style>
-.header-lower .main-box {
-  background: linear-gradient(0deg, rgba(34, 193, 195, 1) 0%, rgba(253, 187, 45, 1) 100%);
-}
-.main-menu .navigation > li > a {
-    color:#fff;
-}
+    .header-lower .main-box {
+        background: linear-gradient(0deg, rgb(133 34 195) 0%, rgba(253, 187, 45, 1) 100%);
+    }
+
+    .main-menu .navigation>li>a {
+        color: #fff;
+    }
 </style>
 @php
     $menuitems = App\Models\Menuitem::with(['subMenus.childMenus'])
@@ -143,7 +144,8 @@
         <!--Here Menu Will Come Automatically Via Javascript / Same Menu as in Header-->
         <nav class="menu-box">
             <div class="upper-box">
-                <div class="nav-logo"><a href="{{ route('home') }}"><img src="{{ asset(get_setting('site_logo')->value ?? 'frontend/images/logo.png') }}"
+                <div class="nav-logo"><a href="{{ route('home') }}"><img
+                            src="{{ asset(get_setting('site_logo')->value ?? 'frontend/images/logo.png') }}"
                             alt="" title=""></a>
                 </div>
                 <div class="close-btn"><i class="icon fa fa-times"></i></div>
@@ -158,7 +160,8 @@
                     <div class="contact-info-box">
                         <i class="icon lnr-icon-phone-handset"></i>
                         <span class="title">Call Now</span>
-                        <a href="tel:{{ get_setting('phone')->value ?? '' }}">{{ get_setting('phone')->value ?? '' }}</a>
+                        <a
+                            href="tel:{{ get_setting('phone')->value ?? '' }}">{{ get_setting('phone')->value ?? '' }}</a>
                     </div>
                 </li>
                 <li>
@@ -166,7 +169,8 @@
                     <div class="contact-info-box">
                         <span class="icon lnr-icon-envelope1"></span>
                         <span class="title">Send Email</span>
-                        <a href="mailto:{{ get_setting('email')->value ?? '' }}">{{ get_setting('email')->value ?? '' }}</a>
+                        <a
+                            href="mailto:{{ get_setting('email')->value ?? '' }}">{{ get_setting('email')->value ?? '' }}</a>
                     </div>
                 </li>
                 <li>
@@ -181,9 +185,12 @@
 
 
             <ul class="social-links">
-                <li><a target="_blank" href="{{ get_setting('facebook_url')->value ?? '' }}"><i class="fab fa-facebook-f"></i></a></li>
-                <li><a target="_blank" href="{{ get_setting('pinterest_url')->value ?? '' }}"><i class="fab fa-pinterest"></i></a></li>
-                <li><a target="_blank" href="{{ get_setting('instagram_url')->value ?? '' }}"><i class="fab fa-instagram"></i></a></li>
+                <li><a target="_blank" href="{{ get_setting('facebook_url')->value ?? '' }}"><i
+                            class="fab fa-facebook-f"></i></a></li>
+                <li><a target="_blank" href="{{ get_setting('pinterest_url')->value ?? '' }}"><i
+                            class="fab fa-pinterest"></i></a></li>
+                <li><a target="_blank" href="{{ get_setting('instagram_url')->value ?? '' }}"><i
+                            class="fab fa-instagram"></i></a></li>
             </ul>
         </nav>
     </div><!-- End Mobile Menu -->
@@ -210,7 +217,8 @@
             <div class="inner-container">
                 <!--Logo-->
                 <div class="logo">
-                    <a href="{{ route('frontend.home') }}" title=""><img src="{{ asset(get_setting('site_logo')->value ?? 'frontend/images/logo.png') }}"
+                    <a href="{{ route('frontend.home') }}" title=""><img
+                            src="{{ asset(get_setting('site_logo')->value ?? 'frontend/images/logo.png') }}"
                             alt="" title=""></a>
                 </div>
 

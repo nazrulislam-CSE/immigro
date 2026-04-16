@@ -122,21 +122,12 @@
                                     <td>{{ $payment->visa_category }}</td>
                                     <td>
                                         {{-- View Receipt Button --}}
-                                        <button type="button" class="btn btn-sm btn-info view-receipt-btn"
-                                            data-id="{{ $payment->id }}"
-                                            data-supplier="{{ $payment->supplier->name ?? '' }}"
-                                            data-date="{{ $payment->date ? $payment->date->format('d-m-Y') : '' }}"
-                                            data-total_amount="{{ $payment->total_amount }}"
-                                            data-total_pay="{{ $payment->total_pay }}"
-                                            data-due="{{ $payment->due }}"
-                                            data-payment_category="{{ $payment->payment_category }}"
-                                            data-payment_purpose="{{ $payment->payment_purpose }}"
-                                            data-applicable_fee="{{ $payment->applicable_fee }}"
-                                            data-visa_category="{{ $payment->visa_category }}"
-                                            data-due_pay_date="{{ $payment->due_pay_date ? $payment->due_pay_date->format('d-m-Y') : '' }}"
-                                            data-bs-toggle="modal" data-bs-target="#receiptModal">
-                                            <i class="fas fa-receipt"></i>
-                                        </button>
+                                         <a href="{{ route('admin.supplier.receipt', $payment->id) }}"
+                                                        target="_blank" class="btn btn-sm btn-info">
+                                                        <i class="fas fa-receipt"></i>
+                                                    </a>
+
+                                      
 
                                         {{-- Edit Button --}}
                                         <button type="button" class="btn btn-sm btn-primary edit-btn"

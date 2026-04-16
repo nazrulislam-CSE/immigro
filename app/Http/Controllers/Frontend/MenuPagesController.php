@@ -29,7 +29,8 @@ class MenuPagesController extends Controller
         $services = Service::where('status',1)->latest()->get();
         // dd($tours);
         $educations = Education::where('status',1)->latest()->get();
-        return view('frontend.menu.index',compact('page','pageTitle','abouts','teams','services','educations'));
+          $about = About::where('status', 1)->latest()->first();
+        return view('frontend.menu.index',compact('page','pageTitle','abouts','teams','services','educations','about'));
     }
 
     // search result show 

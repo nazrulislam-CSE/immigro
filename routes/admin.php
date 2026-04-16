@@ -263,6 +263,7 @@ Route::middleware('admin')->group(function () {
         Route::post('/store', [SupplierController::class, 'store'])->name('store');
         Route::post('/update/{id}', [SupplierController::class, 'update'])->name('update');
         Route::get('/delete/{id}', [SupplierController::class, 'destroy'])->name('delete');
+        Route::get('/receipt/{id}', [SupplierPaymentController::class, 'receipt'])->name('receipt');
     });
 
     // Supplier Payment

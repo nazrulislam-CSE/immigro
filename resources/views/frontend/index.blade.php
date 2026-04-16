@@ -59,11 +59,11 @@
                             </h2>
 
                             <h4>
-                                {{ $about->mission ?? 'Canada based immigration consultant agency.' }}
+                                {!! $about->mission ?? 'Canada based immigration consultant agency.' !!}
                             </h4>
 
                             <div class="text">
-                                {{ $about->description ?? 'Web designing in a powerful way of just not only professions, however, in a passion for our Company.' }}
+                                {!! $about->description ?? 'Web designing in a powerful way of just not only professions, however, in a passion for our Company.' !!}
                             </div>
 
                         </div>
@@ -79,14 +79,14 @@
                             <div class="text-block col-lg-6 col-md-6">
                                 <div class="inner">
                                     <div class="text">
-                                        {{ $about->vission ?? 'We believe smart looking website is the first impression.' }}
+                                        {!! $about->vission ?? 'We believe smart looking website is the first impression.' !!}
                                     </div>
                                 </div>
                             </div>
                         </div>
 
                         <div class="btm-box">
-                            <a href="#" class="theme-btn btn-style-one">
+                            <a href="/page/about-us" class="theme-btn btn-style-one">
                                 <span class="btn-title">Discover More</span>
                             </a>
                         </div>
@@ -159,7 +159,7 @@
     <!--Emd About Section -->
 
     <!-- Why Choose US -->
-    <section class="why-choose-us pt-0">
+    {{-- <section class="why-choose-us pt-0">
         <div class="bg bg-pattern-1"></div>
 
         <div class="auto-container">
@@ -215,7 +215,7 @@
             <div class="bottom-text">Top rated by customers & immigration firms with 100% success rate. <a
                     href="page-service.html" class="theme-btn btn-style-two">Discover More</a></div>
         </div>
-    </section>
+    </section> --}}
     <!--Emd Why Choose US -->
 
     <!-- Training Section -->
@@ -227,7 +227,7 @@
             <div class="sec-title">
                 <span class="sub-title">Training & Certification</span>
                 <h2>Get the Immigration <br> Trainings you <span class="color3">Deserve</span></h2>
-                <a href="#" class="theme-btn btn-style-two">Discover More</a>
+                {{-- <a href="#" class="theme-btn btn-style-two">Discover More</a> --}}
             </div>
 
             <div class="carousel-outer">
@@ -307,10 +307,10 @@
                                 </h6>
 
                                 <div class="text">
-                                    {{ Str::limit($service->description, 80) }}
+                                    {!! Str::limit($service->description, 80) !!}
                                 </div>
 
-                                <a href="{{ url('service/' . $service->slug) }}" class="read-more">
+                                <a href="{{ route('single.service.page', $service->slug) }}" class="read-more">
                                     More <i class="fa fa-long-arrow-right"></i>
                                 </a>
 

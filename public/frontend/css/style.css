@@ -2593,8 +2593,8 @@ Header Style One
 .header-style-one .header-lower .logo-box .logo {
   max-width: 220px;
   height: 160px;
-  background-color: var(--theme-color1);
-  background-image: url(../images/icons/logo-bg.png);
+  /* background-color: var(--theme-color1);
+  background-image: url(../images/icons/logo-bg.png); */
   border-radius: 0 0 5px 5px;
   padding: 15px 20px;
   display: -webkit-box;

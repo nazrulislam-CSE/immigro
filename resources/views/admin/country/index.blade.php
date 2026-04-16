@@ -89,7 +89,7 @@
                                                         <input type="text" name="name" class="form-control" value="{{ $country->name }}" required>
                                                     </div>
                                                     <div class="mb-3">
-                                                        <label class="form-label">Flag Image</label>
+                                                        <label class="form-label">Flag Image <span class="text-danger font-weight-bolder">(Size:894,514px)</span>:</label>
                                                         <input type="file" name="flag" class="form-control">
                                                         @if($country->flag)
                                                             <div class="mt-2">
@@ -144,7 +144,7 @@
                         <input type="text" name="name" class="form-control" required>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Flag Image</label>
+                        <label class="form-label">Flag Image <span class="text-danger font-weight-bolder">(Size:894,514px)</span>:</label>
                         <input type="file" name="flag" class="form-control">
                     </div>
                     <div class="mb-3">

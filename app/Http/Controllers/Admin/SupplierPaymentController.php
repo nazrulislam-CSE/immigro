@@ -107,4 +107,10 @@ class SupplierPaymentController extends Controller
 
         return redirect()->route('admin.supplier-payment.index')->with('success', 'Supplier payment deleted successfully.');
     }
+
+    public function receipt($id)
+    {
+        $invoice = SupplierPayment::with('supplier')->findOrFail($id);
+        return view('admin.supplier.payments.receipt', compact('invoice'));
+    }
 }

@@ -1,46 +1,46 @@
 @extends('layouts.frontend.app')
 @section('content')
-   <!-- Main Slider -->
-<section class="main-slider mt-4">
-    <div class="container-fluid p-0">
-        <div class="row g-0">
-            <div class="col-12">
+    <!-- Main Slider -->
+    <section class="main-slider mt-4">
+        <div class="container-fluid p-0">
+            <div class="row g-0">
+                <div class="col-12">
 
-                <div id="mainSlider" class="carousel slide" data-bs-ride="carousel">
-                    
-                    <div class="carousel-inner">
+                    <div id="mainSlider" class="carousel slide" data-bs-ride="carousel">
 
-                        @forelse ($sliders as $slider)
-                            <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
-                                <img src="{{ asset('upload/slider/' . $slider->image) }}" 
-                                     class="d-block w-100 img-fluid slider-img" 
-                                     alt="Slider Image">
-                            </div>
-                        @empty
-                            <div class="carousel-item active">
-                                <img src="{{ asset('frontend/images/main-slider/1.jpg') }}" 
-                                     class="d-block w-100 img-fluid slider-img" 
-                                     alt="Default Slider">
-                            </div>
-                        @endforelse
+                        <div class="carousel-inner">
+
+                            @forelse ($sliders as $slider)
+                                <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
+                                    <img src="{{ asset('upload/slider/' . $slider->image) }}"
+                                        class="d-block w-100 img-fluid slider-img" alt="Slider Image">
+                                </div>
+                            @empty
+                                <div class="carousel-item active">
+                                    <img src="{{ asset('frontend/images/main-slider/1.jpg') }}"
+                                        class="d-block w-100 img-fluid slider-img" alt="Default Slider">
+                                </div>
+                            @endforelse
+
+                        </div>
+
+                        <!-- Controls -->
+                        <button class="carousel-control-prev" type="button" data-bs-target="#mainSlider"
+                            data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon"></span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#mainSlider"
+                            data-bs-slide="next">
+                            <span class="carousel-control-next-icon"></span>
+                        </button>
 
                     </div>
 
-                    <!-- Controls -->
-                    <button class="carousel-control-prev" type="button" data-bs-target="#mainSlider" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon"></span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#mainSlider" data-bs-slide="next">
-                        <span class="carousel-control-next-icon"></span>
-                    </button>
-
                 </div>
-
             </div>
         </div>
-    </div>
-</section>
-<!-- End Main Slider -->
+    </section>
+    <!-- End Main Slider -->
 
     <!-- About Section -->
     <section class="about-section">
@@ -63,7 +63,8 @@
                             </h4>
 
                             <div class="text">
-                                {!! $about->description ?? 'Web designing in a powerful way of just not only professions, however, in a passion for our Company.' !!}
+                                {!! $about->description ??
+                                    'Web designing in a powerful way of just not only professions, however, in a passion for our Company.' !!}
                             </div>
 
                         </div>
@@ -481,67 +482,85 @@
         </div>
     </section>
     <!-- End Teams Section -->
-
-    <!-- Clients Section   -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <!-- Clients Section -->
     <section class="clients-section">
+        <!-- Section Title -->
+        <div class="row mb-5">
+            <div class="col-12 text-center">
+                <h2 class="fw-bold">Our Partners</h2>
+                <p class="text-muted">Meet our professional Partners</p>
+            </div>
+        </div>
         <div class="auto-container">
 
-            <div class="sponsors-outer">
-
-                <ul class="clients-carousel owl-carousel owl-theme">
+            <div class="swiper clientsSwiper">
+                <div class="swiper-wrapper">
 
                     @forelse($partners as $partner)
-                        <li class="slide-item">
-                            <a href="{{ url('partner/' . $partner->slug) }}">
+                        <div class="swiper-slide">
+                            <div class="client-item text-center">
+                                <a href="{{ url('partner/' . $partner->slug) }}">
 
-                                <img src="{{ !empty($partner->image) ? url('upload/partner/' . $partner->image) : url('upload/no_image.jpg') }}"
-                                    alt="{{ $partner->name }}">
+                                    <img src="{{ !empty($partner->image) ? url('upload/partner/' . $partner->image) : url('upload/no_image.jpg') }}"
+                                        alt="{{ $partner->name }}">
 
-                            </a>
-                        </li>
+                                    <h5>{{ $partner->name }}</h5>
+                                    <p>{!! Str::limit($partner->description, 60) !!}</p>
 
+                                </a>
+                            </div>
+                        </div>
                     @empty
 
-                        <!-- Default Client -->
-                        <li class="slide-item">
-                            <a href="#">
-                                <img src="{{ asset('frontend/images/resource/client.png') }}" alt="">
-                            </a>
-                        </li>
-
-                        <li class="slide-item">
-                            <a href="#">
-                                <img src="{{ asset('frontend/images/resource/client.png') }}" alt="">
-                            </a>
-                        </li>
-
-                        <li class="slide-item">
-                            <a href="#">
-                                <img src="{{ asset('frontend/images/resource/client.png') }}" alt="">
-                            </a>
-                        </li>
-
-                        <li class="slide-item">
-                            <a href="#">
-                                <img src="{{ asset('frontend/images/resource/client.png') }}" alt="">
-                            </a>
-                        </li>
-
-                        <li class="slide-item">
-                            <a href="#">
-                                <img src="{{ asset('frontend/images/resource/client.png') }}" alt="">
-                            </a>
-                        </li>
+                        @for ($i = 0; $i < 5; $i++)
+                            <div class="swiper-slide">
+                                <div class="client-item text-center">
+                                    <img src="{{ asset('frontend/images/resource/client.png') }}" alt="">
+                                    <h5>Client Name</h5>
+                                    <p>Short description</p>
+                                </div>
+                            </div>
+                        @endfor
                     @endforelse
 
-                </ul>
-
+                </div>
             </div>
 
         </div>
     </section>
-    <!--End Clients Section -->
-
+    <!-- End Clients Section -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            new Swiper(".clientsSwiper", {
+                slidesPerView: 5,
+                spaceBetween: 30,
+                loop: true,
+                autoplay: {
+                    delay: 2000,
+                    disableOnInteraction: false,
+                },
+                breakpoints: {
+                    0: {
+                        slidesPerView: 1
+                    },
+                    576: {
+                        slidesPerView: 2
+                    },
+                    768: {
+                        slidesPerView: 3
+                    },
+                    992: {
+                        slidesPerView: 4
+                    },
+                    1200: {
+                        slidesPerView: 5
+                    },
+                }
+            });
+        });
+    </script>
     <!-- Testimonial Section -->
     <section class="testimonial-section pull-down">
         <div class="bg-image" style="background-image: url({{ asset('frontend/images/background/1.jpg') }})"></div>

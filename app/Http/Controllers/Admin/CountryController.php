@@ -21,7 +21,7 @@ class CountryController extends Controller
         $request->validate([
             'name'   => 'required|string|max:255',
             'flag'   => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
-            'link'   => 'nullable|url',
+            'link'   => 'nullable',
             'order'  => 'nullable|integer',
             'status' => 'required|boolean'
         ]);
@@ -45,7 +45,7 @@ class CountryController extends Controller
         $request->validate([
             'name'   => 'required|string|max:255',
             'flag'   => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
-            'link'   => 'nullable|url',
+            'link'   => 'nullable',
             'order'  => 'nullable|integer',
             'status' => 'required|boolean'
         ]);

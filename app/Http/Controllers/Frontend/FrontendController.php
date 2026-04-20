@@ -8,6 +8,7 @@ use App\Models\Slider;
 use App\Models\About;
 use App\Models\User;
 use App\Models\Partner;
+use App\Models\Agent;
 use App\Models\Team;
 use App\Models\Testimonial;
 use App\Models\Subscribe;
@@ -31,14 +32,14 @@ class FrontendController extends Controller
         $counters = Counter::where('status',1)->latest()->get();
         $services = Service::where('status',1)->latest()->get();
         $gallerys  = Gallery::where('status',1)->latest()->get();
-        $partners  = Partner::where('status',1)->latest()->get();
+        $agents  = Agent::latest()->get();
         $notices = Notice::where('status', 1)->orderBy('date', 'desc')->get();
         $trainings = Training::active()->ordered()->get();
         $countries = Country::active()->ordered()->get();
         $pageTitle = 'Best Visa Services Bangladesh';
         $educations = Education::where('status',1)->latest()->get();
 
-        return view('frontend.index',compact('sliders','about','teams','counters','services','gallerys','pageTitle','partners','notices','testimonials','trainings','countries','educations'));
+        return view('frontend.index',compact('sliders','about','teams','counters','services','gallerys','pageTitle','agents','notices','testimonials','trainings','countries','educations'));
     }
 
     /* =========== SINGLE STUDY ABROAD SHOW ===========*/

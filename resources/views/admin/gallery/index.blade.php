@@ -92,6 +92,7 @@
                                                 <a href="{{ route('admin.gallery.show',$gallery->id)}}" class="btn btn-success btn-sm mr-2"><i class="fas fa-eye"></i></a>
                                                 <a href="{{ route('admin.gallery.edit',$gallery->id)}}" class="btn btn-primary btn-sm mr-2"><i class="fas fa-edit"></i></a>
                                                 <a href="{{ route('admin.gallery.delete',$gallery->id)}}" class="btn btn-danger btn-sm" title="Delete Data" id="delete"><i class="fa fa-trash"></i></a>
+                                                @endif
                                             </td>
                                         </tr>
                                         @endforeach

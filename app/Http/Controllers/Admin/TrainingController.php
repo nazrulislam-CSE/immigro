@@ -27,7 +27,7 @@ class TrainingController extends Controller
             'title'       => 'required|string|max:255',
             'description' => 'nullable|string',
             'image'       => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'link'        => 'nullable|url',
+            'link'        => 'nullable',
             'status'      => 'required|boolean'
         ]);
 
@@ -58,7 +58,7 @@ class TrainingController extends Controller
             'title'       => 'required|string|max:255',
             'description' => 'nullable|string',
             'image'       => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'link'        => 'nullable|url',
+            'link'        => 'nullable',
             'status'      => 'required|boolean'
         ]);
 

@@ -29,8 +29,10 @@
     <meta name="twitter:image" content="{{ asset(get_setting('site_logo')->value ?? 'frontend/images/logo.png') }}">
 
     <!-- Favicon -->
-    <link rel="shortcut icon" href="{{ asset(get_setting('site_favicon')->value ?? 'frontend/images/favicon.png') }}" type="image/x-icon">
-    <link rel="icon" href="{{ asset(get_setting('site_favicon')->value ?? 'frontend/images/favicon.png') }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ asset(get_setting('site_favicon')->value ?? 'frontend/images/favicon.png') }}"
+        type="image/x-icon">
+    <link rel="icon" href="{{ asset(get_setting('site_favicon')->value ?? 'frontend/images/favicon.png') }}"
+        type="image/x-icon">
 
     <!-- Stylesheets -->
     <link href="{{ asset('frontend/css/bootstrap.min.css') }}" rel="stylesheet">
@@ -43,6 +45,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
     @stack('css')
 </head>
 
@@ -54,7 +59,7 @@
         <div class="preloader"></div>
 
         <!-- Main Header-->
-		@include('layouts.frontend.navbar')
+        @include('layouts.frontend.navbar')
         <!--End Main Header -->
 
         @yield('content')
@@ -94,6 +99,8 @@
     <script src="{{ asset('frontend/js/swiper.min.js') }}"></script>
     <script src="{{ asset('frontend/js/owl.js') }}"></script>
     <script src="{{ asset('frontend/js/script.js') }}"></script>
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     @stack('js')
 </body>
 

@@ -157,410 +157,369 @@
             </div>
         </div>
     </section>
-    <!--Emd About Section -->
+    <!--End About Section -->
 
-    <!-- Why Choose US -->
-    {{-- <section class="why-choose-us pt-0">
-        <div class="bg bg-pattern-1"></div>
 
+
+    <!-- Start Education Section -->
+    <section class="services-section">
         <div class="auto-container">
             <div class="sec-title text-center">
-                <span class="sub-title">countries you can visit</span>
-                <h2>Few reasons to choose <br>our visa <span class="color3">company</span></h2>
+                <span class="sub-title">our education</span>
+                <h2><span class="color3">Our Educational Programs</span></h2>
             </div>
 
-            <div class="row">
-                <!-- Features Block -->
-                <div class="feature-block col-xl-3 col-lg-6 col-md-6 col-sm-12 wow fadeInUp">
-                    <div class="inner-box">
-                        <i class="icon flaticon-interview"></i>
-                        <span class="cat">The eget mattis</span>
-                        <h6 class="title"><a href="page-about.html">Direct Interviews</a></h6>
-                    </div>
-                </div>
+            <!-- Swiper -->
+            <div class="swiper educationSwiper">
+                <div class="swiper-wrapper">
 
-                <!-- Features Block -->
-                <div class="feature-block col-xl-3 col-lg-6 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="300ms">
-                    <div class="inner-box">
-                        <div class="content">
-                            <i class="icon flaticon-low-cost"></i>
-                            <span class="cat">The eget mattis</span>
-                            <h6 class="title"><a href="page-about.html">Cost Effective</a></h6>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Features Block -->
-                <div class="feature-block col-xl-3 col-lg-6 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="600ms">
-                    <div class="inner-box">
-                        <div class="content">
-                            <i class="icon flaticon-loyalty"></i>
-                            <span class="cat">The eget mattis</span>
-                            <h6 class="title"><a href="page-about.html">Trusted Customers</a></h6>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Features Block -->
-                <div class="feature-block col-xl-3 col-lg-6 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="900ms">
-                    <div class="inner-box">
-                        <div class="content">
-                            <i class="icon flaticon-online-support"></i>
-                            <span class="cat">The eget mattis</span>
-                            <h6 class="title"><a href="page-about.html">Support Team</a></h6>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="bottom-text">Top rated by customers & immigration firms with 100% success rate. <a
-                    href="page-service.html" class="theme-btn btn-style-two">Discover More</a></div>
-        </div>
-    </section> --}}
-    <!--Emd Why Choose US -->
-
-    <!-- Training Section -->
-    <section class="training-section">
-        <div class="bg bg-pattern-2"></div>
-        <div class="bg bg-image" style="background-image: url({{ asset('frontend/images/resource/image-1.jpg') }})">
-        </div>
-        <div class="auto-container">
-            <div class="sec-title">
-                <span class="sub-title">Training & Certification</span>
-                <h2>Get the Immigration <br> Trainings you <span class="color3">Deserve</span></h2>
-                {{-- <a href="#" class="theme-btn btn-style-two">Discover More</a> --}}
-            </div>
-
-            <div class="carousel-outer">
-                <div class="training-carousel owl-carousel owl-theme">
-                    @foreach ($trainings as $training)
-                        <!-- Training Block -->
-                        <div class="training-block">
-                            <div class="inner-box">
-                                <div class="image-box">
-                                    <figure class="image">
-                                        <img src="{{ asset('storage/' . $training->image) }}"
-                                            alt="{{ $training->title }}">
-                                    </figure>
-                                    <div class="overlay">
-                                        <a href="{{ $training->link ?? '#' }}" class="read-more">
+                    @foreach ($educations as $education)
+                        <div class="swiper-slide">
+                            <div class="training-block mb-4">
+                                <div class="inner-box">
+                                    <div class="image-box">
+                                        <figure class="image">
+                                            <img src="{{ !empty($education->image) ? url('upload/education/' . $education->image) : url('upload/no_image.jpg') }}"
+                                                alt="">
+                                        </figure>
+                                        <div class="overlay">
+                                            <a href="{{ route('single.education.page', $education->slug) }}"
+                                                class="read-more">
+                                                <i class="fa fa-long-arrow-alt-right"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="lower-content">
+                                        <a href="{{ route('single.education.page', $education->slug) }}" class="read-more">
                                             <i class="fa fa-long-arrow-alt-right"></i>
                                         </a>
+                                        <h5 class="title">
+                                            <a href="{{ route('single.education.page', $education->slug) }}">
+                                                {{ $education->course_name ?? '' }}
+                                            </a>
+                                        </h5>
+                                        <div class="text">
+                                            {!! Str::limit($education->description, 100) !!}
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="lower-content">
-                                    <a href="{{ $training->link ?? '#' }}" class="read-more">
-                                        <i class="fa fa-long-arrow-alt-right"></i>
-                                    </a>
-                                    <h5 class="title">
-                                        <a href="{{ $training->link ?? '#' }}">{{ $training->title }}</a>
-                                    </h5>
-                                    <div class="text">{{ $training->description }}</div>
                                 </div>
                             </div>
                         </div>
                     @endforeach
+
                 </div>
+
+                <!-- Pagination (optional) -->
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Start Gallery Section -->
+    <section class="gallery-section">
+        <div class="auto-container">
+            <div class="sec-title text-center">
+                <span class="sub-title">our gallery</span>
+                <h2><span class="color3">Our Recent Gallery</span></h2>
+            </div>
+
+            <!-- Swiper -->
+            <div class="swiper gallerySwiper">
+                <div class="swiper-wrapper">
+
+                    @foreach ($gallerys as $gallery)
+                        <div class="swiper-slide">
+                            <div class="gallery-block mb-4">
+                                <div class="inner-box">
+                                    <figure class="image">
+                                        <img src="{{ !empty($gallery->image) ? url('upload/gallery/' . $gallery->image) : url('upload/no_image.jpg') }}"
+                                            alt="">
+                                    </figure>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+
+                </div>
+                <!-- arrows -->
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+                <!-- dots -->
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+    </section>
+    <!-- End Gallery Section -->
+
+    <!-- Training Section -->
+    <section class="training-section">
+        <div class="auto-container">
+            <div class="sec-title text-center">
+                <span class="sub-title">Training & Certification</span>
+                <h2><span class="color3">Professional Development</span></h2>
+            </div>
+
+            <!-- Swiper -->
+            <div class="swiper trainingSwiper">
+                <div class="swiper-wrapper">
+
+                    @foreach ($trainings as $training)
+                        <div class="swiper-slide">
+                            <div class="training-block">
+                                <div class="inner-box">
+                                    <div class="image-box">
+                                        <figure class="image">
+                                            <img src="{{ asset('storage/' . $training->image) }}"
+                                                alt="{{ $training->title }}">
+                                        </figure>
+                                        <div class="overlay">
+                                            <a href="{{ $training->link ?? '#' }}" class="read-more">
+                                                <i class="fa fa-long-arrow-alt-right"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                    <div class="lower-content">
+                                        <a href="{{ $training->link ?? '#' }}" class="read-more">
+                                            <i class="fa fa-long-arrow-alt-right"></i>
+                                        </a>
+                                        <h5 class="title">
+                                            <a href="{{ $training->link ?? '#' }}">{{ $training->title }}</a>
+                                        </h5>
+                                        <div class="text">
+                                            {{ Str::limit($training->description, 100) }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+
+                </div>
+
+                <!-- dots -->
+                <div class="swiper-pagination"></div>
             </div>
         </div>
     </section>
     <!-- End Training Section -->
 
     <!-- Services Section -->
-    <section class="services-section">
+    <section class="service-section">
         <div class="auto-container">
+            <div class="sec-title text-center">
+                <span class="sub-title">Services</span>
+                <h2><span class="color3">Our Services</span></h2>
+            </div>
+            <!-- Swiper -->
+            <div class="swiper serviceSwiper">
+                <div class="swiper-wrapper">
 
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="sec-title">
-                        <span class="sub-title">What do we offer</span>
-                        <h2>Outstanding immigration visa <span class="color3">services.</span></h2>
-                        <div class="text">
-                            Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet.
+                    @forelse($services as $service)
+                        <div class="swiper-slide">
+                            <div class="service-block wow fadeInUp">
+                                <div class="inner-box">
+
+                                    <div class="image-box">
+                                        <figure class="image">
+                                            <a href="{{ url('service/' . $service->slug) }}">
+                                                <img
+                                                    src="{{ !empty($service->image) ? url('upload/service/' . $service->image) : url('upload/no_image.jpg') }}">
+                                            </a>
+                                        </figure>
+
+                                        <h6 class="title">{{ $service->title }}</h6>
+                                    </div>
+
+                                    <div class="content-box">
+                                        <h6 class="title">
+                                            <a href="{{ url('service/' . $service->slug) }}">
+                                                {{ $service->title }}
+                                            </a>
+                                        </h6>
+
+                                        <div class="text">
+                                            {!! Str::limit($service->description, 80) !!}
+                                        </div>
+
+                                        <a href="{{ route('single.service.page', $service->slug) }}" class="read-more">
+                                            More <i class="fa fa-long-arrow-right"></i>
+                                        </a>
+                                    </div>
+
+                                </div>
+                            </div>
                         </div>
-                    </div>
+
+                    @empty
+                        <p>No services found</p>
+                    @endforelse
+
                 </div>
 
-                @forelse($services as $service)
-                    <!-- Service Block -->
-                    <div class="service-block col-lg-3 col-md-6 col-sm-12 wow fadeInUp">
-                        <div class="inner-box">
-
-                            <div class="image-box">
-
-                                <figure class="image">
-                                    <a href="{{ url('service/' . $service->slug) }}">
-                                        <img
-                                            src="{{ !empty($service->image) ? url('upload/service/' . $service->image) : url('upload/no_image.jpg') }}">
-                                    </a>
-                                </figure>
-
-                                <h6 class="title">{{ $service->title }}</h6>
-
-                            </div>
-
-                            <div class="content-box">
-
-                                <h6 class="title">
-                                    <a href="{{ url('service/' . $service->slug) }}">
-                                        {{ $service->title }}
-                                    </a>
-                                </h6>
-
-                                <div class="text">
-                                    {!! Str::limit($service->description, 80) !!}
-                                </div>
-
-                                <a href="{{ route('single.service.page', $service->slug) }}" class="read-more">
-                                    More <i class="fa fa-long-arrow-right"></i>
-                                </a>
-
-                            </div>
-
-                        </div>
-                    </div>
-
-                @empty
-
-                    <!-- Default Service 1 -->
-                    <div class="service-block col-lg-3 col-md-6 col-sm-12 wow fadeInUp">
-                        <div class="inner-box">
-                            <div class="image-box">
-                                <figure class="image">
-                                    <img src="{{ asset('frontend/images/resource/service-1.jpg') }}">
-                                </figure>
-                                <h6 class="title">Student Visa</h6>
-                            </div>
-
-                            <div class="content-box">
-                                <h6 class="title">Student Visa</h6>
-                                <div class="text">
-                                    We have to a tendency to believe the idea that smart looking website.
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Default Service 2 -->
-                    <div class="service-block col-lg-3 col-md-6 col-sm-12 wow fadeInUp">
-                        <div class="inner-box">
-                            <div class="image-box">
-                                <figure class="image">
-                                    <img src="{{ asset('frontend/images/resource/service-2.jpg') }}">
-                                </figure>
-                                <h6 class="title">Business Visa</h6>
-                            </div>
-
-                            <div class="content-box">
-                                <h6 class="title">Business Visa</h6>
-                                <div class="text">
-                                    We have to a tendency to believe the idea that smart looking website.
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Default Service 3 -->
-                    <div class="service-block col-lg-3 col-md-6 col-sm-12 wow fadeInUp">
-                        <div class="inner-box">
-                            <div class="image-box">
-                                <figure class="image">
-                                    <img src="{{ asset('frontend/images/resource/service-3.jpg') }}">
-                                </figure>
-                                <h6 class="title">Family Visa</h6>
-                            </div>
-
-                            <div class="content-box">
-                                <h6 class="title">Family Visa</h6>
-                                <div class="text">
-                                    We have to a tendency to believe the idea that smart looking website.
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Default Service 4 -->
-                    <div class="service-block col-lg-3 col-md-6 col-sm-12 wow fadeInUp">
-                        <div class="inner-box">
-                            <div class="image-box">
-                                <figure class="image">
-                                    <img src="{{ asset('frontend/images/resource/service-4.jpg') }}">
-                                </figure>
-                                <h6 class="title">Tourist Visa</h6>
-                            </div>
-
-                            <div class="content-box">
-                                <h6 class="title">Tourist Visa</h6>
-                                <div class="text">
-                                    We have to a tendency to believe the idea that smart looking website.
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                @endforelse
-
+                <!-- pagination -->
+                <div class="swiper-pagination"></div>
             </div>
+
         </div>
     </section>
     <!-- End Services Section-->
 
     <!-- Countries Section -->
-    <section class="countries-section pt-0">
+    <section class="country-section mt-3">
         <div class="auto-container">
             <div class="sec-title text-center">
-                <span class="sub-title">countries you can visit</span>
-                <h2>Countries we’re supporting <br>for the <span class="color3">immigration</span></h2>
+                <span class="sub-title">Countries</span>
+                <h2><span class="color3">Our Countries</span></h2>
+            </div>
+            <div class="swiper countrySwiper">
+                <div class="swiper-wrapper">
+
+                    @forelse($countries as $country)
+                        <div class="swiper-slide">
+                            <div class="text-center">
+                                <div class="inner-box">
+                                    <div class="flag">
+                                        @if ($country->flag)
+                                            <img src="{{ asset('storage/' . $country->flag) }}"
+                                                alt="{{ $country->name }} flag">
+                                        @else
+                                            <span>No flag</span>
+                                        @endif
+                                    </div>
+
+                                    <a href="{{ $country->link ?? '#' }}" class="theme-btn">
+                                        {{ $country->name }}
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                    @endforeach
+
+                </div>
+                <!-- pagination -->
+                <div class="swiper-pagination"></div>
             </div>
 
-            <div class="carousel-outer">
-                <!-- Countries Carousel -->
-                <div class="countries-carousel owl-carousel owl-theme">
-                    @foreach ($countries as $country)
-                        <!-- Country Block-->
-                        <div class="country-block">
-                            <div class="inner-box">
-                                <div class="flag">
-                                    @if ($country->flag)
-                                        <img src="{{ asset('storage/' . $country->flag) }}"
-                                            alt="{{ $country->name }} flag">
-                                    @else
-                                        <span>No flag</span>
-                                    @endif
+        </div>
+    </section>
+
+    <!--End Countries Section Two -->
+
+    <!-- Team Section -->
+    <section class="team-section">
+        <div class="auto-container">
+            <div class="sec-title text-center">
+                <span class="sub-title">our team members</span>
+                <h2><span class="color3">Meet Our Experts</span></h2>
+            </div>
+
+            <!-- Swiper -->
+            <div class="swiper teamSwiper">
+                <div class="swiper-wrapper">
+                    @foreach ($teams as $team)
+                        <div class="swiper-slide">
+                            <div class="team-block wow fadeInUp">
+                                <div class="inner-box"
+                                    style="background: linear-gradient(to right, red, orange, yellow, green);">
+                                    <div class="image-box">
+                                        <figure class="image">
+                                            <a href="#">
+                                                <img src="{{ !empty($team->image) ? url('upload/team/' . $team->image) : url('upload/avatar5.png') }}"
+                                                    alt="">
+                                            </a>
+                                        </figure>
+                                    </div>
+                                    <div class="info-box">
+                                        <h5 class="card-title mb-1 text-light font-weight-bold">{{ $team->name }}</h5>
+
+                                        <p class="text-light mb-2">
+                                            {{ $team->designation }}
+                                        </p>
+
+                                        <p class="mb-1 text-light">
+                                            <i class="fa fa-phone"></i> {{ $team->phone }}
+                                        </p>
+
+                                        <p class="small text-light mb-0">
+                                            {{ $team->address }}
+                                        </p>
+                                    </div>
+
                                 </div>
-                                <a href="{{ $country->link ?? '#' }}" class="theme-btn">{{ $country->name }}</a>
                             </div>
                         </div>
                     @endforeach
+
                 </div>
+
+                <!-- pagination -->
+                <div class="swiper-pagination"></div>
             </div>
         </div>
     </section>
-    <!--End Countries Section Two -->
+    <!-- End Team Section -->
 
-    <!-- Teams Section -->
-    <!-- Page Content -->
-    <section class="page-content py-5">
-        <div class="container">
-
-            <!-- Section Title -->
-            <div class="row mb-5">
-                <div class="col-12 text-center">
-                    <h2 class="fw-bold">Our Team</h2>
-                    <p class="text-muted">Meet our professional team members</p>
-                </div>
-            </div>
-
-            <div class="row">
-                @foreach ($teams as $team)
-                    <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
-                        <div class="card h-100 text-center shadow-lg border-0">
-
-                            <img src="{{ !empty($team->image) ? url('upload/team/' . $team->image) : url('upload/avatar5.png') }}"
-                                class="card-img-top rounded-top" alt="{{ $team->name }}">
-
-                            <div class="card-body">
-                                <h5 class="card-title mb-1">{{ $team->name }}</h5>
-
-                                <p class="text-muted mb-2">
-                                    {{ $team->designation }}
-                                </p>
-
-                                <p class="mb-1">
-                                    <i class="fa fa-phone"></i> {{ $team->phone }}
-                                </p>
-
-                                <p class="small text-muted mb-0">
-                                    {{ $team->address }}
-                                </p>
-                            </div>
-
-                        </div>
-                    </div>
-                @endforeach
-            </div>
-
-        </div>
-    </section>
-    <!-- End Teams Section -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <!-- Clients Section -->
-    <section class="clients-section">
-        <!-- Section Title -->
-        <div class="row mb-5">
-            <div class="col-12 text-center">
-                <h2 class="fw-bold">Our Partners</h2>
-                <p class="text-muted">Meet our professional Partners</p>
-            </div>
-        </div>
+    <!-- Agent Section -->
+    <section class="team-section">
         <div class="auto-container">
 
-            <div class="swiper clientsSwiper">
-                <div class="swiper-wrapper">
-
-                    @forelse($partners as $partner)
-                        <div class="swiper-slide">
-                            <div class="client-item text-center">
-                                <a href="{{ url('partner/' . $partner->slug) }}">
-
-                                    <img src="{{ !empty($partner->image) ? url('upload/partner/' . $partner->image) : url('upload/no_image.jpg') }}"
-                                        alt="{{ $partner->name }}">
-
-                                    <h5>{{ $partner->name }}</h5>
-                                    <p>{!! Str::limit($partner->description, 60) !!}</p>
-
-                                </a>
-                            </div>
-                        </div>
-                    @empty
-
-                        @for ($i = 0; $i < 5; $i++)
-                            <div class="swiper-slide">
-                                <div class="client-item text-center">
-                                    <img src="{{ asset('frontend/images/resource/client.png') }}" alt="">
-                                    <h5>Client Name</h5>
-                                    <p>Short description</p>
-                                </div>
-                            </div>
-                        @endfor
-                    @endforelse
-
-                </div>
+            <div class="sec-title text-center">
+                <span class="sub-title">Our Partners</span>
+                <h2><span class="color3">Meet our professional Partners</span></h2>
             </div>
 
+            <!-- Swiper -->
+            <div class="swiper partnerSwiper">
+                <div class="swiper-wrapper">
+
+                    @foreach ($agents as $agent)
+                        <div class="swiper-slide">
+                            <div class="team-block wow fadeInUp">
+                                <div class="inner-box"
+                                    style="background: linear-gradient(to right, red, orange, yellow, green);">
+
+                                    <div class="image-box">
+                                        <figure class="image">
+                                            <a href="#">
+                                                <img src="{{ asset('storage/' . $agent->photo) }}" alt="">
+                                            </a>
+                                        </figure>
+                                    </div>
+
+                                    <div class="info-box">
+                                        <h5 class="card-title mb-1 text-light font-weight-bold">{{ $agent->agent_name }}
+                                        </h5>
+
+                                        <p class="text-light mb-2">
+                                            {{ $agent->no_area }}
+                                        </p>
+
+                                        <p class="mb-1 text-light">
+                                            <i class="fa fa-phone"></i> {{ $agent->mobile_number }}
+                                        </p>
+
+                                        {{-- <p class="small text-light mb-0">
+                                            {{ $agent->agent_id }}
+                                        </p> --}}
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+
+                </div>
+                <!-- pagination -->
+                <div class="swiper-pagination"></div>
+
+            </div>
         </div>
     </section>
-    <!-- End Clients Section -->
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            new Swiper(".clientsSwiper", {
-                slidesPerView: 5,
-                spaceBetween: 30,
-                loop: true,
-                autoplay: {
-                    delay: 2000,
-                    disableOnInteraction: false,
-                },
-                breakpoints: {
-                    0: {
-                        slidesPerView: 1
-                    },
-                    576: {
-                        slidesPerView: 2
-                    },
-                    768: {
-                        slidesPerView: 3
-                    },
-                    992: {
-                        slidesPerView: 4
-                    },
-                    1200: {
-                        slidesPerView: 5
-                    },
-                }
-            });
-        });
-    </script>
+    <!-- End Agent Section -->
+
     <!-- Testimonial Section -->
     <section class="testimonial-section pull-down">
         <div class="bg-image" style="background-image: url({{ asset('frontend/images/background/1.jpg') }})"></div>
@@ -623,7 +582,8 @@
                                         <i class="fa fa-star checked"></i>
                                         <i class="fa fa-star checked"></i>
                                     </div>
-                                    <div class="text">I was very impressed by the Remons service. Lorem ipsum is simply
+                                    <div class="text">I was very impressed by the Remons service. Lorem ipsum is
+                                        simply
                                         free text used by copy typing refreshing.</div>
                                 </div>
                                 <div class="info-box">
@@ -648,7 +608,8 @@
                                         <i class="fa fa-star checked"></i>
                                         <i class="fa fa-star checked"></i>
                                     </div>
-                                    <div class="text">I was very impressed by the Remons service. Lorem ipsum is simply
+                                    <div class="text">I was very impressed by the Remons service. Lorem ipsum is
+                                        simply
                                         free text used by copy typing refreshing.</div>
                                 </div>
                                 <div class="info-box">
@@ -673,7 +634,8 @@
                                         <i class="fa fa-star checked"></i>
                                         <i class="fa fa-star checked"></i>
                                     </div>
-                                    <div class="text">I was very impressed by the Remons service. Lorem ipsum is simply
+                                    <div class="text">I was very impressed by the Remons service. Lorem ipsum is
+                                        simply
                                         free text used by copy typing refreshing.</div>
                                 </div>
                                 <div class="info-box">
@@ -719,7 +681,8 @@
 
                             <div class="ceo-info">
                                 <figure class="thumb"><img src="{{ asset('frontend/images/resource/ceo-thumb.jpg') }}"
-                                        alt=""></figure>
+                                        alt="">
+                                </figure>
                                 <h6 class="name">Aleesha Brown</h6>
                                 <div class="designation">CEO & CO Founder</div>
                             </div>
@@ -765,3 +728,246 @@
     </section>
     <!-- End Contact Section -->
 @endsection
+@push('js')
+    <script>
+        // education slider
+        var swiper = new Swiper(".educationSwiper", {
+            slidesPerView: 3,
+            spaceBetween: 30,
+            loop: true,
+
+            autoplay: {
+                delay: 2500, // 2.5 seconds
+                disableOnInteraction: false, // user swipe korleo stop hobe na
+            },
+
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+
+            breakpoints: {
+                320: {
+                    slidesPerView: 1
+                },
+                768: {
+                    slidesPerView: 2
+                },
+                1024: {
+                    slidesPerView: 3
+                }
+            }
+        });
+
+        // gallery slider
+        var swiper = new Swiper(".gallerySwiper", {
+            slidesPerView: 3,
+            spaceBetween: 20,
+            loop: true,
+
+            autoplay: {
+                delay: 2000,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: true,
+            },
+
+            navigation: {
+                nextEl: ".gallerySwiper .swiper-button-next",
+                prevEl: ".gallerySwiper .swiper-button-prev",
+            },
+
+            pagination: {
+                el: ".gallerySwiper .swiper-pagination",
+                clickable: true,
+            },
+
+            breakpoints: {
+                320: {
+                    slidesPerView: 1
+                },
+                576: {
+                    slidesPerView: 2
+                },
+                992: {
+                    slidesPerView: 3
+                }
+            }
+        });
+
+        // training slider
+        var swiper = new Swiper(".trainingSwiper", {
+            slidesPerView: 3,
+            spaceBetween: 30,
+            loop: true,
+
+            autoplay: {
+                delay: 2500,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: true,
+            },
+
+            navigation: {
+                nextEl: ".trainingSwiper .swiper-button-next",
+                prevEl: ".trainingSwiper .swiper-button-prev",
+            },
+
+            pagination: {
+                el: ".trainingSwiper .swiper-pagination",
+                clickable: true,
+            },
+
+            breakpoints: {
+                320: {
+                    slidesPerView: 1
+                },
+                768: {
+                    slidesPerView: 2
+                },
+                1024: {
+                    slidesPerView: 3
+                }
+            }
+        });
+
+        // service slider
+        var swiper = new Swiper(".serviceSwiper", {
+            slidesPerView: 4,
+            spaceBetween: 20,
+            loop: true,
+
+            autoplay: {
+                delay: 2500,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: true,
+            },
+
+            navigation: {
+                nextEl: ".serviceSwiper .swiper-button-next",
+                prevEl: ".serviceSwiper .swiper-button-prev",
+            },
+
+            pagination: {
+                el: ".serviceSwiper .swiper-pagination",
+                clickable: true,
+            },
+
+            breakpoints: {
+                320: {
+                    slidesPerView: 1
+                },
+                576: {
+                    slidesPerView: 2
+                },
+                768: {
+                    slidesPerView: 3
+                },
+                1200: {
+                    slidesPerView: 3
+                }
+            }
+        });
+        // country slider
+        var swiper = new Swiper(".countrySwiper", {
+            slidesPerView: 5,
+            spaceBetween: 20,
+            loop: true,
+            speed: 4000, // smooth speed
+
+            autoplay: {
+                delay: 0, // no delay = continuous scroll
+                disableOnInteraction: false,
+            },
+
+            freeMode: true,
+            freeModeMomentum: false,
+
+            breakpoints: {
+                320: {
+                    slidesPerView: 2
+                },
+                576: {
+                    slidesPerView: 3
+                },
+                768: {
+                    slidesPerView: 4
+                },
+                1024: {
+                    slidesPerView: 3
+                }
+            }
+        });
+        // team section
+        var swiper = new Swiper(".teamSwiper", {
+            slidesPerView: 3,
+            spaceBetween: 30,
+            loop: true,
+
+            autoplay: {
+                delay: 2500,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: true,
+            },
+
+            navigation: {
+                nextEl: ".teamSwiper .swiper-button-next",
+                prevEl: ".teamSwiper .swiper-button-prev",
+            },
+
+            pagination: {
+                el: ".teamSwiper .swiper-pagination",
+                clickable: true,
+            },
+
+            breakpoints: {
+                320: {
+                    slidesPerView: 1
+                },
+                576: {
+                    slidesPerView: 2
+                },
+                992: {
+                    slidesPerView: 3
+                }
+            }
+        });
+        // partner section
+        var swiper = new Swiper(".partnerSwiper", {
+            slidesPerView: 3,
+            spaceBetween: 30,
+            loop: true,
+
+            autoplay: {
+                delay: 2500,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: true,
+            },
+
+            navigation: {
+                nextEl: ".partnerSwiper .swiper-button-next",
+                prevEl: ".partnerSwiper .swiper-button-prev",
+            },
+
+            pagination: {
+                el: ".partnerSwiper .swiper-pagination",
+                clickable: true,
+            },
+
+            breakpoints: {
+                320: {
+                    slidesPerView: 1
+                },
+                576: {
+                    slidesPerView: 2
+                },
+                992: {
+                    slidesPerView: 3
+                }
+            }
+        });
+    </script>
+@endpush

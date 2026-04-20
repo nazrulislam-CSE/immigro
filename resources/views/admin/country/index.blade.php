@@ -100,7 +100,7 @@
                                                     </div>
                                                     <div class="mb-3">
                                                         <label class="form-label">Link (URL to details page)</label>
-                                                        <input type="url" name="link" class="form-control" value="{{ $country->link }}">
+                                                        <input type="text" name="link" class="form-control" value="{{ $country->link }}">
                                                     </div>
                                                     <div class="mb-3">
                                                         <label class="form-label">Status</label>
@@ -149,7 +149,7 @@
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Link (URL to details page)</label>
-                        <input type="url" name="link" class="form-control">
+                        <input type="text" name="link" class="form-control">
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Status</label>

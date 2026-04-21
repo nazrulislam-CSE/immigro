@@ -1,5 +1,25 @@
 @extends('layouts.frontend.app')
 @section('content')
+<style>
+    .services-section {
+        padding: 0px 0 90px;
+    }
+    .gallery-section{
+        padding: 0px 0 90px;
+    }
+    .training-section{
+        padding: 0px 0 90px;
+    }
+    .country-section{
+        padding: 0px 0 90px;
+    }
+    .team-section{
+        padding: 0px 0 90px;
+    }
+    .testimonial-section{
+        padding: 0px 0 90px;
+    }
+</style>
     <!-- Main Slider -->
     <section class="main-slider mt-4">
         <div class="container-fluid p-0">
@@ -657,7 +677,7 @@
     <!-- End Testimonial Section -->
 
     <!-- Contact Section -->
-    <section class="contact-section">
+    {{-- <section class="contact-section">
         <div class="outer-box">
             <div class="bg bg-pattern-6"></div>
             <div class="auto-container">
@@ -725,7 +745,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
     <!-- End Contact Section -->
 @endsection
 @push('js')

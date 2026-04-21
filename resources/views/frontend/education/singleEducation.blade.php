@@ -48,14 +48,46 @@
             </div>
             <div class="col-lg-4 ps-xl-5">
                 <div class="sidebar">
-                    <div>
-                        <a href="{{ route('education.all') }}" class="btn-style1 small btn btn-danger"
-                            style="float: right;"><i class="fa fa-share"></i> View All</a>
+                    <div class="sidebar__single sidebar__post mb-2">
+                        <h3 class="sidebar__title">Recent Education</h3>
+                        <hr>
+                        <ul class="sidebar__post-list list-unstyled">
+                            @foreach ($educations as $education)
+                                <li
+                                    class="d-flex mb-4 p-2 rounded 
+            {{ request()->route('slug') == $education->slug ? 'bg-primary text-white' : '' }}">
+
+                                    <div class="flex-shrink-0">
+                                        <img width="80"
+                                            src="{{ !empty($education->image) ? url('upload/education/' . $education->image) : url('upload/no_image.jpg') }}"
+                                            alt="">
+                                    </div>
+
+                                    <div class="flex-grow-1 ms-3">
+                                        <h4 class="mb-2 h6">
+                                            <a href="{{ route('single.education.page', $education->slug) }}"
+                                                class="{{ request()->route('slug') == $education->slug ? 'text-white' : '' }}">
+                                                {{ $education->coordinator_name ?? 'n/a' }}
+                                            </a>
+                                        </h4>
+
+                                        <span
+                                            class="small {{ request()->route('slug') == $education->slug ? 'text-white' : 'text-muted' }}">
+                                            {{ $education->created_at->format('F d, Y') }}
+                                        </span>
+                                    </div>
+
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    <div class="sidebar__single sidebar__post mb-2">
+                        <h3 class="sidebar__title">Education Details</h3>
+                        <hr>
                         <div class="wow fadeIn" data-wow-delay="200ms">
                             <div class="section-title left">
                                 <span class="sm-title">{{ $singleEducation->course_name ?? 'n/a' }} Details</span>
                             </div>
-                            {{-- <h2 class="h1 mb-1-9">SEO & Content Writing</h2> --}}
                         </div>
                         <div>
                             <div class="mb-4 wow fadeInUp" data-wow-delay="100ms">
@@ -111,21 +143,9 @@
                             </div>
                         </div>
                     </div>
-
-                    @foreach ($educations as $education)
-                        <div class="latest-course-item">
-                            <div class="latest-course-img">
-                                <img src="{{ !empty($education->image) ? url('upload/education/' . $education->image) : url('upload/no_image.jpg') }}"
-                                    alt="">
-                            </div>
-                            <div class="latest-course-content">
-                                <a class="latest-course-author"
-                                    href="{{ route('single.education.page', $education->slug) }}">{{ $education->coordinator_name ?? 'n/a' }}</a>
-                            </div>
-                        </div>
-                    @endforeach
                 </div>
             </div>
         </div>
+    </div>
     </div>
 @endsection

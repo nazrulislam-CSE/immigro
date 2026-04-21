@@ -322,8 +322,10 @@
                                         class="far fa-user"></i> My Profile</a>
                                 <a class="dropdown-item" href="{{ route('admin.password.change') }}"><i
                                         class="fe fe-settings"></i> Change Password</a>
+                                @if ($admin && $admin->hasRole('Super Admin'))
                                 <a class="dropdown-item" href="{{ route('admin.settings.index') }}"><i
                                         class="fas fa-sliders-h"></i> Account Settings</a>
+                                @endif
                                 <a class="dropdown-item" href="{{ route('admin.logout') }}"
                                     onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i
                                         class="fas fa-sign-out-alt"></i> Sign Out</a>

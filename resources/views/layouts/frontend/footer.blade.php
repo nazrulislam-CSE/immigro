@@ -1,3 +1,8 @@
+      <style>
+          .main-footer {
+                 background: linear-gradient(135deg, #7c5224, #290695, #898177);
+          }
+      </style>
       @php
           $footer_pages = App\Models\Menuitem::with(['subMenus.childMenus'])
               ->whereNull('parent_id')
@@ -126,7 +131,7 @@
                       <!-- Left -->
                       <div class="copyright-text text-light">
                           {{ get_setting('copy_right')->value ?? '' }}
-                          <a  href="https://immigro.chalkboardbd.com/">
+                          <a href="https://immigro.chalkboardbd.com/">
                               {{ date('Y') }} All rights reserved.
                           </a>
                       </div>
@@ -134,7 +139,8 @@
                       <!-- Right -->
                       <div class="developed-by">
                           Developed by
-                          <a class="text-light" href="{{ get_setting('developer_link')->value ?? '#' }}" target="_blank">
+                          <a class="text-light" href="{{ get_setting('developer_link')->value ?? '#' }}"
+                              target="_blank">
                               {{ get_setting('developed_by')->value ?? '' }}
                           </a>
                       </div>

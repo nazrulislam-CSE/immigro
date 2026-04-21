@@ -6,15 +6,17 @@ use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use App\Models\Admin;
+use App\Models\Staff;
 use Illuminate\Support\Facades\Hash;
 
 class RolePermissionSeeder extends Seeder
 {
     public function run()
     {
+        // পারমিশন ক্যাশ রিসেট
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 
-        // ========= ১. মূল মডিউলসমূহ =========
+        // ========= ১. মূল মডিউলসমূহ (শুধু view পারমিশন) =========
         $modules = [
             'Dashboard' => 'Dashboard',
             'Visitors'  => 'Visitors',
@@ -51,7 +53,6 @@ class RolePermissionSeeder extends Seeder
             'Account'   => 'Account',
         ];
 
-        // View permissions
         foreach ($modules as $moduleName => $groupName) {
             Permission::firstOrCreate([
                 'name'       => "view {$moduleName}",
@@ -60,7 +61,7 @@ class RolePermissionSeeder extends Seeder
             ]);
         }
 
-        // CRUD permissions for standard modules
+        // ========= ২. CRUD পারমিশন (create, edit, delete) =========
         $crudModules = [
             'Visitors', 'Clients', 'Agents', 'Suppliers', 'Invoices',
             'Passports', 'Refunds', 'Staff', 'Sections', 'Sliders',
@@ -87,7 +88,7 @@ class RolePermissionSeeder extends Seeder
             ]);
         }
 
-        // ========= বিশেষ পারমিশন (যেগুলো CRUD-এর বাইরে) =========
+        // ========= ৩. বিশেষ পারমিশন (যেগুলো CRUD-এর বাইরে) =========
         $specialPermissions = [
             // Supplier payments
             ['name' => 'view supplier payments', 'group' => 'Suppliers'],
@@ -114,6 +115,10 @@ class RolePermissionSeeder extends Seeder
             ['name' => 'view expense', 'group' => 'Account'],
             ['name' => 'view account statement', 'group' => 'Account'],
             ['name' => 'view due list', 'group' => 'Account'],
+            // Online Apply, Software Sale, Books (view only)
+            ['name' => 'view online apply', 'group' => 'Online Apply'],
+            ['name' => 'view software sale', 'group' => 'Software Sale'],
+            ['name' => 'view books', 'group' => 'Books'],
         ];
 
         foreach ($specialPermissions as $perm) {
@@ -124,30 +129,33 @@ class RolePermissionSeeder extends Seeder
             ]);
         }
 
-        // ========= ২. রোল তৈরি =========
+        // ========= ৪. রোল তৈরি =========
         $superAdminRole = Role::firstOrCreate(['name' => 'Super Admin', 'guard_name' => 'admin']);
         $adminRole      = Role::firstOrCreate(['name' => 'Admin', 'guard_name' => 'admin']);
-        $managerRole    = Role::firstOrCreate(['name' => 'Manager', 'guard_name' => 'admin']);
         $staffRole      = Role::firstOrCreate(['name' => 'Staff', 'guard_name' => 'admin']);
+        $agentRole      = Role::firstOrCreate(['name' => 'Agent', 'guard_name' => 'admin']);
 
-        // ========= ৩. রোলগুলিতে পারমিশন অ্যাসাইন =========
+        // ========= ৫. রোলগুলিতে পারমিশন অ্যাসাইন =========
+        // Super Admin ও Admin সব পারমিশন পাবে
         $superAdminRole->givePermissionTo(Permission::all());
         $adminRole->givePermissionTo(Permission::all());
 
-        // Manager - সব পারমিশন (এখন আর error হবে না)
-        $managerRole->givePermissionTo(Permission::all()); // সহজ উপায়
-
-        // Staff - সীমিত পারমিশন
+        // Staff রোলের পারমিশন (নিজের তথ্য ও উপস্থিতি)
         $staffRole->givePermissionTo([
             'view Staff',
             'view staff payments',
             'view staff attendance',
         ]);
 
-        // ========= ৪. ডিফল্ট সুপার অ্যাডমিন ইউজার =========
-        $admin = Admin::first();
-        if (!$admin) {
-            $admin = Admin::create([
+        // Agent রোলের পারমিশন
+        $agentRole->givePermissionTo([
+            'view Agents',
+        ]);
+
+        // ========= ৬. ডিফল্ট সুপার অ্যাডমিন ইউজার =========
+        $superAdmin = Admin::first();
+        if (!$superAdmin) {
+            $superAdmin = Admin::create([
                 'name'          => 'Super Admin',
                 'username'      => 'admin',
                 'email'         => 'admin@gmail.com',
@@ -156,7 +164,64 @@ class RolePermissionSeeder extends Seeder
                 'status'        => 1,
             ]);
         }
+        $superAdmin->assignRole($superAdminRole);
 
-        $admin->assignRole($superAdminRole);
+        // ========= ৭. স্টাফ ইউজার তৈরি (admins ও staff টেবিলে) =========
+        $staffAdmin = Admin::where('email', 'staff@gmail.com')->first();
+        if (!$staffAdmin) {
+            $staffAdmin = Admin::create([
+                'name'          => 'Staff User',
+                'username'      => 'staff',
+                'email'         => 'staff@gmail.com',
+                'password'      => Hash::make('12345678'),
+                'show_password' => '12345678',
+                'status'        => 1,
+            ]);
+        }
+        $staffAdmin->assignRole($staffRole);
+
+        // staff টেবিলে ডেটা ইনসার্ট/আপডেট
+        Staff::updateOrCreate(
+            ['admin_id' => $staffAdmin->id],
+            [
+                'staff_name'         => 'Staff User',
+                'mobile_number'      => '01700000000',
+                'basic_salary'       => 20000,
+                'house_rent'         => 5000,
+                'medical_allowance'  => 2000,
+                'target_incentive'   => 1000,
+                'gross_salary'       => 28000,
+                'payment_system'     => 'cash',
+                'admin_id'           => $staffAdmin->id,
+                'role_id'            => $staffRole->id,
+            ]
+        );
+
+        // ========= ৮. এজেন্ট ইউজার তৈরি (admins ও staff টেবিলে) =========
+        $agentAdmin = Admin::where('email', 'agent@gmail.com')->first();
+        if (!$agentAdmin) {
+            $agentAdmin = Admin::create([
+                'name'          => 'Agent User',
+                'username'      => 'agent',
+                'email'         => 'agent@gmail.com',
+                'password'      => Hash::make('12345678'),
+                'show_password' => '12345678',
+                'status'        => 1,
+            ]);
+        }
+        $agentAdmin->assignRole($agentRole);
+
+        Staff::updateOrCreate(
+            ['admin_id' => $agentAdmin->id],
+            [
+                'staff_name'     => 'Agent User',
+                'mobile_number'  => '01800000000',
+                'basic_salary'   => 15000,
+                'gross_salary'   => 15000,
+                'payment_system' => 'bkash',
+                'admin_id'       => $agentAdmin->id,
+                'role_id'        => $agentRole->id,
+            ]
+        );
     }
 }

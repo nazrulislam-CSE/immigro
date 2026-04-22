@@ -1,7 +1,17 @@
       <style>
           .main-footer {
-                 background: linear-gradient(135deg, #7c5224, #290695, #898177);
+              background: linear-gradient(135deg, #7c5224, #290695, #898177);
           }
+
+          .main-footer .widgets-section {
+              position: relative;
+              padding-top: 75px !important;
+              padding-bottom: 0px !important;
+          }
+          .footer-bottom .inner-container
+            {
+                padding: 10px 15px !important;
+            }
       </style>
       @php
           $footer_pages = App\Models\Menuitem::with(['subMenus.childMenus'])

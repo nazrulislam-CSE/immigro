@@ -6,6 +6,11 @@
     .main-menu .navigation>li>a {
         color: #fff;
     }
+
+    .header-style-one .header-lower .logo-box {
+        margin-top: -60px !important;
+        margin-bottom: -60px !important;
+    }
 </style>
 @php
     $menuitems = App\Models\Menuitem::with(['subMenus.childMenus'])
@@ -116,13 +121,13 @@
                 <div class="outer-box">
                     <a href="tel:{{ get_setting('phone')->value ?? '' }}" class="info-btn">
                         <img src="{{ asset('frontend/images/icons/icon-phone.png') }}" alt="" class="icon">
-                        <small>Call Anytime</small>
-                        <strong>{{ get_setting('phone')->value ?? '' }}</strong>
+                        <small class="text-light">Call Anytime</small>
+                        <strong class="text-light">{{ get_setting('phone')->value ?? '' }}</strong>
                     </a>
 
                     <div class="ui-btn-outer">
                         <button class="ui-btn ui-btn search-btn">
-                            <span class="icon lnr lnr-icon-search"></span>
+                            <span class="icon lnr lnr-icon-search text-light"></span>
                         </button>
                     </div>
 

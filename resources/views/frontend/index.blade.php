@@ -402,7 +402,7 @@
                                 <div class="inner-box">
                                     <div class="flag">
                                         @if ($country->flag)
-                                            <img src="{{ asset('storage/' . $country->flag) }}"
+                                            <img src="{{ asset('storage/' . $country->flag) }}" width="100"
                                                 alt="{{ $country->name }} flag">
                                         @else
                                             <span>No flag</span>
@@ -908,16 +908,16 @@
 
             breakpoints: {
                 320: {
-                    slidesPerView: 2
+                    slidesPerView: 3
                 },
                 576: {
                     slidesPerView: 3
                 },
                 768: {
-                    slidesPerView: 4
+                    slidesPerView: 6
                 },
                 1024: {
-                    slidesPerView: 3
+                    slidesPerView: 8
                 }
             }
         });

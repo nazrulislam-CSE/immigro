@@ -8,7 +8,7 @@
     @if ($page->page_slug == 'visa-service')
         <!-- Start main-content -->
         <section class="page-title"
-            style="background-image: url({{ !empty($page->image) ? url('upload/page/' . $page->image) : url('frontend/img/slider/7.jpg') }});">
+            style="margin-top: 20px !important; padding: 80px 0 !important; background-image: url({{ !empty($page->image) ? url('upload/page/' . $page->image) : url('frontend/img/slider/7.jpg') }});">
             <div class="auto-container">
                 <div class="title-outer">
                     <h1 class="title">{{ $page->page_title }}</h1>
@@ -47,7 +47,8 @@
                                         <a href="{{ route('single.service.page', $service->slug) }}" class="read-more">
                                             <i class="fa fa-long-arrow-alt-right"></i></a>
                                         <h5 class="title">
-                                            <a href="{{ route('single.service.page', $service->slug) }}">{{ $service->title }}</a>
+                                            <a
+                                                href="{{ route('single.service.page', $service->slug) }}">{{ $service->title }}</a>
                                         </h5>
                                         <div class="text"> {!! Str::limit($service->description, 80) !!}</div>
                                     </div>
@@ -62,7 +63,7 @@
     @elseif($page->page_slug == 'team')
         <!-- Start main-content -->
         <section class="page-title"
-            style="background-image: url({{ !empty($page->image) ? url('upload/page/' . $page->image) : url('frontend/img/slider/7.jpg') }});">
+            style="margin-top: 20px !important; padding: 80px 0 !important; background-image: url({{ !empty($page->image) ? url('upload/page/' . $page->image) : url('frontend/img/slider/7.jpg') }});">
             <div class="auto-container">
                 <div class="title-outer">
                     <h1 class="title">{{ $page->page_title }}</h1>
@@ -119,7 +120,7 @@
     @elseif($page->page_slug == 'office-address')
         <!-- Start main-content -->
         <section class="page-title"
-            style="background-image: url({{ !empty($page->image) ? url('upload/page/' . $page->image) : url('frontend/img/slider/7.jpg') }});">
+            style="margin-top: 20px !important; padding: 80px 0 !important; background-image: url({{ !empty($page->image) ? url('upload/page/' . $page->image) : url('frontend/img/slider/7.jpg') }});">
             <div class="auto-container">
                 <div class="title-outer">
                     <h1 class="title">{{ $page->page_title }}</h1>
@@ -138,34 +139,59 @@
             <div class="container pb-100">
                 <div class="row">
                     @foreach ($branches as $branch)
-                        <div class="col-md-6 col-lg-3 mb-4">
-                            <div class="card h-100 shadow-lg border-0">
-                                <div class="card-header bg-success text-center">
-                                    <h5 class="card-title fw-bold text-light"><i class="fa-solid fa-address-card me-2"></i>
-                                        {{ $branch->branch_name }}</h5>
-                                </div>
-                                <div class="card-body">
-                                    {{-- Primary Contact --}}
-                                    <p class="mb-2">
-                                        <i class="fas fa-phone-alt text-primary me-2"></i>
-                                        <a href="tel:{{ $branch->contact_no }}">{{ $branch->contact_no }}</a>
-                                    </p>
+                        <div class="col-md-6 col-lg-4 mb-4">
+                            <div class="card h-100 border-0 shadow-lg">
 
-                                    {{-- Optional Contact --}}
+                                <!-- Header -->
+                                <div class="card-header bg-success text-white text-center py-3">
+                                    <h5 class="fw-bold mb-0 text-white">
+                                        <i class="fa-solid fa-address-card me-2"></i>
+                                        {{ $branch->branch_name }}
+                                    </h5>
+                                </div>
+
+                                <!-- Body -->
+                                <div class="card-body">
+
+                                    <!-- Primary Contact -->
+                                    <div class="d-flex align-items-center mb-3 p-2 bg-light rounded">
+                                        <i class="fas fa-phone-alt text-primary me-3"></i>
+                                        <a href="tel:{{ $branch->contact_no }}"
+                                            class="fw-bold text-dark text-decoration-none">
+                                            {{ $branch->contact_no }}
+                                        </a>
+                                    </div>
+
+                                    <!-- Optional Contact -->
                                     @if ($branch->contact_no_optional)
-                                        <p class="mb-2">
-                                            <i class="fas fa-phone-alt text-primary me-2"></i>
-                                            <a
-                                                href="tel:{{ $branch->contact_no_optional }}">{{ $branch->contact_no_optional }}</a>
-                                        </p>
-                                    @endif
-                                    {{-- Area Location Link --}}
-                                    @if ($branch->area_link)
-                                        <div class="mb-2" style="height: auto; overflow: auto;">
-                                            {!! $branch->area_link !!}
+                                        <div class="d-flex align-items-center mb-3 p-2 bg-light rounded">
+                                            <i class="fas fa-phone-alt text-info me-3"></i>
+                                            <a href="tel:{{ $branch->contact_no_optional }}"
+                                                class="fw-bold text-dark text-decoration-none">
+                                                {{ $branch->contact_no_optional }}
+                                            </a>
                                         </div>
                                     @endif
+
+                                    <!-- Location -->
+                                    @if ($branch->area_link)
+                                        <div class="d-flex align-items-start p-2 bg-light rounded">
+                                            <i class="fas fa-map-marker-alt text-danger me-3 mt-1"></i>
+                                            <div class="fw-bold small">
+                                                {!! $branch->area_link !!}
+                                            </div>
+                                        </div>
+                                    @endif
+
                                 </div>
+
+                                <!-- Footer -->
+                                <div class="card-footer bg-white text-center">
+                                    <a href="tel:{{ $branch->contact_no }}" class="btn btn-success btn-sm w-100 fw-bold">
+                                        <i class="fas fa-phone me-1"></i> Call Now
+                                    </a>
+                                </div>
+
                             </div>
                         </div>
                     @endforeach
@@ -173,9 +199,9 @@
             </div>
         </section>
     @elseif($page->page_slug == 'education')
-        <!-- Start main-content -->
+          <!-- Start main-content -->
         <section class="page-title"
-            style="background-image: url({{ !empty($page->image) ? url('upload/page/' . $page->image) : url('frontend/img/slider/7.jpg') }});">
+            style="margin-top: 20px !important; padding: 80px 0 !important; background-image: url({{ !empty($page->image) ? url('upload/page/' . $page->image) : url('frontend/img/slider/7.jpg') }});">
             <div class="auto-container">
                 <div class="title-outer">
                     <h1 class="title">{{ $page->page_title }}</h1>
@@ -228,7 +254,7 @@
     @elseif($page->page_slug == 'about-us')
         <!-- Start main-content -->
         <section class="page-title"
-            style="background-image: url({{ !empty($page->image) ? url('upload/page/' . $page->image) : url('frontend/img/slider/7.jpg') }});">
+            style="margin-top: 20px !important; padding: 80px 0 !important; background-image: url({{ !empty($page->image) ? url('upload/page/' . $page->image) : url('frontend/img/slider/7.jpg') }});">
             <div class="auto-container">
                 <div class="title-outer">
                     <h1 class="title">{{ $page->page_title }}</h1>
@@ -339,7 +365,7 @@
     @elseif($page->page_slug == 'apply-now')
         <!-- Start main-content -->
         <section class="page-title"
-            style="background-image: url({{ !empty($page->image) ? url('upload/page/' . $page->image) : url('frontend/img/slider/7.jpg') }});">
+            style="margin-top: 20px !important; padding: 80px 0 !important; background-image: url({{ !empty($page->image) ? url('upload/page/' . $page->image) : url('frontend/img/slider/7.jpg') }});">
             <div class="auto-container">
                 <div class="title-outer">
                     <h1 class="title">{{ $page->page_title }}</h1>
@@ -1222,7 +1248,7 @@
     @elseif($page->page_slug == 'contact-us')
         <!-- Start main-content -->
         <section class="page-title"
-            style="background-image: url({{ !empty($page->image) ? url('upload/page/' . $page->image) : url('frontend/img/slider/7.jpg') }});">
+            style="margin-top: 20px !important; padding: 80px 0 !important; background-image: url({{ !empty($page->image) ? url('upload/page/' . $page->image) : url('frontend/img/slider/7.jpg') }});">
             <div class="auto-container">
                 <div class="title-outer">
                     <h1 class="title">{{ $page->page_title }}</h1>

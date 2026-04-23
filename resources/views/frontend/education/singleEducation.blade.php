@@ -14,9 +14,10 @@
         background-size: cover;
         background-position: center center;
         background-repeat: no-repeat;
-        padding: 200px 0;
         text-align: center;
         color: #fff;
+        margin-top: 20px !important;
+        padding: 80px 0 !important;
     ">
     </section>
     <!-- Breadcrumb Banner End -->

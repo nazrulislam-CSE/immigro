@@ -664,7 +664,7 @@
               @endif
 
               {{-- Software Sale Module --}}
-              @if ($isSuperAdmin || $admin->can('view software sale'))
+              @if ($isSuperAdmin || $admin->can('view Software Sale'))
                   <li class="slide {{ Request::is('admin/softwares*') ? 'is-expanded' : '' }}">
                       <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0);">
                           <i class="side-menu__icon fas fa-building"></i>
@@ -680,7 +680,7 @@
               @endif
 
               {{-- Books Module --}}
-              @if ($isSuperAdmin || $admin->can('view books'))
+              @if ($isSuperAdmin || $admin->can('view Books'))
                   <li class="slide {{ Request::is('admin/books*') ? 'is-expanded' : '' }}">
                       <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0);">
                           <i class="side-menu__icon fas fa-building"></i>

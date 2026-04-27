@@ -5,15 +5,44 @@
         .single_container {
             padding-top: 0px !important;
         }
+
+        .breadcrumb-banner {
+            background-image: url('{{ !empty($singleEducation->banner) ? url('upload/education/' . $singleEducation->banner) : url('upload/page-title.jpg') }}');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            aspect-ratio: 2560 / 1040;
+
+        }
+
+        /* Desktop */
+        @media (min-width: 992px) {
+            .breadcrumb-banner {
+                min-height: 350px;
+            }
+        }
+
+        /* Tablet */
+        @media (max-width: 991px) {
+            .breadcrumb-banner {
+                height: 300px;
+            }
+        }
+
+        /* Mobile */
+        @media (max-width: 576px) {
+            .breadcrumb-banner {
+                height: 200px;
+                background-size: contain;
+                background-color: #000;
+                /* optional */
+            }
+        }
     </style>
     <!-- =============== PAGE TITLE ============== -->
     <!-- Breadcrumb Banner Start -->
     <section class="breadcrumb-banner"
         style="
-        background-image: url('{{ !empty($singleEducation->banner) ? url('upload/education/' . $singleEducation->banner) : url('upload/page-title.jpg') }}');
-        background-size: cover;
-        background-position: center center;
-        background-repeat: no-repeat;
         text-align: center;
         color: #fff;
         margin-top: 20px !important;

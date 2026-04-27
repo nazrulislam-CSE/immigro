@@ -332,56 +332,47 @@
                 <span class="sub-title">Services</span>
                 <h2><span class="color3">Our Services</span></h2>
             </div>
+
             <!-- Swiper -->
-            <div class="swiper serviceSwiper">
+            <div class="swiper trainingSwiper">
                 <div class="swiper-wrapper">
-
-                    @forelse($services as $service)
+                @forelse($services as $service)
                         <div class="swiper-slide">
-                            <div class="service-block wow fadeInUp">
+                            <div class="training-block">
                                 <div class="inner-box">
-
                                     <div class="image-box">
                                         <figure class="image">
-                                            <a href="{{ url('service/' . $service->slug) }}">
-                                                <img
-                                                    src="{{ !empty($service->image) ? url('upload/service/' . $service->image) : url('upload/no_image.jpg') }}">
-                                            </a>
+                                            <img src="{{ !empty($service->image) ? url('upload/service/' . $service->image) : url('upload/no_image.jpg') }}"
+                                                alt="{{ $service->title }}">
                                         </figure>
-
-                                        <h6 class="title">{{ $service->title }}</h6>
+                                        <div class="overlay">
+                                            <a href="{{ route('single.service.page', $service->slug) }}" class="read-more">
+                                                <i class="fa fa-long-arrow-alt-right"></i>
+                                            </a>
+                                        </div>
                                     </div>
 
-                                    <div class="content-box">
-                                        <h6 class="title">
-                                            <a href="{{ url('service/' . $service->slug) }}">
-                                                {{ $service->title }}
-                                            </a>
-                                        </h6>
-
+                                    <div class="lower-content">
+                                        <a href="{{ route('single.service.page', $service->slug) }}" class="read-more">
+                                            <i class="fa fa-long-arrow-alt-right"></i>
+                                        </a>
+                                        <h5 class="title">
+                                            <a href="{{ route('single.service.page', $service->slug) }}">{{ $service->title }}</a>
+                                        </h5>
                                         <div class="text">
                                             {!! Str::limit($service->description, 80) !!}
                                         </div>
-
-                                        <a href="{{ route('single.service.page', $service->slug) }}" class="read-more">
-                                            More <i class="fa fa-long-arrow-right"></i>
-                                        </a>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
-
-                    @empty
-                        <p>No services found</p>
-                    @endforelse
+                    @endforeach
 
                 </div>
 
-                <!-- pagination -->
+                <!-- dots -->
                 <div class="swiper-pagination"></div>
             </div>
-
         </div>
     </section>
     <!-- End Services Section-->
@@ -447,7 +438,7 @@
                                     <div class="image-box">
                                         <figure class="image">
                                             <a href="#">
-                                                <img src="{{ !empty($team->image) ? url('upload/team/' . $team->image) : url('upload/avatar5.png') }}"
+                                                <img style="width:215px; height:215px;"  src="{{ !empty($team->image) ? url('upload/team/' . $team->image) : url('upload/avatar5.png') }}"
                                                     alt="">
                                             </a>
                                         </figure>
@@ -504,7 +495,7 @@
                                     <div class="image-box">
                                         <figure class="image">
                                             <a href="#">
-                                                <img src="{{ asset('storage/' . $agent->photo) }}" alt="">
+                                                <img style="width:215px; height:215px;"  src="{{ asset('storage/' . $agent->photo) }}" alt="">
                                             </a>
                                         </figure>
                                     </div>

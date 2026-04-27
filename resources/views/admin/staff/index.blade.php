@@ -7,11 +7,11 @@
                 <div class="card">
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <h4 class="card-title">{{ $pageTitle }}</h4>
-                        @if(auth('admin')->user()->can('create Staff'))
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staffModal"
-                            id="addStaffBtn">
-                            <i class="fas fa-plus"></i> Add Staff
-                        </button>
+                        @if (auth('admin')->user()->can('create Staff'))
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staffModal"
+                                id="addStaffBtn">
+                                <i class="fas fa-plus"></i> Add Staff
+                            </button>
                         @endif
                     </div>
                     <div class="card-body">
@@ -33,6 +33,7 @@
                                         <th>Gross</th>
                                         <th>Payment System</th>
                                         <th>Payment Amount</th>
+                                        <th>Assign Name</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
@@ -56,72 +57,81 @@
                                             <td>{{ ucfirst($member->payment_system) }}</td>
                                             <td>৳ {{ number_format($member->payment_amount, 2) }}</td>
                                             <td>
-                                                @if(auth('admin')->user()->can('view Staff'))
-                                                {{-- View Button --}}
-                                                <button type="button" class="btn btn-sm btn-info view-btn"
-                                                    data-id="{{ $member->id }}"
-                                                    data-staff_name="{{ $member->staff_name }}"
-                                                    data-mobile_number="{{ $member->mobile_number }}"
-                                                    data-academic_qualification="{{ $member->academic_qualification }}"
-                                                    data-experience="{{ $member->experience }}"
-                                                    data-present_address="{{ $member->present_address }}"
-                                                    data-permanent_address="{{ $member->permanent_address }}"
-                                                    data-basic_salary="{{ $member->basic_salary }}"
-                                                    data-house_rent="{{ $member->house_rent }}"
-                                                    data-medical_allowance="{{ $member->medical_allowance }}"
-                                                    data-target_incentive="{{ $member->target_incentive }}"
-                                                    data-gross_salary="{{ $member->gross_salary }}"
-                                                    data-payment_system="{{ $member->payment_system }}"
-                                                    data-mobile_banking_number="{{ $member->mobile_banking_number }}"
-                                                    data-bank_name="{{ $member->bank_name }}"
-                                                    data-account_name="{{ $member->account_name }}"
-                                                    data-account_number="{{ $member->account_number }}"
-                                                    data-branch="{{ $member->branch }}"
-                                                    data-payment_amount="{{ $member->payment_amount }}"
-                                                    data-photo="{{ $member->photo }}"
-                                                    data-email="{{ $member->admin->email ?? '' }}"
-                                                    data-status="{{ $member->admin->status ?? 1 }}"
-                                                    data-role_id="{{ $member->role_id }}"
-                                                    data-bs-toggle="modal" data-bs-target="#staffModal">
-                                                    <i class="fas fa-eye"></i>
-                                                </button>
+                                                @if ($member->role && $member->role->name == 'Agent')
+                                                    <span class="badge bg-primary">Agent</span>
+                                                @elseif($member->role && $member->role->name == 'Staff')
+                                                    <span class="badge bg-success">Staff</span>
+                                                @else
+                                                    <span class="badge bg-secondary">N/A</span>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if (auth('admin')->user()->can('view Staff'))
+                                                    {{-- View Button --}}
+                                                    <button type="button" class="btn btn-sm btn-info view-btn"
+                                                        data-id="{{ $member->id }}"
+                                                        data-staff_name="{{ $member->staff_name }}"
+                                                        data-mobile_number="{{ $member->mobile_number }}"
+                                                        data-academic_qualification="{{ $member->academic_qualification }}"
+                                                        data-experience="{{ $member->experience }}"
+                                                        data-present_address="{{ $member->present_address }}"
+                                                        data-permanent_address="{{ $member->permanent_address }}"
+                                                        data-basic_salary="{{ $member->basic_salary }}"
+                                                        data-house_rent="{{ $member->house_rent }}"
+                                                        data-medical_allowance="{{ $member->medical_allowance }}"
+                                                        data-target_incentive="{{ $member->target_incentive }}"
+                                                        data-gross_salary="{{ $member->gross_salary }}"
+                                                        data-payment_system="{{ $member->payment_system }}"
+                                                        data-mobile_banking_number="{{ $member->mobile_banking_number }}"
+                                                        data-bank_name="{{ $member->bank_name }}"
+                                                        data-account_name="{{ $member->account_name }}"
+                                                        data-account_number="{{ $member->account_number }}"
+                                                        data-branch="{{ $member->branch }}"
+                                                        data-payment_amount="{{ $member->payment_amount }}"
+                                                        data-photo="{{ $member->photo }}"
+                                                        data-email="{{ $member->admin->email ?? '' }}"
+                                                        data-status="{{ $member->admin->status ?? 1 }}"
+                                                        data-role_id="{{ $member->role_id }}" data-bs-toggle="modal"
+                                                        data-bs-target="#staffModal">
+                                                        <i class="fas fa-eye"></i>
+                                                    </button>
                                                 @endif
 
-                                                @if(auth('admin')->user()->can('edit Staff'))
-                                                {{-- Edit Button --}}
-                                                <button type="button" class="btn btn-sm btn-primary edit-btn"
-                                                    data-id="{{ $member->id }}"
-                                                    data-staff_name="{{ $member->staff_name }}"
-                                                    data-mobile_number="{{ $member->mobile_number }}"
-                                                    data-academic_qualification="{{ $member->academic_qualification }}"
-                                                    data-experience="{{ $member->experience }}"
-                                                    data-present_address="{{ $member->present_address }}"
-                                                    data-permanent_address="{{ $member->permanent_address }}"
-                                                    data-basic_salary="{{ $member->basic_salary }}"
-                                                    data-house_rent="{{ $member->house_rent }}"
-                                                    data-medical_allowance="{{ $member->medical_allowance }}"
-                                                    data-target_incentive="{{ $member->target_incentive }}"
-                                                    data-gross_salary="{{ $member->gross_salary }}"
-                                                    data-payment_system="{{ $member->payment_system }}"
-                                                    data-mobile_banking_number="{{ $member->mobile_banking_number }}"
-                                                    data-bank_name="{{ $member->bank_name }}"
-                                                    data-account_name="{{ $member->account_name }}"
-                                                    data-account_number="{{ $member->account_number }}"
-                                                    data-branch="{{ $member->branch }}"
-                                                    data-payment_amount="{{ $member->payment_amount }}"
-                                                    data-photo="{{ $member->photo }}"
-                                                    data-email="{{ $member->admin->email ?? '' }}"
-                                                    data-status="{{ $member->admin->status ?? 1 }}"
-                                                    data-role_id="{{ $member->role_id }}"
-                                                    data-bs-toggle="modal" data-bs-target="#staffModal">
-                                                    <i class="fas fa-edit"></i>
-                                                </button>
+                                                @if (auth('admin')->user()->can('edit Staff'))
+                                                    {{-- Edit Button --}}
+                                                    <button type="button" class="btn btn-sm btn-primary edit-btn"
+                                                        data-id="{{ $member->id }}"
+                                                        data-staff_name="{{ $member->staff_name }}"
+                                                        data-mobile_number="{{ $member->mobile_number }}"
+                                                        data-academic_qualification="{{ $member->academic_qualification }}"
+                                                        data-experience="{{ $member->experience }}"
+                                                        data-present_address="{{ $member->present_address }}"
+                                                        data-permanent_address="{{ $member->permanent_address }}"
+                                                        data-basic_salary="{{ $member->basic_salary }}"
+                                                        data-house_rent="{{ $member->house_rent }}"
+                                                        data-medical_allowance="{{ $member->medical_allowance }}"
+                                                        data-target_incentive="{{ $member->target_incentive }}"
+                                                        data-gross_salary="{{ $member->gross_salary }}"
+                                                        data-payment_system="{{ $member->payment_system }}"
+                                                        data-mobile_banking_number="{{ $member->mobile_banking_number }}"
+                                                        data-bank_name="{{ $member->bank_name }}"
+                                                        data-account_name="{{ $member->account_name }}"
+                                                        data-account_number="{{ $member->account_number }}"
+                                                        data-branch="{{ $member->branch }}"
+                                                        data-payment_amount="{{ $member->payment_amount }}"
+                                                        data-photo="{{ $member->photo }}"
+                                                        data-email="{{ $member->admin->email ?? '' }}"
+                                                        data-status="{{ $member->admin->status ?? 1 }}"
+                                                        data-role_id="{{ $member->role_id }}" data-bs-toggle="modal"
+                                                        data-bs-target="#staffModal">
+                                                        <i class="fas fa-edit"></i>
+                                                    </button>
                                                 @endif
 
-                                                @if(auth('admin')->user()->can('delete Staff'))
+                                                @if (auth('admin')->user()->can('delete Staff'))
                                                     <a href="{{ route('admin.staff.delete', $member->id) }}"
-                                                    class="btn btn-sm btn-danger"
-                                                    onclick="return confirm('Are you sure?')">
+                                                        class="btn btn-sm btn-danger"
+                                                        onclick="return confirm('Are you sure?')">
                                                         <i class="fa fa-trash"></i>
                                                     </a>
                                                 @endif
@@ -173,11 +183,15 @@
                                     placeholder="staff@example.com" required>
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label for="password" class="form-label">Password @if(!isset($form_mode) || $form_mode == 'add') * @endif</label>
+                                <label for="password" class="form-label">Password @if (!isset($form_mode) || $form_mode == 'add')
+                                        *
+                                    @endif
+                                </label>
                                 <input type="password" class="form-control" name="password" id="password"
                                     placeholder="{{ isset($form_mode) && $form_mode == 'edit' ? 'Leave blank to keep unchanged' : '••••••••' }}"
                                     {{-- Only required for add mode --}}>
-                                <small class="text-muted" id="passwordHelp" style="display: none;">Leave blank to keep current password</small>
+                                <small class="text-muted" id="passwordHelp" style="display: none;">Leave blank to keep
+                                    current password</small>
                             </div>
                         </div>
 
@@ -521,7 +535,8 @@
 
                 $('#form_mode').val('edit');
                 setFormMode('edit');
-                $('#method').val('POST'); // or 'PUT' if you prefer; but we'll keep POST with method spoofing
+                $('#method').val(
+                'POST'); // or 'PUT' if you prefer; but we'll keep POST with method spoofing
                 $('#staffForm').attr('action', '{{ route('admin.staff.update', '') }}/' + id);
                 $('#staffModalLabel').text('Edit Staff');
             });

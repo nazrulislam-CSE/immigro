@@ -34,63 +34,47 @@
                         @endif
                     </div>
                     <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-bordered text-nowrap">
-                                <thead>
-                                    <tr>
-                                        <th>SL</th>
-                                        <th>Flag</th>
-                                        <th>Country</th>
-                                        <th>Program</th>
-                                        <th>University</th>
-                                        <th>Intake</th>
-                                        <th>IELTS</th>
-                                        <th>Status</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($studentVisas as $key => $visa)
-                                        <tr>
-                                            <td>{{ $key + 1 }}</td>
-                                            <td>
-                                                <img src="{{ $visa->flug ? asset('upload/student_visa/' . $visa->flug) : asset('upload/no_image.jpg') }}"
-                                                    width="40" alt="flag">
-                                            </td>
-                                            <td>{{ $visa->country_name }}</td>
-                                            <td>{{ $visa->program ?? 'N/A' }}</td>
-                                            <td>{{ $visa->versity_name ?? 'N/A' }}</td>
-                                            <td>{{ $visa->intake ?? 'N/A' }}</td>
-                                            <td>{{ $visa->ielts ?? 'N/A' }}</td>
-                                            <td>
-                                                @if ($visa->status)
-                                                    <span class="badge bg-success">Active</span>
-                                                @else
-                                                    <span class="badge bg-danger">Inactive</span>
-                                                @endif
-                                            </td>
-                                            <td>
-                                                <a href="{{ route('admin.student.visa.show', $visa->id) }}"
-                                                    class="btn btn-success btn-sm me-1" title="View">
+                        <div class="row">
+                            @foreach ($studentVisas as $visa)
+                                <div class="col-md-3 mb-4">
+                                    <div class="card shadow-lg border-0 h-100">
+                                        <a href="{{ route('admin.student.visa.show', $visa->id) }}">
+                                            <!-- Flag -->
+                                            <img src="{{ $visa->flug ? asset('upload/student_visa/' . $visa->flug) : asset('upload/no_image.jpg') }}"
+                                                class="card-img-top" style="height:180px; object-fit:cover;" alt="flag">
+                                        </a>
+
+                                        <div class="card-body text-center">
+
+                                            <!-- Country -->
+                                            <h5 class="fw-bold">{{ $visa->country_name }}</h5>
+
+                                            <!-- Actions -->
+                                            <div class="d-flex justify-content-center gap-2 mt-3">
+
+                                                {{-- <a href="{{ route('admin.student.visa.show', $visa->id) }}"
+                                                    class="btn btn-success btn-sm" title="View">
                                                     <i class="fas fa-eye"></i>
-                                                </a>
+                                                </a> --}}
+
                                                 @if ($admin && $admin->hasRole('Super Admin'))
                                                     <a href="{{ route('admin.student.visa.edit', $visa->id) }}"
-                                                        class="btn btn-primary btn-sm me-1" title="Edit">
+                                                        class="btn btn-primary btn-sm" title="Edit">
                                                         <i class="fas fa-edit"></i>
                                                     </a>
-                                                @endif
-                                                @if ($admin && $admin->hasRole('Super Admin'))
+
                                                     <a href="{{ route('admin.student.visa.delete', $visa->id) }}"
                                                         id="delete" class="btn btn-danger btn-sm" title="Delete">
                                                         <i class="fa fa-trash"></i>
                                                     </a>
                                                 @endif
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>

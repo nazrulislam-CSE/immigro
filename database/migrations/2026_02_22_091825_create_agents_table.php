@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('agent_id')->unique(); // custom agent ID
             $table->string('no_area')->nullable();
             $table->string('photo')->nullable(); // path to photo
+            $table->string('created_by')->nullable();
+            $table->string('updated_by')->nullable();
             $table->timestamps();
         });
     }

@@ -5,13 +5,25 @@ use App\Http\Controllers\Controller;
 use App\Models\Agent;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Auth;
 
 class AgentController extends Controller
 {
-    public function index()
+   public function index()
     {
-        $agents = Agent::all();
+        $admin = Auth::guard('admin')->user();
+
+        // 👑 Super Admin → সব দেখবে
+        if ($admin->hasRole('Super Admin')) {
+            $agents = Agent::all();
+        }
+        // 👥 Staff / Agent → শুধু নিজের created_by data
+        else {
+            $agents = Agent::where('created_by', $admin->id)->get();
+        }
+
         $pageTitle = 'Agents List';
+
         return view('admin.agents.index', compact('agents', 'pageTitle'));
     }
 

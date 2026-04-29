@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Client extends Model
 {
@@ -23,6 +24,8 @@ class Client extends Model
         'total_refund',
         'agent_name',
         'agent_id',
+        'created_by',
+        'updated_by',
     ];
 
     protected $casts = [
@@ -43,5 +46,23 @@ class Client extends Model
     public function incomes()
     {
         return $this->hasMany(Income::class);
+    }
+
+    // 👇 Auto tracking created_by & updated_by
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($client) {
+            if (Auth::guard('admin')->check()) {
+                $client->created_by = Auth::guard('admin')->id();
+            }
+        });
+
+        static::updating(function ($client) {
+            if (Auth::guard('admin')->check()) {
+                $client->updated_by = Auth::guard('admin')->id();
+            }
+        });
     }
 }

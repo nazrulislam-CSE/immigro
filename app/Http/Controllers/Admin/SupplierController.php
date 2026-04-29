@@ -5,12 +5,21 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
+use Auth;
 
 class SupplierController extends Controller
 {
     public function index()
     {
-        $suppliers = Supplier::all();
+        $admin = Auth::guard('admin')->user();
+
+        if ($admin->hasRole('Super Admin')) {
+            $suppliers = Supplier::all();
+        }
+        else {
+            $suppliers = Supplier::where('created_by', $admin->id)->get();
+        }
+
         $pageTitle = 'Suppliers List';
         return view('admin.suppliers.index', compact('suppliers', 'pageTitle'));
     }

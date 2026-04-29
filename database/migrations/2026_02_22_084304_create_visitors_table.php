@@ -22,6 +22,8 @@ return new class extends Migration
             $table->enum('followup_result', ['yes', 'no', 'pending'])->nullable();
             $table->text('comments')->nullable();
             $table->string('counsellor_name')->nullable();
+            $table->string('created_by')->nullable();
+            $table->string('updated_by')->nullable();
             $table->timestamps();
         });
     }

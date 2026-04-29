@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('mobile_number')->nullable();
             $table->text('address')->nullable();
             $table->decimal('previous_due', 10, 2)->nullable();
+            $table->string('created_by')->nullable();
+            $table->string('updated_by')->nullable();
             $table->timestamps();
         });
     }

@@ -4,12 +4,22 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Client;
 use Illuminate\Http\Request;
+use Auth;
 
 class ClientController extends Controller
 {
     public function index()
     {
-        $clients = Client::all();
+        $admin = Auth::guard('admin')->user();
+
+        if ($admin->hasRole('Super Admin')) {
+            $clients = Client::all();
+        }
+        else {
+            $clients = Client::where('created_by', $admin->id)->get();
+        }
+
+
         $pageTitle = 'Clients List';
         return view('admin.clients.index', compact('clients', 'pageTitle'));
     }

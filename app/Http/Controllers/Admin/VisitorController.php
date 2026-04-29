@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Visitor;
 use Illuminate\Http\Request;
+use Auth;
 
 class VisitorController extends Controller
 {
@@ -13,7 +14,14 @@ class VisitorController extends Controller
      */
     public function index()
     {
-        $visitors = Visitor::all();
+        $admin = Auth::guard('admin')->user();
+
+        if ($admin->hasRole('Super Admin')) {
+            $visitors = Visitor::all();
+        }
+        else {
+            $visitors = Visitor::where('created_by', $admin->id)->get();
+        }
         $pageTitle = 'Visitor List';
         return view('admin.visitors.index', compact('visitors', 'pageTitle'));
     }

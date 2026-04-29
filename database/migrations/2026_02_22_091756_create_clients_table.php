@@ -26,6 +26,8 @@ return new class extends Migration
             $table->decimal('total_refund', 10, 2)->default(0)->nullable();
             $table->string('agent_name')->nullable();
             $table->string('agent_id')->nullable(); // could be foreign key later
+            $table->string('created_by')->nullable();
+            $table->string('updated_by')->nullable();
             $table->timestamps();
         });
     }
